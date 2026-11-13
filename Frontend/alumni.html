@@ -213,6 +213,54 @@
       border: 1px solid #bbf7d0;
       padding: 2px 8px;
     }
+  
+    /* Admin Mode Alumni Controls */
+    .universal-admin-bar,
+    .universal-admin-card-actions,
+    .alumni-admin-btn {
+      display: none !important;
+    }
+    body.admin-mode .universal-admin-bar {
+      display: flex !important;
+    }
+    body.admin-mode .universal-admin-card-actions {
+      display: flex !important;
+    }
+    body.admin-mode .alumni-admin-btn {
+      display: inline-flex !important;
+    }
+
+    .alumni-admin-btn {
+      background: #16a34a;
+      color: #ffffff !important;
+      border: 1px solid #15803d;
+      padding: 7px 16px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      cursor: pointer;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+      text-decoration: none;
+    }
+    .alumni-admin-btn:hover {
+      background: #15803d;
+      color: #ffffff;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 10px rgba(22, 163, 74, 0.25);
+    }
+    .team-alumnus-card .universal-admin-card-actions {
+      width: 100%;
+      margin-top: 8px;
+      padding-top: 8px;
+      border-top: 1px dashed #e2e8f0;
+    }
+    .team-alumnus-card .btn-crud-edit,
+    .team-alumnus-card .btn-crud-delete {
+      padding: 4px 8px;
+      font-size: 0.725rem;
+    }
+
   </style>
 </head>
 <body>
@@ -341,11 +389,14 @@
 
     <!-- 1. FEATURED ALUMNI PROFILES SECTION -->
     <div id="featuredAlumniSection" style="margin-bottom: 60px;">
-      <div class="section-header">
+      <div class="section-header" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
         <div class="section-title-group">
           <div class="section-icon"><i class="fa-solid fa-user-graduate"></i></div>
           <h2 class="section-title">Featured Alumni Profiles</h2>
         </div>
+        <button type="button" class="btn-universal-add alumni-admin-btn" onclick="window.AdminCRUD.openModal('featuredAlumni')">
+          <i class="fa-solid fa-plus"></i> Add Featured Alumnus
+        </button>
       </div>
       <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(360px, 1fr)); gap: 26px;" id="featuredAlumniContainer">
         <!-- Populated dynamically from LAB_DATA.featuredAlumni -->
@@ -354,11 +405,14 @@
 
     <!-- 2. TEAM ALUMNI DIRECTORY SECTION -->
     <div id="teamAlumniSection">
-      <div class="section-header">
+      <div class="section-header" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
         <div class="section-title-group">
           <div class="section-icon"><i class="fa-solid fa-users-rectangle"></i></div>
           <h2 class="section-title">Team Alumni Directory</h2>
         </div>
+        <button type="button" class="btn-universal-add alumni-admin-btn" onclick="window.AdminCRUD.openModal('teamAlumni')">
+          <i class="fa-solid fa-plus"></i> Add Team Alumnus
+        </button>
       </div>
       <div class="team-alumni-grid" id="teamAlumniContainer">
         <!-- Populated dynamically from LAB_DATA.teamAlumni -->
@@ -366,6 +420,59 @@
     </div>
 
   </main>
+
+  <!-- MEMBER PORTAL LOGIN MODAL -->
+  <div class="modal-backdrop" id="loginModal">
+    <div class="modal-card member-login-card">
+      <button class="modal-close-btn" id="loginModalCloseBtn" aria-label="Close modal"><i class="fa-solid fa-xmark"></i></button>
+      
+      <!-- Brand Header -->
+      <div class="member-login-header">
+        <div class="member-login-badge">
+          <i class="fa-solid fa-bolt-lightning"></i> 100RE LAB PORTAL
+        </div>
+        <h3 class="member-login-title">Đăng Nhập Thành Viên</h3>
+        <p class="member-login-desc">Cổng thông tin &amp; không gian làm việc nghiên cứu phòng Lab</p>
+      </div>
+
+      <div class="form-alert-error" id="loginErrorAlert"></div>
+
+      <form id="loginForm" class="member-login-form">
+        <div class="member-form-group">
+          <label class="member-form-label" for="loginUsername">
+            <i class="fa-regular fa-user"></i> Tên đăng nhập hoặc Email
+          </label>
+          <div class="member-input-wrap">
+            <input type="text" id="loginUsername" class="member-form-input" placeholder="Nhập tên đăng nhập hoặc email" required autocomplete="username" autofocus>
+          </div>
+        </div>
+
+        <div class="member-form-group">
+          <label class="member-form-label" for="loginPassword">
+            <i class="fa-solid fa-lock"></i> Mật khẩu
+          </label>
+          <div class="member-input-wrap" style="position: relative;">
+            <input type="password" id="loginPassword" class="member-form-input" placeholder="Nhập mật khẩu của bạn" required autocomplete="current-password">
+            <button type="button" class="btn-toggle-pwd" id="btnToggleLoginPwd" aria-label="Hiện/ẩn mật khẩu">
+              <i class="fa-regular fa-eye" id="pwdToggleIcon"></i>
+            </button>
+          </div>
+        </div>
+
+        <button type="submit" class="btn-member-login-submit">
+          <span>Đăng Nhập Không Gian Lab</span>
+          <i class="fa-solid fa-arrow-right-to-bracket"></i>
+        </button>
+
+        <div class="member-login-footer-hint">
+          <i class="fa-solid fa-shield-halved" style="color: #16a34a; margin-right: 4px;"></i>
+          <span>Dành cho Ban Cố vấn, Nghiên cứu viên và Sinh viên 100RE Lab</span>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="toast-container" id="toastContainer"></div>
 
   <!-- FOOTER -->
   <footer class="footer">
@@ -412,6 +519,7 @@
 
   <script src="assets/js/data.js"></script>
   <script src="assets/js/main.js"></script>
+  <script src="assets/js/admin_crud.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', async () => {
       const featContainer = document.getElementById('featuredAlumniContainer');
@@ -430,6 +538,7 @@
               if (window.LAB_DATA && window.LAB_DATA.teamAlumni) {
                 if (!window.LAB_DATA.teamAlumni.some(ta => ta.name === ma.name)) {
                   window.LAB_DATA.teamAlumni.unshift({
+                    id: 'moved-alumni-' + (ma.id || Date.now()),
                     name: ma.name,
                     team: ma.teamName || (ma.alumni_team ? ma.alumni_team.toUpperCase() + ' Team' : '100RE Lab Alumni'),
                     teamCode: ma.alumni_team || 'all',
@@ -450,6 +559,7 @@
             if (window.LAB_DATA && window.LAB_DATA.teamAlumni) {
               if (!window.LAB_DATA.teamAlumni.some(ta => ta.name === la.name)) {
                 window.LAB_DATA.teamAlumni.unshift({
+                  id: la.id || ('local-alumni-' + Date.now()),
                   name: la.name,
                   team: la.team || '100RE Lab Alumni',
                   teamCode: la.teamCode || 'all',
@@ -468,10 +578,10 @@
         const filter = activeBtn ? activeBtn.getAttribute('data-alumni-filter') : 'all';
 
         // 1. Featured Alumni Filtering
-        const featuredData = window.LAB_DATA.featuredAlumni || [];
+        const featuredData = window.DataManager ? window.DataManager.get('featuredAlumni') : (window.LAB_DATA.featuredAlumni || []);
         const featFiltered = featuredData.filter(a => {
-          const matchFilter = (filter === 'all' || filter === 'featured');
-          const fullText = `${a.name} ${a.formerRole} ${a.currentPos} ${a.labPeriod} ${a.bio} ${a.email || ''} ${a.phone || ''} ${(a.achievements || []).join(' ')}`.toLowerCase();
+          const matchFilter = (filter === 'all' || filter === 'featured' || (a.teamCode && filter === a.teamCode));
+          const fullText = `${a.name} ${a.formerRole || ''} ${a.currentPos || ''} ${a.labPeriod || ''} ${a.bio || ''} ${a.email || ''} ${a.phone || ''} ${(a.achievements || []).join(' ')}`.toLowerCase();
           const matchQuery = !query || fullText.includes(query);
           return matchFilter && matchQuery;
         });
@@ -482,16 +592,16 @@
         } else {
           if (featSection) featSection.style.display = 'block';
           featContainer.innerHTML = featFiltered.map(a => `
-            <article class="alumni-card">
+            <article class="alumni-card" data-id="${a.id}">
               <div class="alumni-card-top">
                 <div class="alumni-avatar-wrap">
-                  <img src="${a.image}" alt="${a.name}" class="alumni-avatar" onerror="this.src='assets/images/logo.jpg'">
+                  <img src="${a.image || 'assets/images/logo.jpg'}" alt="${a.name}" class="alumni-avatar" onerror="this.src='assets/images/logo.jpg'">
                 </div>
                 <div class="alumni-info-header">
-                  <span class="alumni-period"><i class="fa-regular fa-calendar"></i> ${a.labPeriod}</span>
+                  <span class="alumni-period"><i class="fa-regular fa-calendar"></i> ${a.labPeriod || ''}</span>
                   <h3 class="alumni-name">${a.name}</h3>
-                  <div class="alumni-role">${a.formerRole}</div>
-                  <div class="alumni-pos"><i class="fa-solid fa-briefcase"></i> ${a.currentPos}</div>
+                  <div class="alumni-role">${a.formerRole || ''}</div>
+                  <div class="alumni-pos"><i class="fa-solid fa-briefcase"></i> ${a.currentPos || ''}</div>
                 </div>
               </div>
               <div class="alumni-card-body">
@@ -503,18 +613,19 @@
                     </ul>
                   </div>
                 ` : ''}
-                <p style="font-size: 0.88rem; color: #475569; line-height: 1.55; margin-top: 4px;">${a.bio}</p>
+                <p style="font-size: 0.88rem; color: #475569; line-height: 1.55; margin-top: 4px;">${a.bio || ''}</p>
                 <div class="alumni-contacts">
                   ${a.email ? `<div class="alumni-contact-item"><i class="fa-solid fa-envelope" style="color:#16a34a;"></i> <span>Email: <a href="mailto:${a.email}">${a.email}</a></span></div>` : ''}
                   ${a.phone ? `<div class="alumni-contact-item"><i class="fa-solid fa-phone" style="color:#16a34a;"></i> <span>Phone: <a href="tel:${a.phone.replace(/[^0-9+]/g, '')}">${a.phone}</a></span></div>` : ''}
                 </div>
+                ${window.AdminCRUD && window.AdminCRUD.getAdminCardButtons ? window.AdminCRUD.getAdminCardButtons('featuredAlumni', a.id) : ''}
               </div>
             </article>
           `).join('');
         }
 
         // 2. Team Alumni Directory Filtering
-        const teamData = window.LAB_DATA.teamAlumni || [];
+        const teamData = window.DataManager ? window.DataManager.get('teamAlumni') : (window.LAB_DATA.teamAlumni || []);
         const teamFiltered = teamData.filter(m => {
           const matchFilter = (filter === 'all' || filter === m.teamCode);
           const fullText = `${m.name} ${m.team}`.toLowerCase();
@@ -528,12 +639,13 @@
         } else {
           if (teamSection) teamSection.style.display = 'block';
           teamContainer.innerHTML = teamFiltered.map(m => `
-            <div class="team-alumnus-card">
+            <div class="team-alumnus-card" data-id="${m.id}">
               <div class="team-alumnus-avatar-wrap">
-                <img src="${m.image}" alt="${m.name}" class="team-alumnus-avatar" onerror="this.src='assets/images/logo.jpg'">
+                <img src="${m.image || 'assets/images/logo.jpg'}" alt="${m.name}" class="team-alumnus-avatar" onerror="this.src='assets/images/logo.jpg'">
               </div>
               <h4 class="team-alumnus-name">${m.name}</h4>
-              <span class="team-alumnus-team">${m.team}</span>
+              <span class="team-alumnus-team">${m.team || ''}</span>
+              ${window.AdminCRUD && window.AdminCRUD.getAdminCardButtons ? window.AdminCRUD.getAdminCardButtons('teamAlumni', m.id) : ''}
             </div>
           `).join('');
         }
@@ -551,7 +663,19 @@
             </div>
           `;
         }
+
+        if (window.AdminCRUD && typeof window.AdminCRUD.updateAdminBars === 'function') {
+          window.AdminCRUD.updateAdminBars();
+        }
       }
+
+      window.renderAllAlumni = renderAllAlumni;
+
+      window.addEventListener('100re_data_updated', (e) => {
+        if (e.detail && (e.detail.key === 'featuredAlumni' || e.detail.key === 'teamAlumni')) {
+          renderAllAlumni();
+        }
+      });
 
       if (searchInput) searchInput.addEventListener('input', renderAllAlumni);
       if (filterBtns) {

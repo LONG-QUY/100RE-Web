@@ -4093,10 +4093,12 @@ window.LAB_DATA = {
   // 8. Featured Alumni Dataset (9 Featured Profiles + 21 Team Alumni)
   featuredAlumni: [
     {
+      id: "feat-alumni-1",
       name: "Lê Viết Thịnh",
       labPeriod: "2/2019 – 8/2022",
       formerRole: "Former PV Lead and Lab Lead",
       currentPos: "PhD student @ Virginia Tech",
+      teamCode: "pv",
       image: "assets/images/alumni/le_viet_thinh.png",
       email: "thinhle@vt.edu",
       phone: "",
@@ -4109,10 +4111,12 @@ window.LAB_DATA = {
       bio: "Former PV Lead and Lab Lead (1st Gen). Conducted research in partial shading mitigation and PV curve modeling before pursuing PhD studies at Virginia Tech."
     },
     {
+      id: "feat-alumni-2",
       name: "Phan Văn Long",
       labPeriod: "4/2021 – 8/2023",
       formerRole: "Former H2 Lead and Lab Lead (2nd Gen)",
       currentPos: "Junior Engineer - OWC, ABL Group",
+      teamCode: "hydrogen",
       image: "assets/images/alumni/phan_van_long.jpg",
       email: "phanlongbkhn123@gmail.com",
       phone: "(+84) 932392803",
@@ -4125,10 +4129,12 @@ window.LAB_DATA = {
       bio: "Former Green Hydrogen Lead and 2nd Gen Lab Lead. Authored 6 Q1 papers, led regional offshore wind & hydrogen studies, and consulted on national climate policy reports with UNDP."
     },
     {
+      id: "feat-alumni-3",
       name: "Trần Quốc Ngữ",
       labPeriod: "6/2019 – 1/2022",
       formerRole: "Former UC-DR Member",
       currentPos: "SCADA Engineer at Toshiba Transmission & Distribution Vietnam (TTDV)",
+      teamCode: "dr_uc",
       image: "assets/images/alumni/tran_quoc_ngu.jpg",
       email: "ngu.tranquoc.bscee@gmail.com",
       phone: "+84 343828333",
@@ -4141,10 +4147,12 @@ window.LAB_DATA = {
       bio: "Former core member of Demand Response & Unit Commitment Team. Conducted research on power system demand response before joining Toshiba Transmission & Distribution Vietnam as a SCADA Engineer."
     },
     {
+      id: "feat-alumni-4",
       name: "Đỗ Văn Long",
       labPeriod: "11/2019 – 8/2022",
       formerRole: "Former UC-DR Lead",
       currentPos: "Engineer at Power Market Operation Department, National Load Dispatch Centre (A0)",
+      teamCode: "dr_uc",
       image: "assets/images/alumni/do_van_long.jpg",
       email: "",
       phone: "0967 559 475",
@@ -4155,10 +4163,12 @@ window.LAB_DATA = {
       bio: "Former Unit Commitment & Demand Response Team Lead. Published high-impact papers in Q1/Q2 journals on economic dispatch and power market modeling. Currently operating at National Load Dispatch Centre (A0)."
     },
     {
+      id: "feat-alumni-5",
       name: "Nguyễn Văn Thức",
       labPeriod: "1/2020 – 8/2022",
       formerRole: "Former Wind Member",
       currentPos: "Primary Equipment Engineer at Toshiba Transmission & Distribution Vietnam (TTDV)",
+      teamCode: "wind",
       image: "assets/images/alumni/nguyen_van_thuc.jpg",
       email: "nguyenthuc0510@gmail.com",
       phone: "+84 946583644",
@@ -4170,10 +4180,12 @@ window.LAB_DATA = {
       bio: "Former Wind Energy Team member. Specialized in Wind-PV integration, HVDC systems, TRV transient calculation, and COMSOL insulator leakage current simulation."
     },
     {
+      id: "feat-alumni-6",
       name: "Vũ Xuân Sơn Hữu",
       labPeriod: "5/2019 – 8/2022",
       formerRole: "Former AI Lead",
       currentPos: "Engineer at Renewable Energy Management Department, National Load Dispatch Centre (A0)",
+      teamCode: "ai",
       image: "assets/images/alumni/vu_xuan_son_huu.jpg",
       email: "huu.vuxuanson1999@gmail.com",
       phone: "+84 352035317",
@@ -4186,10 +4198,12 @@ window.LAB_DATA = {
       bio: "Former AI Team Lead. Led the team to 1st Prize at HUST and 2nd Prize at MoET National Student Research Competitions with AI-driven renewable forecasting models."
     },
     {
+      id: "feat-alumni-7",
       name: "Trần Hoàng Ánh",
       labPeriod: "8/2020 – 8/2022",
       formerRole: "Former Wind Member",
       currentPos: "Electrical Design Engineer at Advanced Information Technologies Corporation (AIT)",
+      teamCode: "wind",
       image: "assets/images/alumni/tran_hoang_anh.jpg",
       email: "anhs.th1879@gmail.com",
       phone: "+84 964968726",
@@ -4201,10 +4215,12 @@ window.LAB_DATA = {
       bio: "Former Wind Team member. Conducted extensive power flow calculations for Vietnam's 220kV and 500kV national transmission grid and recipient of Tran Dai Nghia & Lotte scholarships."
     },
     {
+      id: "feat-alumni-8",
       name: "Nguyễn Huy Tiên",
       labPeriod: "2/2021 – 8/2023",
       formerRole: "Former Wind Lead",
       currentPos: "Wind Energy Specialist & Development Engineer",
+      teamCode: "wind",
       image: "assets/images/alumni/nguyen_huy_tien.jpg",
       email: "",
       phone: "+84 373282058",
@@ -4216,10 +4232,12 @@ window.LAB_DATA = {
       bio: "Former Wind Energy Team Lead. Researched wind energy conversion systems and solar PV grid integration for EVN, participating in international research exchange programs."
     },
     {
+      id: "feat-alumni-9",
       name: "Hoàng Nhật",
       labPeriod: "7/2020 – 8/2023",
       formerRole: "Former EV Lead",
       currentPos: "Power Electronics & EV Systems Engineer",
+      teamCode: "ev",
       image: "assets/images/alumni/hoang_nhat.png",
       email: "hoangnhat27102k@gmail.com",
       phone: "+84 333575592",
@@ -4235,27 +4253,27 @@ window.LAB_DATA = {
 
   // Team Alumni Directory (21 Members)
   teamAlumni: [
-    { name: "Nguyen Dang Duong", team: "PV Team", teamCode: "pv", image: "assets/images/alumni/nguyen_dang_duong.png" },
-    { name: "Dao Quang Tung", team: "PV Team", teamCode: "pv", image: "assets/images/alumni/dao_quang_tung.jpg" },
-    { name: "Hoang Tuan Linh", team: "Unit Commitment Team", teamCode: "dr_uc", image: "assets/images/alumni/hoang_tuan_linh.png" },
-    { name: "Ta Xuan Hung", team: "Unit Commitment Team", teamCode: "dr_uc", image: "assets/images/alumni/ta_xuan_hung.jpg" },
-    { name: "Le Hanh Duc", team: "Wind Team", teamCode: "wind", image: "assets/images/alumni/le_hanh_duc.jpg" },
-    { name: "Nguyen Trung Hai", team: "Wind Team", teamCode: "wind", image: "assets/images/alumni/nguyen_trung_hai.png" },
-    { name: "Nguyen Sy Quan", team: "Smart Grid Team", teamCode: "smartgrid", image: "assets/images/alumni/nguyen_sy_quan.jpg" },
-    { name: "Vo Ba Linh", team: "Smart Grid Team", teamCode: "smartgrid", image: "assets/images/alumni/vo_ba_linh.jpg" },
-    { name: "Tran Minh Khoi", team: "Smart Grid Team", teamCode: "smartgrid", image: "assets/images/alumni/tran_minh_khoi.jpg" },
-    { name: "Tran Dinh Le Hoang", team: "Smart Grid Team", teamCode: "smartgrid", image: "assets/images/alumni/tran_dinh_le_hoang.jpg" },
-    { name: "Tran Minh Tuan", team: "Electric Vehicle Team", teamCode: "ev", image: "assets/images/alumni/tran_minh_tuan.jpg" },
-    { name: "Do Chi Kien", team: "Hydrogen Team", teamCode: "hydrogen", image: "assets/images/alumni/do_chi_kien.jpg" },
-    { name: "Hoang Hieu Long", team: "Hydrogen Team", teamCode: "hydrogen", image: "assets/images/alumni/hoang_hieu_long.jpg" },
-    { name: "Nguyen Manh Khai", team: "Hydrogen Team", teamCode: "hydrogen", image: "assets/images/alumni/nguyen_manh_khai.jpg" },
-    { name: "Le Thi Minh Lien", team: "BESS Team", teamCode: "bess", image: "assets/images/alumni/le_thi_minh_lien.jpg" },
-    { name: "Ta Duy Bach", team: "BESS Team", teamCode: "bess", image: "assets/images/alumni/ta_duy_bach.png" },
-    { name: "Vu Quoc Anh", team: "BESS Team", teamCode: "bess", image: "assets/images/alumni/vu_quoc_anh.jpg" },
-    { name: "Nguyen Dinh Phu Nghia", team: "BESS Team", teamCode: "bess", image: "assets/images/alumni/nguyen_dinh_phu_nghia.jpg" },
-    { name: "Nguyen Trong Thanh", team: "AI Team", teamCode: "ai", image: "assets/images/alumni/nguyen_trong_thanh.png" },
-    { name: "Nguyen H. Minh Giang", team: "AI Team", teamCode: "ai", image: "assets/images/alumni/nguyen_hoang_minh_giang.png" },
-    { name: "Do Dinh Hieu", team: "AI Team", teamCode: "ai", image: "assets/images/alumni/do_dinh_hieu.jpg" }
+    { id: "team-alumni-1", name: "Nguyen Dang Duong", team: "PV Team", teamCode: "pv", image: "assets/images/alumni/nguyen_dang_duong.png" },
+    { id: "team-alumni-2", name: "Dao Quang Tung", team: "PV Team", teamCode: "pv", image: "assets/images/alumni/dao_quang_tung.jpg" },
+    { id: "team-alumni-3", name: "Hoang Tuan Linh", team: "Unit Commitment Team", teamCode: "dr_uc", image: "assets/images/alumni/hoang_tuan_linh.png" },
+    { id: "team-alumni-4", name: "Ta Xuan Hung", team: "Unit Commitment Team", teamCode: "dr_uc", image: "assets/images/alumni/ta_xuan_hung.jpg" },
+    { id: "team-alumni-5", name: "Le Hanh Duc", team: "Wind Team", teamCode: "wind", image: "assets/images/alumni/le_hanh_duc.jpg" },
+    { id: "team-alumni-6", name: "Nguyen Trung Hai", team: "Wind Team", teamCode: "wind", image: "assets/images/alumni/nguyen_trung_hai.png" },
+    { id: "team-alumni-7", name: "Nguyen Sy Quan", team: "Smart Grid Team", teamCode: "smartgrid", image: "assets/images/alumni/nguyen_sy_quan.jpg" },
+    { id: "team-alumni-8", name: "Vo Ba Linh", team: "Smart Grid Team", teamCode: "smartgrid", image: "assets/images/alumni/vo_ba_linh.jpg" },
+    { id: "team-alumni-9", name: "Tran Minh Khoi", team: "Smart Grid Team", teamCode: "smartgrid", image: "assets/images/alumni/tran_minh_khoi.jpg" },
+    { id: "team-alumni-10", name: "Tran Dinh Le Hoang", team: "Smart Grid Team", teamCode: "smartgrid", image: "assets/images/alumni/tran_dinh_le_hoang.jpg" },
+    { id: "team-alumni-11", name: "Tran Minh Tuan", team: "Electric Vehicle Team", teamCode: "ev", image: "assets/images/alumni/tran_minh_tuan.jpg" },
+    { id: "team-alumni-12", name: "Do Chi Kien", team: "Hydrogen Team", teamCode: "hydrogen", image: "assets/images/alumni/do_chi_kien.jpg" },
+    { id: "team-alumni-13", name: "Hoang Hieu Long", team: "Hydrogen Team", teamCode: "hydrogen", image: "assets/images/alumni/hoang_hieu_long.jpg" },
+    { id: "team-alumni-14", name: "Nguyen Manh Khai", team: "Hydrogen Team", teamCode: "hydrogen", image: "assets/images/alumni/nguyen_manh_khai.jpg" },
+    { id: "team-alumni-15", name: "Le Thi Minh Lien", team: "BESS Team", teamCode: "bess", image: "assets/images/alumni/le_thi_minh_lien.jpg" },
+    { id: "team-alumni-16", name: "Ta Duy Bach", team: "BESS Team", teamCode: "bess", image: "assets/images/alumni/ta_duy_bach.png" },
+    { id: "team-alumni-17", name: "Vu Quoc Anh", team: "BESS Team", teamCode: "bess", image: "assets/images/alumni/vu_quoc_anh.jpg" },
+    { id: "team-alumni-18", name: "Nguyen Dinh Phu Nghia", team: "BESS Team", teamCode: "bess", image: "assets/images/alumni/nguyen_dinh_phu_nghia.jpg" },
+    { id: "team-alumni-19", name: "Nguyen Trong Thanh", team: "AI Team", teamCode: "ai", image: "assets/images/alumni/nguyen_trong_thanh.png" },
+    { id: "team-alumni-20", name: "Nguyen H. Minh Giang", team: "AI Team", teamCode: "ai", image: "assets/images/alumni/nguyen_hoang_minh_giang.png" },
+    { id: "team-alumni-21", name: "Do Dinh Hieu", team: "AI Team", teamCode: "ai", image: "assets/images/alumni/do_dinh_hieu.jpg" }
   ],
 
 

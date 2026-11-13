@@ -98,7 +98,7 @@
   };
 
   // Preload and sync all collections from KV Database on startup
-  ['news', 'journey', 'researchAreas', 'projects', 'publications', 'photos'].forEach(key => {
+  ['news', 'journey', 'researchAreas', 'projects', 'publications', 'photos', 'featuredAlumni', 'teamAlumni'].forEach(key => {
     DataManager.fetchFromServer(key);
   });
 
@@ -308,6 +308,102 @@
           </div>
         `;
       }
+    },
+
+    featuredAlumni: {
+      name: "Featured Alumnus",
+      plural: "Featured Alumni Profiles",
+      containerId: "featuredAlumniContainer",
+      fields: [
+        { key: "name", label: "Full Name", type: "text", required: true },
+        { key: "labPeriod", label: "Lab Period (e.g. 2/2019 – 8/2022)", type: "text", required: true },
+        { key: "formerRole", label: "Former Lab Role (e.g. Former PV Lead and Lab Lead)", type: "text", required: true },
+        { key: "currentPos", label: "Current Position (e.g. PhD student @ Virginia Tech)", type: "text", required: true },
+        { key: "teamCode", label: "Research Team", type: "select", options: [
+          { value: "all", label: "All / General" },
+          { value: "pv", label: "PV Team" },
+          { value: "dr_uc", label: "Unit Commitment & DR" },
+          { value: "wind", label: "Wind Team" },
+          { value: "smartgrid", label: "Smart Grid Team" },
+          { value: "ev", label: "Electric Vehicle Team" },
+          { value: "hydrogen", label: "Hydrogen Team" },
+          { value: "bess", label: "BESS Team" },
+          { value: "ai", label: "AI Team" }
+        ], defaultValue: "all" },
+        { key: "image", label: "Profile Photo URL / Upload", type: "image", required: true },
+        { key: "email", label: "Email Address", type: "text" },
+        { key: "phone", label: "Phone Number", type: "text" },
+        { key: "achievements", label: "Achievements & Awards (one per line)", type: "multiline_list" },
+        { key: "bio", label: "Biography & Lab Contributions", type: "textarea", required: true }
+      ],
+      renderItem(item) {
+        const achs = Array.isArray(item.achievements) ? item.achievements : (typeof item.achievements === 'string' ? item.achievements.split('\n').filter(Boolean) : []);
+        return `
+          <article class="alumni-card" data-id="${item.id}">
+            <div class="alumni-card-top">
+              <div class="alumni-avatar-wrap">
+                <img src="${item.image || 'assets/images/logo.jpg'}" alt="${item.name}" class="alumni-avatar" onerror="this.src='assets/images/logo.jpg'">
+              </div>
+              <div class="alumni-info-header">
+                <span class="alumni-period"><i class="fa-regular fa-calendar"></i> ${item.labPeriod || ''}</span>
+                <h3 class="alumni-name">${item.name}</h3>
+                <div class="alumni-role">${item.formerRole || ''}</div>
+                <div class="alumni-pos"><i class="fa-solid fa-briefcase"></i> ${item.currentPos || ''}</div>
+              </div>
+            </div>
+            <div class="alumni-card-body">
+              ${achs.length ? `
+                <div>
+                  <h4 class="alumni-achievements-title"><i class="fa-solid fa-award"></i> Achievements</h4>
+                  <ul class="alumni-achievements-list">
+                    ${achs.map(ach => `<li><i class="fa-solid fa-check"></i><span>${ach}</span></li>`).join('')}
+                  </ul>
+                </div>
+              ` : ''}
+              <p style="font-size: 0.88rem; color: #475569; line-height: 1.55; margin-top: 4px;">${item.bio || ''}</p>
+              <div class="alumni-contacts">
+                ${item.email ? `<div class="alumni-contact-item"><i class="fa-solid fa-envelope" style="color:#16a34a;"></i> <span>Email: <a href="mailto:${item.email}">${item.email}</a></span></div>` : ''}
+                ${item.phone ? `<div class="alumni-contact-item"><i class="fa-solid fa-phone" style="color:#16a34a;"></i> <span>Phone: <a href="tel:${item.phone.replace(/[^0-9+]/g, '')}">${item.phone}</a></span></div>` : ''}
+              </div>
+              ${getAdminCardButtons('featuredAlumni', item.id)}
+            </div>
+          </article>
+        `;
+      }
+    },
+
+    teamAlumni: {
+      name: "Team Alumnus",
+      plural: "Team Alumni Members",
+      containerId: "teamAlumniContainer",
+      fields: [
+        { key: "name", label: "Full Name", type: "text", required: true },
+        { key: "team", label: "Display Team Name (e.g. PV Team)", type: "text", required: true },
+        { key: "teamCode", label: "Filter Team Category", type: "select", options: [
+          { value: "pv", label: "PV Team" },
+          { value: "dr_uc", label: "Unit Commitment" },
+          { value: "wind", label: "Wind Team" },
+          { value: "smartgrid", label: "Smart Grid" },
+          { value: "ev", label: "Electric Vehicle" },
+          { value: "hydrogen", label: "Hydrogen Team" },
+          { value: "bess", label: "BESS Team" },
+          { value: "ai", label: "AI Team" },
+          { value: "all", label: "Other / All" }
+        ], required: true },
+        { key: "image", label: "Avatar Photo URL / Upload", type: "image", required: true }
+      ],
+      renderItem(item) {
+        return `
+          <div class="team-alumnus-card" data-id="${item.id}">
+            <div class="team-alumnus-avatar-wrap">
+              <img src="${item.image || 'assets/images/logo.jpg'}" alt="${item.name}" class="team-alumnus-avatar" onerror="this.src='assets/images/logo.jpg'">
+            </div>
+            <h4 class="team-alumnus-name">${item.name}</h4>
+            <span class="team-alumnus-team">${item.team || ''}</span>
+            ${getAdminCardButtons('teamAlumni', item.id)}
+          </div>
+        `;
+      }
     }
   };
 
@@ -328,6 +424,7 @@
   const AdminCRUD = {
     activeCollection: null,
     editingItemId: null,
+    getAdminCardButtons: getAdminCardButtons,
 
     init() {
       this.injectStyles();
@@ -578,6 +675,16 @@
     },
 
     renderCurrentPage() {
+      if (typeof window.renderAllAlumni === 'function' && (document.getElementById('featuredAlumniContainer') || document.getElementById('teamAlumniContainer'))) {
+        window.renderAllAlumni();
+        const featCont = document.getElementById('featuredAlumniContainer');
+        if (featCont && SCHEMAS.featuredAlumni) this.injectPageAdminBar('featuredAlumni', SCHEMAS.featuredAlumni, featCont);
+        const teamCont = document.getElementById('teamAlumniContainer');
+        if (teamCont && SCHEMAS.teamAlumni) this.injectPageAdminBar('teamAlumni', SCHEMAS.teamAlumni, teamCont);
+        this.updateAdminBars();
+        return;
+      }
+
       for (const [key, schema] of Object.entries(SCHEMAS)) {
         const container = document.getElementById(schema.containerId);
         if (container) {
@@ -591,6 +698,7 @@
           this.injectPageAdminBar(key, schema, container);
         }
       }
+      this.updateAdminBars();
     },
 
     injectPageAdminBar(key, schema, container) {
@@ -618,15 +726,36 @@
       }
     },
 
+    hasEditRights() {
+      const token = localStorage.getItem('100re_token');
+      const isAdmin = localStorage.getItem('100re_is_admin') === 'true';
+      const role = (localStorage.getItem('100re_user_role') || '').toLowerCase();
+      const user = (localStorage.getItem('100re_logged_username') || '').toLowerCase();
+      if (!token && !document.body.classList.contains('admin-mode')) {
+        return false;
+      }
+      if (isAdmin || role === 'admin' || role === 'supervisor' || role === 'team_leader' || role === 'teamleader') {
+        return true;
+      }
+      if (user === '100re' || user === 'admin' || user === 'supervisor' || user.includes('leader') || user.includes('tuyen')) {
+        return true;
+      }
+      return document.body.classList.contains('admin-mode');
+    },
+
     updateAdminBars() {
-      const isAdmin = document.body.classList.contains('admin-mode');
-      const bars = document.querySelectorAll('.universal-admin-bar');
+      const isAuth = this.hasEditRights();
+      const bars = document.querySelectorAll('.universal-admin-bar, .alumni-admin-bar');
       bars.forEach(b => {
-        b.style.display = isAdmin ? 'flex' : 'none';
+        b.style.display = isAuth ? 'flex' : 'none';
       });
-      const cardActions = document.querySelectorAll('.universal-admin-card-actions');
+      const cardActions = document.querySelectorAll('.universal-admin-card-actions, .alumni-card-actions');
       cardActions.forEach(a => {
-        a.style.display = isAdmin ? 'flex' : 'none';
+        a.style.display = isAuth ? 'flex' : 'none';
+      });
+      const addBtns = document.querySelectorAll('.alumni-admin-btn');
+      addBtns.forEach(btn => {
+        btn.style.display = isAuth ? 'inline-flex' : 'none';
       });
     },
 
@@ -666,7 +795,11 @@
               <div class="crud-form-group">
                 <label class="crud-form-label">${f.label} ${f.required ? '<span style="color:#ef4444;">*</span>' : ''}</label>
                 <select class="crud-form-select" name="${f.key}">
-                  ${(f.options || []).map(opt => `<option value="${opt}" ${val === opt ? 'selected' : ''}>${opt}</option>`).join('')}
+                  ${(f.options || []).map(opt => {
+                    const optVal = typeof opt === 'object' ? opt.value : opt;
+                    const optLabel = typeof opt === 'object' ? opt.label : opt;
+                    return `<option value="${optVal}" ${val === optVal ? 'selected' : ''}>${optLabel}</option>`;
+                  }).join('')}
                 </select>
               </div>
             `;
@@ -759,7 +892,9 @@
         'research': 'Hướng Nghiên Cứu',
         'collaborations': 'Đối Tác Hợp Tác',
         'lab_equipment': 'Thiết Bị Phòng Lab',
-        'fund_raise': 'Khoản Tài Trợ'
+        'fund_raise': 'Khoản Tài Trợ',
+        'featuredAlumni': 'Hồ Sơ Cựu Thành Viên Tiêu Biểu',
+        'teamAlumni': 'Cựu Thành Viên Nhóm'
       };
       const itemName = collTitles[collectionKey] || schema.name || 'mục';
 
