@@ -1,3 +1,5 @@
+import { readSession } from "../../src/session.js";
+
 // Default lab members dataset bundled for Cloudflare deployment
 export const DEFAULT_MEMBERS = [
   {
@@ -170,11 +172,5 @@ export function extractToken(request) {
 }
 
 export async function verifyToken(token, env) {
-  if (!token) return false;
-  if (env && env.MEMBERS_KV) {
-    const session = await env.MEMBERS_KV.get(`session:${token}`);
-    return session !== null;
-  }
-  // In stateless / memory mode, valid if non-empty UUID
-  return token.length >= 10;
+  return !!(token && await readSession(env?.MEMBERS_KV, `session:${token}`));
 }

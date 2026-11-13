@@ -92,26 +92,54 @@ document.addEventListener('DOMContentLoaded', () => {
   // ==========================================
   // 2. Authentication State Management
   // ==========================================
+  let sessionExpiryTimer;
+
+  function clearSession() {
+    clearTimeout(sessionExpiryTimer);
+    localStorage.removeItem('100re_token');
+    localStorage.removeItem('100re_token_expires_at');
+    currentAuthToken = null;
+    setAdminState(false);
+  }
+
+  function scheduleSessionExpiry(expiresAt) {
+    if (!Number.isFinite(expiresAt)) return;
+    clearTimeout(sessionExpiryTimer);
+    localStorage.setItem('100re_token_expires_at', String(expiresAt));
+    const token = currentAuthToken;
+    sessionExpiryTimer = setTimeout(() => {
+      if (currentAuthToken === token && localStorage.getItem('100re_token') === token) {
+        clearSession();
+      }
+    }, Math.max(0, expiresAt - Date.now()));
+  }
+
   async function checkAuthStatus() {
     if (!currentAuthToken) {
       setAdminState(false);
       return;
     }
+    const token = currentAuthToken;
+    const expiresAt = Number(localStorage.getItem('100re_token_expires_at'));
+    if (expiresAt > 0 && expiresAt <= Date.now()) {
+      clearSession();
+      return;
+    }
+    if (expiresAt > 0) scheduleSessionExpiry(expiresAt);
     try {
       const res = await fetch(`${API_BASE}/api/auth-status`, {
         headers: { 'Authorization': `Bearer ${currentAuthToken}` }
       });
       const data = await res.json();
+      if (token !== currentAuthToken) return;
       if (data.authenticated) {
+        scheduleSessionExpiry(data.expiresAt);
         setAdminState(true, data.user);
-      } else {
-        localStorage.removeItem('100re_token');
-        currentAuthToken = null;
-        setAdminState(false);
+      } else if (res.ok) {
+        clearSession();
       }
     } catch (e) {
-      // If token exists in localStorage, maintain admin state
-      setAdminState(true, '100re');
+      console.warn('Không thể kiểm tra phiên đăng nhập:', e);
     }
   }
 
@@ -489,9 +517,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     } catch (e) {}
 
-    localStorage.removeItem('100re_token');
-    currentAuthToken = null;
-    setAdminState(false);
+    clearSession();
     showToast('Đã đăng xuất khỏi tài khoản.');
   }
 
@@ -558,6 +584,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (data.success && data.token) {
           currentAuthToken = data.token;
           localStorage.setItem('100re_token', data.token);
+          scheduleSessionExpiry(data.expiresAt);
           if (data.userId) localStorage.setItem('ws_dev_user_id', data.userId);
           if (data.role) localStorage.setItem('100re_user_role', data.role);
           if (data.user === '100re' || data.isSystemAdmin) {
@@ -576,7 +603,14 @@ document.addEventListener('DOMContentLoaded', () => {
           }
         }
       } catch (err) {
-                // Fallback for offline / direct file opening
+        if (window.location.protocol !== 'file:') {
+          if (loginErrorAlert) {
+            loginErrorAlert.textContent = 'Không thể kết nối với dịch vụ đăng nhập.';
+            loginErrorAlert.style.display = 'block';
+          }
+          return;
+        }
+        // Preserve the offline preview when opening a local HTML file directly.
         const lowerUser = (username || '').toLowerCase().trim();
         const normalized = lowerUser.replace(/@100relab(\.hust\.edu\.vn)?$/, '');
         const fallbackToken = (typeof crypto !== 'undefined' && crypto.randomUUID) ? crypto.randomUUID() : ('uuid_' + Date.now());
@@ -715,6 +749,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (password === '100re' || password) {
           currentAuthToken = fallbackToken;
           localStorage.setItem('100re_token', fallbackToken);
+          scheduleSessionExpiry(Date.now() + 86400000);
           localStorage.setItem('ws_dev_user_id', matchedId);
           localStorage.setItem('100re_logged_username', lowerUser);
           localStorage.setItem('100re_user_role', role);

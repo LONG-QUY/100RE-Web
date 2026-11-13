@@ -1,3 +1,4 @@
+import { SESSION_TTL_SECONDS } from "../../src/session.js";
 import { ADMIN_USERNAME, ADMIN_PASSWORD, jsonResponse } from "./_utils.js";
 
 export async function onRequestPost({ request, env }) {
@@ -10,21 +11,19 @@ export async function onRequestPost({ request, env }) {
     const expectedPass = (env && env.ADMIN_PASSWORD) || ADMIN_PASSWORD;
 
     if (username === expectedUser && password === expectedPass) {
-      const token = crypto.randomUUID();
-
-      // Store in KV if bound
-      if (env && env.MEMBERS_KV) {
-        await env.MEMBERS_KV.put(`session:${token}`, JSON.stringify({
-          username,
-          createdAt: Date.now()
-        }), {
-          expirationTtl: 86400 * 7 // 7 days session
-        });
+      if (!env?.MEMBERS_KV) {
+        return jsonResponse({ success: false, error: "Dịch vụ phiên đăng nhập chưa khả dụng." }, 503);
       }
+      const token = crypto.randomUUID();
+      const createdAt = Date.now();
+      await env.MEMBERS_KV.put(`session:${token}`, JSON.stringify({ username, createdAt }), {
+        expirationTtl: SESSION_TTL_SECONDS
+      });
 
       return jsonResponse({
         success: true,
-        token: token,
+        token,
+        expiresAt: createdAt + SESSION_TTL_SECONDS * 1000,
         user: username,
         message: "Login successful"
       });

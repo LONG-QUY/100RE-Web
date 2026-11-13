@@ -8,6 +8,7 @@
 
 import { getDatabase } from './db.js';
 import { resolveUser } from './auth.js';
+import { readSession, SESSION_TTL_SECONDS } from './session.js';
 import { handleDashboard } from './routes/dashboard.js';
 import { handleTeams } from './routes/teams.js';
 import { handleProjects } from './routes/projects.js';
@@ -36,6 +37,16 @@ export default {
 
     if (request.method === 'OPTIONS') {
       return new Response(null, { headers: corsHeaders });
+    }
+
+    const isPublicWrite = request.method !== 'GET' && request.method !== 'HEAD' &&
+      (path === '/api/public/members' || path.startsWith('/api/public/members/') ||
+       path.startsWith('/api/public/content/') || path.startsWith('/api/admin/content/'));
+    if (isPublicWrite) {
+      const token = (request.headers.get('Authorization') || '').replace(/^Bearer\s+/i, '').trim();
+      if (!token || !await readSession(env?.MEMBERS_KV, `session_${token}`)) {
+        return jsonResponse({ error: 'Phiên đăng nhập không hợp lệ hoặc đã hết hạn.' }, 401, corsHeaders);
+      }
     }
 
     // Initialize D1 Database
@@ -493,13 +504,18 @@ export default {
         }
 
         if (userProfile) {
-          const token = crypto.randomUUID();
-          if (env && env.MEMBERS_KV) {
-            await env.MEMBERS_KV.put(`session_${token}`, JSON.stringify(userProfile), { expirationTtl: 86400 * 7 });
+          if (!env?.MEMBERS_KV) {
+            return jsonResponse({ success: false, error: 'Dịch vụ phiên đăng nhập chưa khả dụng.' }, 503, corsHeaders);
           }
+          const token = crypto.randomUUID();
+          const createdAt = Date.now();
+          await env.MEMBERS_KV.put(`session_${token}`, JSON.stringify({ ...userProfile, createdAt }), {
+            expirationTtl: SESSION_TTL_SECONDS
+          });
           return jsonResponse({
             success: true,
             token,
+            expiresAt: createdAt + SESSION_TTL_SECONDS * 1000,
             user: userProfile.username,
             userId: userProfile.id,
             role: userProfile.role,
@@ -522,21 +538,15 @@ export default {
       const authHeader = request.headers.get('Authorization') || '';
       const token = authHeader.replace(/^Bearer\s+/i, '').trim();
 
-      if (!token) {
-        return jsonResponse({ authenticated: false }, 200, corsHeaders);
-      }
-      if (env && env.MEMBERS_KV) {
-        const sessionRaw = await env.MEMBERS_KV.get(`session_${token}`);
-        if (sessionRaw) {
-          try {
-            const parsed = JSON.parse(sessionRaw);
-            return jsonResponse({ authenticated: true, user: parsed.display_name || parsed.username || 'supervisor', role: parsed.role, userId: parsed.id }, 200, corsHeaders);
-          } catch(e) {
-            return jsonResponse({ authenticated: true, user: sessionRaw, role: 'supervisor', userId: 'usr-sup-01' }, 200, corsHeaders);
-          }
-        }
-      }
-      return jsonResponse({ authenticated: true, user: 'Assoc. Prof. Nguyen Duc Tuyen', role: 'supervisor', userId: 'usr-sup-01' }, 200, corsHeaders);
+      const session = token ? await readSession(env?.MEMBERS_KV, `session_${token}`) : null;
+      if (!session) return jsonResponse({ authenticated: false }, 200, corsHeaders);
+      return jsonResponse({
+        authenticated: true,
+        user: session.display_name || session.username,
+        role: session.role,
+        userId: session.id,
+        expiresAt: session.createdAt + SESSION_TTL_SECONDS * 1000
+      }, 200, corsHeaders);
     }
 
     if (path === '/api/logout' && request.method === 'POST') {

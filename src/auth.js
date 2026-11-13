@@ -1,3 +1,5 @@
+import { readSession } from './session.js';
+
 /**
  * 100RE LAB WORKSPACE — Authentication & Identity Resolution
  * Supports Cloudflare Access headers in production, Admin Sessions, and Dev Auth Switcher.
@@ -9,8 +11,11 @@ export async function resolveUser(request, env, db) {
   const authHeader = request.headers.get('authorization') || '';
   const token = authHeader.replace(/^Bearer\s+/i, '').trim();
 
+  const session = token ? await readSession(env?.MEMBERS_KV, `session_${token}`) : null;
+  if (token && !session) return { user: null, isAuthenticated: false };
+
   // 1. Check Dev User Header (Highest Priority for explicit user role switching & local preview)
-  if (devUserHeader) {
+  if (!session && devUserHeader) {
     const rawVal = devUserHeader.toLowerCase().trim();
     const normalized = rawVal.replace(/@100relab(\.hust\.edu\.vn)?$/, '');
 
@@ -80,52 +85,34 @@ export async function resolveUser(request, env, db) {
   }
 
   // 2. Check Cloudflare Access authenticated email
-  if (email) {
+  if (!session && email) {
     const u = await db.first('SELECT * FROM users WHERE email = ?', [email.toLowerCase().trim()]);
     if (u) return enrichUser(u, db);
   }
 
-  // 3. Check Session Token in KV or Bearer Token (from Website Login)
-  if (token) {
-    // If token is direct user ID
-    let u = await db.first('SELECT * FROM users WHERE id = ?', [token]);
-    if (u) return enrichUser(u, db);
-
-        // If token is an active session in KV
-    if (env && env.MEMBERS_KV) {
-      try {
-        const sessionRaw = await env.MEMBERS_KV.get(`session_${token}`);
-        if (sessionRaw) {
-          let sessionUser = null;
-          try { sessionUser = JSON.parse(sessionRaw); } catch(e) { sessionUser = { username: sessionRaw }; }
-
-          if (sessionUser) {
-            let uTeams = sessionUser.teams;
-            if (!uTeams || uTeams.length === 0) {
-              if (sessionUser.team) uTeams = [sessionUser.team];
-              else uTeams = ['team-smartgrid'];
-            }
-            return {
-              user: {
-                id: sessionUser.id || sessionUser.userId || 'usr-smartgrid-1788108587815',
-                name: sessionUser.display_name || sessionUser.name || sessionUser.username,
-                display_name: sessionUser.display_name || sessionUser.name || sessionUser.username,
-                username: sessionUser.username,
-                email: sessionUser.email || `${sessionUser.username}@100relab`,
-                role: sessionUser.role || 'researcher',
-                teams: uTeams,
-                projects: sessionUser.projects || [],
-                isSupervisor: sessionUser.role === 'supervisor' || sessionUser.role === 'admin' || sessionUser.username === '100re',
-                isLeader: sessionUser.role === 'team_leader' || sessionUser.role === 'supervisor' || sessionUser.role === 'admin',
-                isSystemAdmin: sessionUser.role === 'admin' || sessionUser.username === '100re',
-                status: 'active'
-              },
-              isAuthenticated: true
-            };
-          }
-        }
-      } catch (e) {}
+  if (session) {
+    let uTeams = session.teams;
+    if (!uTeams || uTeams.length === 0) {
+      if (session.team) uTeams = [session.team];
+      else uTeams = ['team-smartgrid'];
     }
+    return {
+      user: {
+        id: session.id || session.userId || 'usr-smartgrid-1788108587815',
+        name: session.display_name || session.name || session.username,
+        display_name: session.display_name || session.name || session.username,
+        username: session.username,
+        email: session.email || `${session.username}@100relab`,
+        role: session.role || 'researcher',
+        teams: uTeams,
+        projects: session.projects || [],
+        isSupervisor: session.role === 'supervisor' || session.role === 'admin' || session.username === '100re',
+        isLeader: session.role === 'team_leader' || session.role === 'supervisor' || session.role === 'admin',
+        isSystemAdmin: session.role === 'admin' || session.username === '100re',
+        status: 'active'
+      },
+      isAuthenticated: true
+    };
   }
 
   // 4. Default fallback: resolve Supervisor
