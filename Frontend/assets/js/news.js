@@ -623,7 +623,7 @@
     editingId = null;
   }
 
-  function saveArticle(event) {
+  async function saveArticle(event) {
     event.preventDefault();
     const title = document.getElementById('compTitle').value.trim();
     const category = document.getElementById('compCategory').value;
@@ -651,13 +651,14 @@
       tags
     };
 
-    if (editingId) {
-      window.DataManager.update('news', editingId, articleData);
-      if (typeof showToast === 'function') showToast('Cập nhật bài báo thành công!');
-    } else {
-      window.DataManager.add('news', articleData);
-      if (typeof showToast === 'function') showToast('Đăng bài báo mới thành công!');
+    try {
+      if (editingId) await window.DataManager.update('news', editingId, articleData);
+      else await window.DataManager.add('news', articleData);
+    } catch (error) {
+      window.AdminCRUD.notify(error.message, true);
+      return;
     }
+    window.AdminCRUD.notify('Đã lưu bài viết.');
 
     closeComposer();
     renderNews();
@@ -676,7 +677,12 @@
       type: 'danger'
     }) : confirm('Bạn có chắc chắn muốn xóa bài báo này không?');
     if (confirmed) {
-      window.DataManager.remove('news', id);
+      try {
+        await window.DataManager.remove('news', id);
+      } catch (error) {
+        window.AdminCRUD.notify(error.message, true);
+        return;
+      }
       if (typeof showToast === 'function') showToast('Đã xóa bài báo thành công!');
       if (activeArticleId === id) {
         closeArticle();

@@ -31,7 +31,7 @@ export async function handlePublicContent(request, env, collectionKey) {
         await env.MEMBERS_KV.put('content_' + collectionKey, JSON.stringify(items));
         return { success: true, count, collection: collectionKey, timestamp: new Date().toISOString() };
       }
-      return { success: true, count, collection: collectionKey, mocked: true };
+      return { error: 'Content storage unavailable.', status: 503 };
     } catch (e) {
       return { error: 'Failed to update KV content: ' + e.message };
     }

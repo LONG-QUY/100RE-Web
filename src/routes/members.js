@@ -50,6 +50,10 @@ export async function handlePublicMembers(request, env) {
   const pathParts = url.pathname.split('/').filter(Boolean);
   const isMoveToAlumni = url.pathname.endsWith('/move-to-alumni');
 
+  if (method !== 'GET' && !env?.MEMBERS_KV) {
+    return { error: 'Member storage unavailable.', status: 503 };
+  }
+
   if (isMoveToAlumni && (method === 'POST' || method === 'PUT')) {
     try {
       const memberId = pathParts[pathParts.length - 2];

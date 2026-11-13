@@ -20,17 +20,29 @@
       return (window.LAB_DATA && window.LAB_DATA[key]) ? window.LAB_DATA[key] : [];
     },
 
-    set(key, items) {
+    pendingWrites: new Set(),
+    savedCollections: new Set(),
+
+    cache(key, items) {
       try {
         localStorage.setItem('100re_data_' + key, JSON.stringify(items));
       } catch (e) {
-        console.warn('Error saving to localStorage for ' + key, e);
+        console.warn('Error caching ' + key, e);
       }
       if (window.LAB_DATA) window.LAB_DATA[key] = items;
       window.dispatchEvent(new CustomEvent('100re_data_updated', { detail: { key, items } }));
+    },
 
-      // Synchronize with Cloudflare KV Database in background
-      this.syncToServer(key, items);
+    async set(key, items) {
+      if (this.pendingWrites.has(key)) throw new Error('Đang lưu dữ liệu. Vui lòng đợi.');
+      this.pendingWrites.add(key);
+      try {
+        await window.savePublicData(`${API_BASE}/api/public/content/${key}`, 'PUT', items);
+        this.savedCollections.add(key);
+        this.cache(key, items);
+      } finally {
+        this.pendingWrites.delete(key);
+      }
     },
 
     async fetchFromServer(key) {
@@ -38,10 +50,8 @@
         const res = await fetch(`${API_BASE}/api/public/content/${key}`);
         if (res.ok) {
           const data = await res.json();
-          if (Array.isArray(data) && data.length > 0) {
-            localStorage.setItem('100re_data_' + key, JSON.stringify(data));
-            if (window.LAB_DATA) window.LAB_DATA[key] = data;
-            window.dispatchEvent(new CustomEvent('100re_data_updated', { detail: { key, items: data } }));
+          if (Array.isArray(data) && !this.pendingWrites.has(key) && !this.savedCollections.has(key)) {
+            this.cache(key, data);
             return data;
           }
         }
@@ -51,48 +61,29 @@
       return null;
     },
 
-    async syncToServer(key, items) {
-      try {
-        const token = localStorage.getItem('100re_token');
-        const headers = { 'Content-Type': 'application/json' };
-        if (token) headers['Authorization'] = `Bearer ${token}`;
-
-        const res = await fetch(`${API_BASE}/api/public/content/${key}`, {
-          method: 'PUT',
-          headers,
-          body: JSON.stringify(items)
-        });
-        if (res.ok) {
-          console.log(`[100RE Cloudflare KV] Successfully synchronized collection '${key}' to global database.`);
-        }
-      } catch (e) {
-        console.warn(`[100RE Cloudflare KV] Background sync error for '${key}':`, e);
-      }
-    },
-
-    add(key, item) {
-      const items = this.get(key);
+    async add(key, item) {
+      const items = [...this.get(key)];
       item.id = item.id || (key + '-' + Date.now());
       items.unshift(item);
-      this.set(key, items);
+      await this.set(key, items);
       return item;
     },
 
-    update(key, id, updatedData) {
-      const items = this.get(key);
+    async update(key, id, updatedData) {
+      const items = [...this.get(key)];
       const idx = items.findIndex(i => String(i.id) === String(id));
       if (idx !== -1) {
         items[idx] = { ...items[idx], ...updatedData };
-        this.set(key, items);
+        await this.set(key, items);
         return items[idx];
       }
-      return null;
+      throw new Error('Không tìm thấy mục cần sửa.');
     },
 
-    remove(key, id) {
+    async remove(key, id) {
       let items = this.get(key);
       items = items.filter(i => String(i.id) !== String(id));
-      this.set(key, items);
+      await this.set(key, items);
       return true;
     }
   };
@@ -848,7 +839,7 @@
       this.editingItemId = null;
     },
 
-    handleFormSubmit(event) {
+    async handleFormSubmit(event) {
       event.preventDefault();
       const schema = SCHEMAS[this.activeCollection];
       if (!schema) return;
@@ -867,14 +858,18 @@
         }
       });
 
-      if (this.editingItemId) {
-        DataManager.update(this.activeCollection, this.editingItemId, dataObj);
-        this.notify(`Updated ${schema.name} successfully!`);
-      } else {
-        DataManager.add(this.activeCollection, dataObj);
-        this.notify(`Created new ${schema.name} successfully!`);
+      try {
+        if (this.editingItemId) {
+          await DataManager.update(this.activeCollection, this.editingItemId, dataObj);
+        } else {
+          await DataManager.add(this.activeCollection, dataObj);
+        }
+      } catch (error) {
+        this.notify(error.message, true);
+        return;
       }
 
+      this.notify('Đã lưu thay đổi.');
       this.closeModal();
       this.renderCurrentPage();
     },
@@ -912,7 +907,12 @@
       }
 
       if (isConfirmed) {
-        DataManager.remove(collectionKey, itemId);
+        try {
+          await DataManager.remove(collectionKey, itemId);
+        } catch (error) {
+          this.notify(error.message, true);
+          return;
+        }
         this.notify(`Đã xóa ${itemName.toLowerCase()} thành công!`);
         this.renderCurrentPage();
       }
@@ -928,8 +928,9 @@
       toast.className = `toast ${isError ? 'error' : ''}`;
       toast.innerHTML = `
         <i class="fa-solid ${isError ? 'fa-triangle-exclamation' : 'fa-circle-check'}"></i>
-        <span>${message}</span>
+        <span></span>
       `;
+      toast.querySelector('span').textContent = message;
       toastContainer.appendChild(toast);
       setTimeout(() => {
         toast.style.transition = 'opacity 0.3s ease, transform 0.3s ease';

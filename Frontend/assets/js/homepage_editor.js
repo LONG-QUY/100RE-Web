@@ -211,34 +211,26 @@
   }
 
   async function saveHomepageData(data) {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-    renderHomepageDOM(data);
-
-    // Sync with Cloudflare KV / Backend
     try {
-      const token = localStorage.getItem('100re_token');
-      const headers = { 'Content-Type': 'application/json' };
-      if (token) headers['Authorization'] = `Bearer ${token}`;
-
-      const res = await fetch(API_ENDPOINT, {
-        method: 'PUT',
-        headers,
-        body: JSON.stringify(data)
-      });
-      if (res.ok) {
-        console.log('[HomepageEditor] Saved and synchronized to KV Database successfully.');
-      }
-    } catch (e) {
-      console.warn('[HomepageEditor] Offline save, synced to localStorage.');
+      await window.savePublicData(API_ENDPOINT, 'PUT', data);
+    } catch (error) {
+      window.AdminCRUD.notify(error.message, true);
+      return false;
+    }
+    renderHomepageDOM(data);
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    } catch (error) {
+      console.warn('Could not cache homepage data:', error);
     }
 
     if (typeof showToast === 'function') {
       showToast('Đã lưu thay đổi trang chủ thành công!');
     } else {
-      alert('Đã lưu thay đổi thành công!');
+      window.AdminCRUD.notify('Đã lưu thay đổi trang chủ.');
     }
-
     window.dispatchEvent(new CustomEvent('100re_homepage_updated', { detail: data }));
+    return true;
   }
 
   // 3. Permission Checker
@@ -943,7 +935,7 @@
     document.body.style.overflow = '';
   }
 
-  function handleSaveSectionModal() {
+  async function handleSaveSectionModal() {
     const data = getHomepageData();
 
     if (currentEditingSection === 'hero') {
@@ -1035,11 +1027,10 @@
       };
     }
 
-    saveHomepageData(data);
-    closeHomepageEditModal();
+    if (await saveHomepageData(data)) closeHomepageEditModal();
   }
 
-  function handleResetSectionModal() {
+  async function handleResetSectionModal() {
     if (!confirm('Bạn có chắc chắn muốn khôi phục mục này về nội dung mặc định của phòng Lab?')) return;
 
     const data = getHomepageData();
@@ -1063,8 +1054,7 @@
       data.footer = deepClone(DEFAULT_HOMEPAGE_DATA.footer);
     }
 
-    saveHomepageData(data);
-    closeHomepageEditModal();
+    if (await saveHomepageData(data)) closeHomepageEditModal();
   }
 
   // Helper Escape Functions
@@ -1112,9 +1102,7 @@
       openModal: openHomepageEditModal,
       resetAll() {
         if (confirm('Khôi phục toàn bộ trang chủ về mặc định gốc?')) {
-          localStorage.removeItem(STORAGE_KEY);
-          renderHomepageDOM(DEFAULT_HOMEPAGE_DATA);
-          saveHomepageData(DEFAULT_HOMEPAGE_DATA);
+          return saveHomepageData(DEFAULT_HOMEPAGE_DATA);
         }
       }
     };

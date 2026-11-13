@@ -57,7 +57,7 @@ export default {
     // =========================================================================
     if (path === '/api/public/members' || path.startsWith('/api/public/members/')) {
       const data = await handlePublicMembers(request, env);
-      return jsonResponse(data, 200, corsHeaders);
+      return jsonResponse(data, data.status || (data.error ? 500 : 200), corsHeaders);
     }
 
     // =========================================================================
@@ -66,7 +66,7 @@ export default {
     if (path.startsWith('/api/public/content/') || path.startsWith('/api/admin/content/')) {
       const collectionKey = path.split('/').pop();
       const data = await handlePublicContent(request, env, collectionKey);
-      return jsonResponse(data, 200, corsHeaders);
+      return jsonResponse(data, data.status || (data.error ? 500 : 200), corsHeaders);
     }
 
     // =========================================================================

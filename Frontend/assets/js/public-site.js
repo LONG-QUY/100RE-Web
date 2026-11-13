@@ -2,6 +2,25 @@
  * 100RE LABORATORY - Fullstack Frontend Interaction & Admin CRUD Script
  */
 
+window.savePublicData = async function (url, method, data) {
+  const token = localStorage.getItem('100re_token');
+  const sessionError = 'Phiên đăng nhập đã hết hạn hoặc không hợp lệ. Vui lòng đăng nhập lại.';
+  if (!token) throw new Error(sessionError);
+
+  const response = await fetch(url, {
+    method,
+    headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+    body: data === undefined ? undefined : JSON.stringify(data)
+  });
+  if (response.status === 401) throw new Error(sessionError);
+  const result = await response.json().catch(() => null);
+  if (!response.ok || result?.success !== true || result.mocked) {
+    console.warn('Public save rejected:', response.status, result);
+    throw new Error('Máy chủ chưa xác nhận lưu dữ liệu. Vui lòng thử lại.');
+  }
+  return result;
+};
+
 document.addEventListener('DOMContentLoaded', () => {
   // Determine API Base URL: works on http://localhost:8000 and has fallback if opened via file:///
   const API_BASE = (window.location.protocol === 'http:' || window.location.protocol === 'https:')
@@ -1272,37 +1291,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const payload = { id: id || `${team}-${Date.now()}`, name, team, teamName, role, bio, image: imagePath };
 
-        // 1. Update local state immediately for instant responsive UI
-        if (id) {
-          const idx = allMembers.findIndex(m => String(m.id) === String(id));
-          if (idx !== -1) {
-            allMembers[idx] = { ...allMembers[idx], ...payload };
-          } else {
-            allMembers.unshift(payload);
-          }
+        const result = await window.savePublicData(`${API_BASE}/api/public/members`, 'POST', payload);
+        if (Array.isArray(result.members)) {
+          allMembers = result.members;
         } else {
-          allMembers.unshift(payload);
+          const member = result.member || payload;
+          const idx = allMembers.findIndex(m => String(m.id) === String(member.id));
+          if (idx === -1) allMembers.unshift(member);
+          else allMembers[idx] = { ...allMembers[idx], ...member };
         }
-
         safeSaveLocalStorage('100re_local_members', JSON.stringify(allMembers));
         renderAllTeamGrids();
         closeModal(document.getElementById('memberFormModal') || memberFormModal);
         showToast(id ? 'Cập nhật thành viên thành công!' : 'Đã thêm thành viên mới thành công!');
-
-        // 2. Synchronize to Cloudflare KV database in background
-        const tokenToSend = currentAuthToken || localStorage.getItem('100re_token') || '100re_admin_session';
-        try {
-          await fetch(`${API_BASE}/api/public/members`, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-              'Authorization': `Bearer ${tokenToSend}`
-            },
-            body: JSON.stringify(payload)
-          });
-        } catch (apiErr) {
-          console.warn('Background KV sync note:', apiErr);
-        }
       } catch (saveError) {
         console.error('Error saving member:', saveError);
         showToast('Có lỗi xảy ra: ' + saveError.message, true);
