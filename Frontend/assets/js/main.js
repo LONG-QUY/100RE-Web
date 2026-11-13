@@ -116,7 +116,6 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
     function setAdminState(isAdmin, username = '100re') {
-    const wsLink = document.getElementById('navWorkspaceLink');
     const dropdown = ensureUserDropdown();
     const controlActions = document.querySelector('.control-actions');
     const mainAddBtn = document.getElementById('btnMainAddMember');
@@ -151,7 +150,6 @@ document.addEventListener('DOMContentLoaded', () => {
         `;
         navLoginBtn.setAttribute('title', `Tài khoản: ${username} (Bấm để mở menu / Đăng xuất)`);
       }
-      if (wsLink) wsLink.style.display = 'block';
     } else {
       document.body.classList.remove('admin-mode');
       if (controlActions) controlActions.style.display = 'none';
@@ -164,7 +162,6 @@ document.addEventListener('DOMContentLoaded', () => {
         navLoginBtn.removeAttribute('title');
       }
       if (dropdown) dropdown.classList.remove('show');
-      if (wsLink) wsLink.style.display = 'none';
     }
   }
 
@@ -172,6 +169,8 @@ document.addEventListener('DOMContentLoaded', () => {
   // 3. Load & Render Members from API
   // ==========================================
   async function loadMembers() {
+    if (!document.querySelector('.team-members-grid')) return;
+
     // 1. Immediately render cached or default members so page is NEVER blank
     const saved = localStorage.getItem('100re_local_members');
     if (saved) {
@@ -457,9 +456,6 @@ document.addEventListener('DOMContentLoaded', () => {
             <small id="dropdownUserRole">Quản trị viên (Supervisor)</small>
           </div>
         </div>
-        <a href="workspace/index.html" class="user-dropdown-item">
-          <i class="fa-solid fa-flask-vial" style="color:#16a34a;"></i> 100RE Workspace
-        </a>
         <a href="members.html" class="user-dropdown-item">
           <i class="fa-solid fa-users" style="color:#0284c7;"></i> Danh Sách Thành Viên
         </a>
@@ -1756,34 +1752,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  function initWorkspaceNav() {
-    const navMenu = document.querySelector('.nav-menu');
-    if (navMenu && !document.getElementById('navWorkspaceLink')) {
-      const li = document.createElement('li');
-      li.className = 'nav-item';
-      li.id = 'navWorkspaceLink';
-      const isAuth = !!(currentAuthToken || localStorage.getItem('100re_token'));
-      li.style.display = isAuth ? 'block' : 'none';
-      li.innerHTML = `
-        <a href="workspace/index.html" class="nav-link" style="color:#4ade80; font-weight:700; display:inline-flex; align-items:center; gap:6px;">
-          <i class="fa-solid fa-flask-vial"></i> Workspace
-        </a>
-      `;
-      const loginItem = document.getElementById('loginNavItem') || document.querySelector('.nav-item:last-child');
-      if (loginItem) {
-        navMenu.insertBefore(li, loginItem);
-      } else {
-        navMenu.appendChild(li);
-      }
-    }
-  }
-
   // Initialize All UX Enhancements
   checkAuthStatus();
   loadMembers();
   initAnimatedCounters();
   initSearchUX();
-  initWorkspaceNav();
 });
 
 

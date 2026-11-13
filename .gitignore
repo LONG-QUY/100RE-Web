@@ -21,3 +21,6 @@ scratch/
 *.secret
 node_modules/
 .wrangler/
+
+# Local-only Lab Workspace frontend
+/Frontend/workspace/
