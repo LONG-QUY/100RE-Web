@@ -1650,42 +1650,26 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // ==========================================
-  // 9. Animated Number Counters UX
+  // 9. Homepage Stats Entrance
   // ==========================================
-  function initAnimatedCounters() {
-    const statEls = document.querySelectorAll('.stat-number');
-    if (!statEls.length) return;
+  function initStatsEntrance() {
+    const section = document.querySelector('.stats-section');
+    if (!section || !('IntersectionObserver' in window) ||
+        window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
-    const observer = new IntersectionObserver((entries, obs) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const el = entry.target;
-          const originalText = el.textContent.trim();
-          const match = originalText.match(/^(\d+)(.*)$/);
-          if (match) {
-            const targetNum = parseInt(match[1], 10);
-            const suffix = match[2];
-            let current = 0;
-            const duration = 1000;
-            const stepTime = 20;
-            const increment = targetNum / (duration / stepTime);
+    const observer = new IntersectionObserver(([entry]) => {
+      if (!entry.isIntersecting) return;
+      observer.disconnect();
 
-            const timer = setInterval(() => {
-              current += increment;
-              if (current >= targetNum) {
-                el.textContent = `${targetNum}${suffix}`;
-                clearInterval(timer);
-              } else {
-                el.textContent = `${Math.floor(current)}${suffix}`;
-              }
-            }, stepTime);
-          }
-          obs.unobserve(el);
-        }
+      section.querySelectorAll('.stat-card').forEach(card => {
+        card.animate([
+          { opacity: 0.85, translate: '0 6px' },
+          { opacity: 1, translate: '0 0' }
+        ], { duration: 240, easing: 'cubic-bezier(0.16, 1, 0.3, 1)' });
       });
-    }, { threshold: 0.2 });
+    });
 
-    statEls.forEach(el => observer.observe(el));
+    observer.observe(section);
   }
 
   // ==========================================
@@ -1790,7 +1774,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Initialize All UX Enhancements
   checkAuthStatus();
   loadMembers();
-  initAnimatedCounters();
+  initStatsEntrance();
   initSearchUX();
 });
 
