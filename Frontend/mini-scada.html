@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mini SCADA | 100RE LABORATORY</title>
-  <meta name="description" content="100RE Mini SCADA System - Real-time rooftop photovoltaic monitoring, DAQ data acquisition, and automated matrix array reconfiguration at HUST D9 Building.">
+  <title>SCADA PV &amp; Digital Twin PV | 100RE LABORATORY</title>
+  <meta name="description" content="SCADA PV and Digital Twin PV at 100RE Laboratory: system information, technical specifications and real installation photos.">
   <link rel="icon" type="image/jpeg" href="assets/images/logo.jpg">
   
   <!-- FontAwesome Icons -->
@@ -13,6 +13,7 @@
   <!-- Custom Stylesheets -->
   <link rel="stylesheet" href="assets/css/style.css?v=public-navigation-20261114">
   <link rel="stylesheet" href="assets/css/pages.css">
+  <link rel="stylesheet" href="assets/css/pv-systems.css?v=20261114-1">
 </head>
 <body>
 
@@ -21,7 +22,6 @@
     <div class="container">
       <div class="admin-badge-info"><i class="fa-solid fa-circle-check"></i> <span>Admin Mode (Logged in as <strong id="adminUsername">100re</strong>)</span></div>
       <div class="admin-actions">
-        <button class="btn-admin btn-admin-add" id="btnAdminAddMember"><i class="fa-solid fa-plus"></i> Add Member</button>
         <button class="btn-admin btn-admin-logout" id="btnAdminLogout"><i class="fa-solid fa-right-from-bracket"></i> Logout</button>
       </div>
     </div>
@@ -33,7 +33,7 @@
       <a href="index.html" class="logo-wrapper" title="100RE Laboratory - Toward 100% Renewable Energy">
         <img src="assets/images/logo.jpg" alt="100RE Laboratory Logo" class="logo-img">
       </a>
-      <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle navigation" aria-controls="navMenu" aria-expanded="false" aria-controls="navMenu" aria-expanded="false"><i class="fa-solid fa-bars"></i></button>
+      <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle navigation" aria-controls="navMenu" aria-expanded="false"><i class="fa-solid fa-bars"></i></button>
       <!-- Public Navigation: 7 Primary Destinations -->
       <nav aria-label="Main navigation"><ul class="nav-menu" id="navMenu">
 <li class="nav-item"><a href="index.html" class="nav-link">About Lab</a></li>
@@ -41,95 +41,24 @@
 <li class="nav-item has-dropdown"><a href="research-areas.html" class="nav-link">Research Teams</a><button type="button" class="nav-submenu-toggle" aria-label="Show Research Teams menu" aria-expanded="false" aria-controls="public-submenu-2"><i class="fa-solid fa-chevron-down" aria-hidden="true"></i></button><ul class="dropdown-menu" id="public-submenu-2"><li class="dropdown-item"><a href="research-areas.html">8 Research Teams</a></li><li class="dropdown-item"><a href="members.html">Researchers &amp; Members</a></li><li class="dropdown-item"><a href="alumni.html">Lab Alumni</a></li><li class="dropdown-item"><a href="projects.html">Research Projects</a></li><li class="dropdown-item"><a href="research-experiences.html">Research Experiences</a></li></ul></li>
 <li class="nav-item has-dropdown"><a href="news.html" class="nav-link">News &amp; Activities</a><button type="button" class="nav-submenu-toggle" aria-label="Show News &amp; Activities menu" aria-expanded="false" aria-controls="public-submenu-3"><i class="fa-solid fa-chevron-down" aria-hidden="true"></i></button><ul class="dropdown-menu" id="public-submenu-3"><li class="dropdown-item"><a href="news.html">News</a></li><li class="dropdown-item"><a href="journey.html">Lab Journey</a></li><li class="dropdown-item"><a href="photos.html">Gallery &amp; Activities</a></li></ul></li>
 <li class="nav-item has-dropdown"><a href="collaborations.html" class="nav-link">Collaborators &amp; Funding</a><button type="button" class="nav-submenu-toggle" aria-label="Show Collaborators &amp; Funding menu" aria-expanded="false" aria-controls="public-submenu-4"><i class="fa-solid fa-chevron-down" aria-hidden="true"></i></button><ul class="dropdown-menu" id="public-submenu-4"><li class="dropdown-item"><a href="collaborations.html">Collaborators</a></li><li class="dropdown-item"><a href="collaborations.html#funding">Funding &amp; Support</a></li><li class="dropdown-item"><a href="fund-raise.html">Support the Lab</a></li></ul></li>
-<li class="nav-item has-dropdown"><a href="mini-scada.html" class="nav-link active" aria-current="page">Digital Systems &amp; SCADA</a><button type="button" class="nav-submenu-toggle" aria-label="Show Digital Systems &amp; SCADA menu" aria-expanded="false" aria-controls="public-submenu-5"><i class="fa-solid fa-chevron-down" aria-hidden="true"></i></button><ul class="dropdown-menu" id="public-submenu-5"><li class="dropdown-item"><a href="mini-scada.html">Digital Systems &amp; SCADA</a></li><li class="dropdown-item"><a href="lab-equipment.html">Equipment &amp; Testbeds</a></li><li class="dropdown-item"><a href="useful-links.html">Useful Links</a></li></ul></li>
+<li class="nav-item has-dropdown"><a href="mini-scada.html" class="nav-link active" aria-current="page">Digital Systems &amp; SCADA</a><button type="button" class="nav-submenu-toggle" aria-label="Show Digital Systems &amp; SCADA menu" aria-expanded="false" aria-controls="public-submenu-5"><i class="fa-solid fa-chevron-down" aria-hidden="true"></i></button><ul class="dropdown-menu" id="public-submenu-5"><li class="dropdown-item"><a href="mini-scada.html#scada-pv">SCADA PV</a></li><li class="dropdown-item"><a href="mini-scada.html#digital-twin-pv">Digital Twin PV</a></li><li class="dropdown-item"><a href="lab-equipment.html">Equipment &amp; Testbeds</a></li><li class="dropdown-item"><a href="useful-links.html">Useful Links</a></li></ul></li>
 <li class="nav-item"><a href="join-us.html" class="nav-link">How to Join Us</a></li>
 <li class="nav-item" id="loginNavItem"><button class="nav-link btn-nav-login" id="navLoginBtn"><i class="fa-solid fa-lock" aria-hidden="true"></i> Login</button></li>
 </ul></nav>
     </div>
   </header>
 
-  <!-- PAGE HERO -->
-  <section class="page-hero">
-    <div class="container">
-      <div class="breadcrumb-nav">
-        <a href="index.html">Home</a> <i class="fa-solid fa-chevron-right" style="font-size: 0.7rem;"></i> <span>Mini SCADA System</span>
-      </div>
-      <h1 class="page-hero-title">Digital Systems <span>&amp; SCADA</span></h1>
-      <p class="page-hero-desc">
-        Real-time telemetry, data acquisition (DAQ), fault diagnosis, and dynamic switching array reconfiguration for the 3.6 kW rooftop solar power system at HUST D9 Building.
-      </p>
+<main class="container pv-systems">
+    <h1>Digital Systems &amp; SCADA</h1>
+    <p class="pv-intro">SCADA PV &amp; Digital Twin PV</p>
+    <div class="pv-tabs" role="tablist" aria-label="PV systems">
+      <button type="button" class="pv-tab" role="tab" id="tab-scada-pv" aria-controls="scada-pv" aria-selected="true">SCADA PV</button>
+      <button type="button" class="pv-tab" role="tab" id="tab-digital-twin-pv" aria-controls="digital-twin-pv" aria-selected="false" tabindex="-1">Digital Twin PV</button>
     </div>
-  </section>
-
-  <!-- MAIN MINI SCADA CONTENT -->
-  <main class="container section">
-<section class="directory-section" aria-labelledby="systems-directory"><h2 id="systems-directory">Digital Systems &amp; SCADA</h2><p>Explore the lab?s SCADA demonstration and equipment. The telemetry preview below uses simulated values; it is not connected to live station data.</p><nav class="section-links" aria-label="Lab systems"><a href="#scada-preview">SCADA Demonstration</a><a href="lab-equipment.html">Equipment &amp; Testbeds</a><a href="useful-links.html">Useful Links</a></nav></section><div id="scada-preview"></div>
-    
-    <!-- 1. Live Telemetry Dashboard Preview -->
-    <div style="background: #0f172a; color: #ffffff; border: 1px solid #1e293b; border: 1px solid #e2e8f0; box-shadow: 0 1px 3px rgba(15, 23, 42, 0.05); padding: 28px; margin-bottom: 40px;">
-      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; flex-wrap: wrap; gap: 10px;">
-        <div>
-          <span style="font-size: 0.75rem; font-weight: 700; color: #10b981; background: rgba(16,185,129,0.15); padding: 3px 10px; border: 1px solid #10b981; text-transform: uppercase;">
-            <i class="fa-solid fa-circle-dot fa-fade" style="margin-right: 5px;"></i> Simulated Telemetry ? Demo
-          </span>
-          <h2 style="font-family: 'Oswald', sans-serif; font-size: 1.6rem; margin-top: 6px;">HUST D9 Rooftop PV Station (3.6 kWp)</h2>
-        </div>
-        <div style="color: #94a3b8; font-size: 0.85rem;" id="scadaClock">Updating...</div>
-      </div>
-
-      <!-- Telemetry Gauges Grid -->
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px;">
-        <div style="background: #1e293b; padding: 18px; border: 1px solid #e2e8f0; box-shadow: 0 1px 3px rgba(15, 23, 42, 0.05);">
-          <div style="font-size: 0.8rem; color: #94a3b8; text-transform: uppercase; font-weight: 600;">Active Power</div>
-          <div style="font-family: 'Oswald', sans-serif; font-size: 2.2rem; font-weight: 700; color: #4ade80; margin-top: 4px;" id="scadaPower">3.24 kW</div>
-          <div style="font-size: 0.75rem; color: #64748b;">Growatt 3600MTL-S</div>
-        </div>
-
-        <div style="background: #1e293b; padding: 18px; border: 1px solid #e2e8f0; box-shadow: 0 1px 3px rgba(15, 23, 42, 0.05);">
-          <div style="font-size: 0.8rem; color: #94a3b8; text-transform: uppercase; font-weight: 600;">Solar Irradiance</div>
-          <div style="font-family: 'Oswald', sans-serif; font-size: 2.2rem; font-weight: 700; color: #f59e0b; margin-top: 4px;" id="scadaIrradiance">845 W/m²</div>
-          <div style="font-size: 0.75rem; color: #64748b;">Tenmars TM-207 Sensor</div>
-        </div>
-
-        <div style="background: #1e293b; padding: 18px; border: 1px solid #e2e8f0; box-shadow: 0 1px 3px rgba(15, 23, 42, 0.05);">
-          <div style="font-size: 0.8rem; color: #94a3b8; text-transform: uppercase; font-weight: 600;">Grid Frequency</div>
-          <div style="font-family: 'Oswald', sans-serif; font-size: 2.2rem; font-weight: 700; color: #10b981; margin-top: 4px;" id="scadaFreq">50.02 Hz</div>
-          <div style="font-size: 0.75rem; color: #64748b;">Nominal 50.00 Hz</div>
-        </div>
-
-        <div style="background: #1e293b; padding: 18px; border: 1px solid #e2e8f0; box-shadow: 0 1px 3px rgba(15, 23, 42, 0.05);">
-          <div style="font-size: 0.8rem; color: #94a3b8; text-transform: uppercase; font-weight: 600;">Array Temperature</div>
-          <div style="font-family: 'Oswald', sans-serif; font-size: 2.2rem; font-weight: 700; color: #ec4899; margin-top: 4px;" id="scadaTemp">42.8 °C</div>
-          <div style="font-size: 0.75rem; color: #64748b;">PT100 RTD Sensor</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- 2. System Architecture & Features -->
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 28px; margin-bottom: 40px;">
-      <div style="background: #ffffff; border: 1px solid #e2e8f0; border: 1px solid #e2e8f0; box-shadow: 0 1px 3px rgba(15, 23, 42, 0.05); padding: 24px;">
-        <h3 style="font-family: 'Oswald', sans-serif; font-size: 1.3rem; color: #0f172a; margin-bottom: 10px;">
-          <i class="fa-solid fa-server" style="color: #16a34a; margin-right: 8px;"></i> Hardware Architecture
-        </h3>
-        <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 8px; font-size: 0.9rem; color: #475569;">
-          <li><i class="fa-solid fa-check" style="color: #16a34a; margin-right: 6px;"></i> <strong>PV Array:</strong> 12 monocrystalline silicon panels configured in series/parallel.</li>
-          <li><i class="fa-solid fa-check" style="color: #16a34a; margin-right: 6px;"></i> <strong>Switching Matrix:</strong> High-speed solid-state relay array for dynamic string reconfiguration.</li>
-          <li><i class="fa-solid fa-check" style="color: #16a34a; margin-right: 6px;"></i> <strong>DAQ Unit:</strong> Hioki 8430-20 memory data logger with 10ms sampling rate.</li>
-        </ul>
-      </div>
-
-      <div style="background: #ffffff; border: 1px solid #e2e8f0; border: 1px solid #e2e8f0; box-shadow: 0 1px 3px rgba(15, 23, 42, 0.05); padding: 24px;">
-        <h3 style="font-family: 'Oswald', sans-serif; font-size: 1.3rem; color: #0f172a; margin-bottom: 10px;">
-          <i class="fa-solid fa-network-wired" style="color: #10b981; margin-right: 8px;"></i> Communication Protocols
-        </h3>
-        <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 8px; font-size: 0.9rem; color: #475569;">
-          <li><i class="fa-solid fa-check" style="color: #10b981; margin-right: 6px;"></i> <strong>Modbus RTU / TCP:</strong> Real-time inverter parameters &amp; power telemetry.</li>
-          <li><i class="fa-solid fa-check" style="color: #10b981; margin-right: 6px;"></i> <strong>IEC 60870-5-104:</strong> SCADA dispatching telecontrol standard compliant.</li>
-          <li><i class="fa-solid fa-check" style="color: #10b981; margin-right: 6px;"></i> <strong>MQTT / WebSocket:</strong> Sub-second streaming to laboratory master control screen.</li>
-        </ul>
-      </div>
-    </div>
-
+    <p id="pvLoadStatus" class="pv-notice" role="status" aria-live="polite">Loading system information...</p>
+    <section class="pv-panel" id="scada-pv" data-system="scada" role="tabpanel" aria-labelledby="tab-scada-pv" tabindex="0"></section>
+    <section class="pv-panel" id="digital-twin-pv" data-system="digitalTwin" role="tabpanel" aria-labelledby="tab-digital-twin-pv" tabindex="0" hidden></section>
+    <noscript>Please enable JavaScript to view and edit the two PV system profiles.</noscript>
   </main>
 
   <!-- FOOTER -->
@@ -173,37 +102,112 @@
     </div>
   </footer>
 
+<div class="modal-backdrop" id="loginModal">
+
+    <div class="modal-card member-login-card">
+
+      <button class="modal-close-btn" id="loginModalCloseBtn" aria-label="Close modal"><i class="fa-solid fa-xmark"></i></button>
+
+      
+
+      <!-- Brand Header -->
+
+      <div class="member-login-header">
+
+        <div class="member-login-badge">
+
+          <i class="fa-solid fa-bolt-lightning"></i> 100RE LAB PORTAL
+
+        </div>
+
+        <h3 class="member-login-title">Đăng Nhập Thành Viên</h3>
+
+        <p class="member-login-desc">Cổng thông tin &amp; không gian làm việc nghiên cứu phòng Lab</p>
+
+      </div>
+
+
+
+      <div class="form-alert-error" id="loginErrorAlert"></div>
+
+
+
+      <form id="loginForm" class="member-login-form">
+
+        <div class="member-form-group">
+
+          <label class="member-form-label" for="loginUsername">
+
+            <i class="fa-regular fa-user"></i> Tên đăng nhập hoặc Email
+
+          </label>
+
+          <div class="member-input-wrap">
+
+            <input type="text" id="loginUsername" class="member-form-input" placeholder="Nhập tên đăng nhập hoặc email" required autocomplete="username">
+
+          </div>
+
+        </div>
+
+
+
+        <div class="member-form-group">
+
+          <label class="member-form-label" for="loginPassword">
+
+            <i class="fa-solid fa-lock"></i> Mật khẩu
+
+          </label>
+
+          <div class="member-input-wrap" style="position: relative;">
+
+            <input type="password" id="loginPassword" class="member-form-input" placeholder="Nhập mật khẩu của bạn" required autocomplete="current-password">
+
+            <button type="button" class="btn-toggle-pwd" id="btnToggleLoginPwd" aria-label="Hiện/ẩn mật khẩu">
+
+              <i class="fa-regular fa-eye" id="pwdToggleIcon"></i>
+
+            </button>
+
+          </div>
+
+        </div>
+
+
+
+        <button type="submit" class="btn-member-login-submit">
+
+          <span>Đăng Nhập Không Gian Lab</span>
+
+          <i class="fa-solid fa-arrow-right-to-bracket"></i>
+
+        </button>
+
+
+
+        <div class="member-login-footer-hint">
+
+          <i class="fa-solid fa-shield-halved" style="color: #16a34a; margin-right: 4px;"></i>
+
+          <span>Dành cho Ban Cố vấn, Nghiên cứu viên và Sinh viên 100RE Lab</span>
+
+        </div>
+
+      </form>
+
+    </div>
+
+  </div>
+
+
+
+  
+<div class="toast-container" id="toastContainer"></div>
   <button class="back-to-top" id="backToTop" aria-label="Back to top"><i class="fa-solid fa-arrow-up"></i></button>
 
   <script src="assets/js/data.js"></script>
   <script src="assets/js/public-site.js?v=public-navigation-20261114"></script>
-  <script>
-    // Live Telemetry Simulation
-    setInterval(() => {
-      const clock = document.getElementById('scadaClock');
-      const power = document.getElementById('scadaPower');
-      const irr = document.getElementById('scadaIrradiance');
-      const freq = document.getElementById('scadaFreq');
-      const temp = document.getElementById('scadaTemp');
-
-      if (clock) clock.textContent = `Demo updated: ${new Date().toLocaleTimeString()} (simulated)`;
-      if (power) {
-        const val = (3.15 + Math.random() * 0.25).toFixed(2);
-        power.textContent = `${val} kW`;
-      }
-      if (irr) {
-        const val = Math.floor(830 + Math.random() * 35);
-        irr.textContent = `${val} W/m²`;
-      }
-      if (freq) {
-        const val = (49.98 + Math.random() * 0.05).toFixed(2);
-        freq.textContent = `${val} Hz`;
-      }
-      if (temp) {
-        const val = (42.0 + Math.random() * 1.5).toFixed(1);
-        temp.textContent = `${val} °C`;
-      }
-    }, 2500);
-  </script>
+  <script src="assets/js/pv-systems.js?v=research-1"></script>
 </body>
 </html>

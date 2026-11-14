@@ -22,7 +22,8 @@ NAVIGATION = [
         ('Funding & Support', 'collaborations.html#funding'),
         ('Support the Lab', 'fund-raise.html')]),
     ('Digital Systems & SCADA', 'mini-scada.html', [
-        ('Digital Systems & SCADA', 'mini-scada.html'),
+        ('SCADA PV', 'mini-scada.html#scada-pv'),
+        ('Digital Twin PV', 'mini-scada.html#digital-twin-pv'),
         ('Equipment & Testbeds', 'lab-equipment.html'),
         ('Useful Links', 'useful-links.html')]),
     ('How to Join Us', 'join-us.html', [])
@@ -33,6 +34,8 @@ def render(page):
     for index, (label, href, children) in enumerate(NAVIGATION):
         active = page == href or any(page == url.split('#')[0] for _, url in children)
         if page == 'about.html' and href == 'index.html':
+            active = True
+        if page == 'research-team.html' and href == 'research-areas.html':
             active = True
         current = ' aria-current="page"' if page == href else ''
         link = f'<a href="{href}" class="nav-link{" active" if active else ""}"{current}>{escape(label)}</a>'
@@ -54,7 +57,7 @@ if __name__ == '__main__':
         source = original.decode('utf-8').replace('\r\r\n', '\n').replace('\r\n', '\n')
         source, count = re.subn(r'<nav>\s*<ul class="nav-menu" id="navMenu">.*?</nav>|<nav aria-label="Main navigation">.*?</nav>', render(path.name), source, count=1, flags=re.S)
         if count:
-            source = source.replace('id="mobileToggle" aria-label="Toggle navigation"', 'id="mobileToggle" aria-label="Toggle navigation" aria-controls="navMenu" aria-expanded="false"')
+            source = re.sub(r'<button class="mobile-toggle"[^>]*>', '<button class="mobile-toggle" id="mobileToggle" aria-label="Toggle navigation" aria-controls="navMenu" aria-expanded="false">', source)
             source = re.sub(r'(assets/js/public-site\.js)(?:\?[^"\s]*)?', r'\1?v=public-navigation-20261114', source)
             source = re.sub(r'(assets/css/style\.css)(?:\?[^"\s]*)?', r'\1?v=public-navigation-20261114', source)
             path.write_bytes(source.replace('\n', newline).encode('utf-8'))

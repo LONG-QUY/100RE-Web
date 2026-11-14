@@ -205,13 +205,8 @@
                   <strong>Future Direction:</strong> ${item.futureDirections}
                 </div>
               ` : ''}
-              <details class="team-research-details">
-                <summary>Research details</summary>
-                ${item.vision ? `<h4>Research vision</h4><p>${item.vision}</p>` : ''}
-                ${topics.length ? `<h4>Research topics</h4><ul>${topics.map(topic => `<li>${topic}</li>`).join('')}</ul>` : ''}
-                ${item.conducted ? `<h4>Research &amp; experience</h4><p>${item.conducted}</p>` : ''}
-              </details>
-              ${memberTeam ? `<a class="research-card-link" href="members.html#team-${memberTeam}">Meet the team <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>` : ''}
+              <div class="pv-form-actions"><a class="pv-button" href="research-team.html?team=${encodeURIComponent(item.id)}">Khám phá nghiên cứu <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+              ${memberTeam ? `<a class="pv-button secondary" href="members.html#team-${memberTeam}">Thành viên</a>` : ''}</div>
               ${getAdminCardButtons('researchAreas', item.id)}
             </div>
           </article>

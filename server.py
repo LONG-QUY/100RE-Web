@@ -257,11 +257,17 @@ class AppHandler(http.server.SimpleHTTPRequestHandler):
         # Public Content Update allows authorization or local fallback
         if path.startswith('/api/public/content/') or path.startswith('/api/admin/content/'):
             key = path.split('/')[-1].strip()
+
+            if key in ('pvSystems', 'researchTeamProfiles') and not Security.verify_token(self.get_token()):
+                return self.send_json({'success': False, 'error': 'Unauthorized'}, status=401)
             content_length = int(self.headers.get('Content-Length', 0))
             put_data = self.rfile.read(content_length) if content_length > 0 else b'{}'
             try:
                 data = json.loads(put_data.decode('utf-8'))
-                save_content(key, data)
+                saved = save_content(key, data)
+
+                if key in ('pvSystems', 'researchTeamProfiles') and not saved:
+                    return self.send_json({'success': False, 'error': 'Could not save system content'}, status=500)
                 count = len(data) if isinstance(data, list) else 1
                 return self.send_json({'success': True, 'count': count, 'collection': key})
             except Exception as e:

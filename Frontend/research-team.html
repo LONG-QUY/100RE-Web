@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SCADA PV &amp; Digital Twin PV | 100RE LABORATORY</title>
+  <meta name="description" content="SCADA PV and Digital Twin PV at 100RE Laboratory: system information, technical specifications and real installation photos.">
+  <link rel="icon" type="image/jpeg" href="assets/images/logo.jpg">
+  
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
+  <!-- Custom Stylesheets -->
+  <link rel="stylesheet" href="assets/css/style.css?v=public-navigation-20261114">
+  <link rel="stylesheet" href="assets/css/pages.css">
+  <link rel="stylesheet" href="assets/css/pv-systems.css?v=20261114-1">
+</head>
+<body>
+
+  <!-- ADMIN STATUS TOOLBAR -->
+  <div class="admin-topbar" id="adminTopbar">
+    <div class="container">
+      <div class="admin-badge-info"><i class="fa-solid fa-circle-check"></i> <span>Admin Mode (Logged in as <strong id="adminUsername">100re</strong>)</span></div>
+      <div class="admin-actions">
+        <button class="btn-admin btn-admin-logout" id="btnAdminLogout"><i class="fa-solid fa-right-from-bracket"></i> Logout</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- NAVIGATION BAR -->
+  <header class="navbar">
+    <div class="container nav-container">
+      <a href="index.html" class="logo-wrapper" title="100RE Laboratory - Toward 100% Renewable Energy">
+        <img src="assets/images/logo.jpg" alt="100RE Laboratory Logo" class="logo-img">
+      </a>
+      <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle navigation" aria-controls="navMenu" aria-expanded="false"><i class="fa-solid fa-bars"></i></button>
+      <!-- Public Navigation: 7 Primary Destinations -->
+      <nav aria-label="Main navigation"><ul class="nav-menu" id="navMenu">
+<li class="nav-item"><a href="index.html" class="nav-link">About Lab</a></li>
+<li class="nav-item"><a href="publications.html" class="nav-link">Publications</a></li>
+<li class="nav-item has-dropdown"><a href="research-areas.html" class="nav-link active">Research Teams</a><button type="button" class="nav-submenu-toggle" aria-label="Show Research Teams menu" aria-expanded="false" aria-controls="public-submenu-2"><i class="fa-solid fa-chevron-down" aria-hidden="true"></i></button><ul class="dropdown-menu" id="public-submenu-2"><li class="dropdown-item"><a href="research-areas.html">8 Research Teams</a></li><li class="dropdown-item"><a href="members.html">Researchers &amp; Members</a></li><li class="dropdown-item"><a href="alumni.html">Lab Alumni</a></li><li class="dropdown-item"><a href="projects.html">Research Projects</a></li><li class="dropdown-item"><a href="research-experiences.html">Research Experiences</a></li></ul></li>
+<li class="nav-item has-dropdown"><a href="news.html" class="nav-link">News &amp; Activities</a><button type="button" class="nav-submenu-toggle" aria-label="Show News &amp; Activities menu" aria-expanded="false" aria-controls="public-submenu-3"><i class="fa-solid fa-chevron-down" aria-hidden="true"></i></button><ul class="dropdown-menu" id="public-submenu-3"><li class="dropdown-item"><a href="news.html">News</a></li><li class="dropdown-item"><a href="journey.html">Lab Journey</a></li><li class="dropdown-item"><a href="photos.html">Gallery &amp; Activities</a></li></ul></li>
+<li class="nav-item has-dropdown"><a href="collaborations.html" class="nav-link">Collaborators &amp; Funding</a><button type="button" class="nav-submenu-toggle" aria-label="Show Collaborators &amp; Funding menu" aria-expanded="false" aria-controls="public-submenu-4"><i class="fa-solid fa-chevron-down" aria-hidden="true"></i></button><ul class="dropdown-menu" id="public-submenu-4"><li class="dropdown-item"><a href="collaborations.html">Collaborators</a></li><li class="dropdown-item"><a href="collaborations.html#funding">Funding &amp; Support</a></li><li class="dropdown-item"><a href="fund-raise.html">Support the Lab</a></li></ul></li>
+<li class="nav-item has-dropdown"><a href="mini-scada.html" class="nav-link">Digital Systems &amp; SCADA</a><button type="button" class="nav-submenu-toggle" aria-label="Show Digital Systems &amp; SCADA menu" aria-expanded="false" aria-controls="public-submenu-5"><i class="fa-solid fa-chevron-down" aria-hidden="true"></i></button><ul class="dropdown-menu" id="public-submenu-5"><li class="dropdown-item"><a href="mini-scada.html#scada-pv">SCADA PV</a></li><li class="dropdown-item"><a href="mini-scada.html#digital-twin-pv">Digital Twin PV</a></li><li class="dropdown-item"><a href="lab-equipment.html">Equipment &amp; Testbeds</a></li><li class="dropdown-item"><a href="useful-links.html">Useful Links</a></li></ul></li>
+<li class="nav-item"><a href="join-us.html" class="nav-link">How to Join Us</a></li>
+<li class="nav-item" id="loginNavItem"><button class="nav-link btn-nav-login" id="navLoginBtn"><i class="fa-solid fa-lock" aria-hidden="true"></i> Login</button></li>
+</ul></nav>
+    </div>
+  </header>
+
+<main class="container pv-systems">
+<nav class="section-links" aria-label="Research navigation"><a href="research-areas.html">All Research Teams</a><a id="researchMemberLink" href="members.html">Thành viên của nhóm</a></nav>
+<h1 id="researchTitle">Research Team</h1>
+<p class="pv-intro">Hướng nghiên cứu, phương pháp, kết quả và hình ảnh hoạt động nghiên cứu của nhóm.</p>
+<div id="researchProfiles"><p id="pvLoadStatus" class="pv-notice" role="status">Loading research information...</p></div>
+</main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <h4 class="footer-col-title">Supervisor</h4>
+          <ul class="footer-info-list">
+            <li class="footer-info-item"><i class="fa-solid fa-user-tie"></i><div><strong>Nguyen Duc Tuyen</strong>, Assoc. Prof</div></li>
+            <li class="footer-info-item"><i class="fa-solid fa-phone"></i><div>Tel: <a href="tel:+84986509059">+84 986 509 059</a></div></li>
+            <li class="footer-info-item"><i class="fa-solid fa-envelope"></i><div>Mail 1: <a href="mailto:tuyen.nguyenduc@hust.edu.vn">tuyen.nguyenduc@hust.edu.vn</a></div></li>
+            <li class="footer-info-item"><i class="fa-solid fa-envelope-open-text"></i><div>Mail 2: <a href="mailto:i029999@shibaura-it.ac.jp">i029999@shibaura-it.ac.jp</a></div></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4 class="footer-col-title">Contact for Information</h4>
+          <ul class="footer-info-list">
+            <li class="footer-info-item"><i class="fa-solid fa-user-graduate"></i><div><strong>Nguyen Tuan Anh</strong>, B.Eng</div></li>
+            <li class="footer-info-item"><i class="fa-solid fa-phone"></i><div>Tel: <a href="tel:+84974812546">+84 974 812 546</a></div></li>
+            <li class="footer-info-item"><i class="fa-solid fa-envelope"></i><div>Mail: <a href="mailto:anh.nt196322@sis.hust.edu.vn">anh.nt196322@sis.hust.edu.vn</a></div></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4 class="footer-col-title">Laboratory Offices</h4>
+          <ul class="footer-info-list">
+            <li class="footer-info-item"><i class="fa-solid fa-location-dot"></i><div><strong>D9-300 &amp; C7-503</strong><br>Hanoi University of Science and Technology (HUST)<br>No. 1 Dai Co Viet, Hai Ba Trung, Hanoi, Vietnam</div></li>
+            <li class="footer-info-item"><i class="fa-solid fa-globe"></i><div>Website: <a href="https://www.100relab.com" target="_blank" rel="noopener noreferrer">www.100relab.com</a></div></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 100RE LABORATORY. All rights reserved. Toward 100% Renewable Energy.</p>
+        <div class="footer-social-links">
+          <a href="https://www.100relab.com" class="social-link" title="Website"><i class="fa-solid fa-globe"></i></a>
+          <a href="https://scholar.google.com/citations?user=89Jk4L0AAAAJ&hl=en" class="social-link" title="Google Scholar"><i class="fa-brands fa-google-scholar"></i></a>
+          <a href="https://orcid.org/0000-0001-7107-3897" class="social-link" title="ORCID"><i class="fa-brands fa-orcid"></i></a>
+          <a href="mailto:tuyen.nguyenduc@hust.edu.vn" class="social-link" title="Email"><i class="fa-solid fa-envelope"></i></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+<div class="modal-backdrop" id="loginModal">
+
+    <div class="modal-card member-login-card">
+
+      <button class="modal-close-btn" id="loginModalCloseBtn" aria-label="Close modal"><i class="fa-solid fa-xmark"></i></button>
+
+      
+
+      <!-- Brand Header -->
+
+      <div class="member-login-header">
+
+        <div class="member-login-badge">
+
+          <i class="fa-solid fa-bolt-lightning"></i> 100RE LAB PORTAL
+
+        </div>
+
+        <h3 class="member-login-title">Đăng Nhập Thành Viên</h3>
+
+        <p class="member-login-desc">Cổng thông tin &amp; không gian làm việc nghiên cứu phòng Lab</p>
+
+      </div>
+
+
+
+      <div class="form-alert-error" id="loginErrorAlert"></div>
+
+
+
+      <form id="loginForm" class="member-login-form">
+
+        <div class="member-form-group">
+
+          <label class="member-form-label" for="loginUsername">
+
+            <i class="fa-regular fa-user"></i> Tên đăng nhập hoặc Email
+
+          </label>
+
+          <div class="member-input-wrap">
+
+            <input type="text" id="loginUsername" class="member-form-input" placeholder="Nhập tên đăng nhập hoặc email" required autocomplete="username">
+
+          </div>
+
+        </div>
+
+
+
+        <div class="member-form-group">
+
+          <label class="member-form-label" for="loginPassword">
+
+            <i class="fa-solid fa-lock"></i> Mật khẩu
+
+          </label>
+
+          <div class="member-input-wrap" style="position: relative;">
+
+            <input type="password" id="loginPassword" class="member-form-input" placeholder="Nhập mật khẩu của bạn" required autocomplete="current-password">
+
+            <button type="button" class="btn-toggle-pwd" id="btnToggleLoginPwd" aria-label="Hiện/ẩn mật khẩu">
+
+              <i class="fa-regular fa-eye" id="pwdToggleIcon"></i>
+
+            </button>
+
+          </div>
+
+        </div>
+
+
+
+        <button type="submit" class="btn-member-login-submit">
+
+          <span>Đăng Nhập Không Gian Lab</span>
+
+          <i class="fa-solid fa-arrow-right-to-bracket"></i>
+
+        </button>
+
+
+
+        <div class="member-login-footer-hint">
+
+          <i class="fa-solid fa-shield-halved" style="color: #16a34a; margin-right: 4px;"></i>
+
+          <span>Dành cho Ban Cố vấn, Nghiên cứu viên và Sinh viên 100RE Lab</span>
+
+        </div>
+
+      </form>
+
+    </div>
+
+  </div>
+
+
+
+  
+<div class="toast-container" id="toastContainer"></div>
+  <button class="back-to-top" id="backToTop" aria-label="Back to top"><i class="fa-solid fa-arrow-up"></i></button>
+
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/public-site.js?v=public-navigation-20261114"></script>
+  <script src="assets/js/research-team.js?v=1"></script>
+<script src="assets/js/pv-systems.js?v=research-1"></script>
+</body>
+</html>
