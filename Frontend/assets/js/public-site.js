@@ -49,6 +49,112 @@ document.addEventListener('DOMContentLoaded', () => {
   let allMembers = [];
   let currentAuthToken = localStorage.getItem('100re_token') || null;
 
+  // Some public pages only provide the navigation. Install the shared login UI
+  // before looking up its fields, while preserving pages with an existing modal.
+  if (document.getElementById('navLoginBtn') && !document.getElementById('loginModal')) {
+    document.body.insertAdjacentHTML('beforeend', `<div class="modal-backdrop" id="loginModal">
+
+    <div class="modal-card member-login-card">
+
+      <button class="modal-close-btn" id="loginModalCloseBtn" aria-label="Close modal"><i class="fa-solid fa-xmark"></i></button>
+
+      
+
+      <!-- Brand Header -->
+
+      <div class="member-login-header">
+
+        <div class="member-login-badge">
+
+          <i class="fa-solid fa-bolt-lightning"></i> 100RE LAB PORTAL
+
+        </div>
+
+        <h3 class="member-login-title">Đăng Nhập Thành Viên</h3>
+
+        <p class="member-login-desc">Cổng thông tin &amp; không gian làm việc nghiên cứu phòng Lab</p>
+
+      </div>
+
+
+
+      <div class="form-alert-error" id="loginErrorAlert"></div>
+
+
+
+      <form id="loginForm" class="member-login-form">
+
+        <div class="member-form-group">
+
+          <label class="member-form-label" for="loginUsername">
+
+            <i class="fa-regular fa-user"></i> Tên đăng nhập hoặc Email
+
+          </label>
+
+          <div class="member-input-wrap">
+
+            <input type="text" id="loginUsername" class="member-form-input" placeholder="Nhập tên đăng nhập hoặc email" required autocomplete="username">
+
+          </div>
+
+        </div>
+
+
+
+        <div class="member-form-group">
+
+          <label class="member-form-label" for="loginPassword">
+
+            <i class="fa-solid fa-lock"></i> Mật khẩu
+
+          </label>
+
+          <div class="member-input-wrap" style="position: relative;">
+
+            <input type="password" id="loginPassword" class="member-form-input" placeholder="Nhập mật khẩu của bạn" required autocomplete="current-password">
+
+            <button type="button" class="btn-toggle-pwd" id="btnToggleLoginPwd" aria-label="Hiện/ẩn mật khẩu">
+
+              <i class="fa-regular fa-eye" id="pwdToggleIcon"></i>
+
+            </button>
+
+          </div>
+
+        </div>
+
+
+
+        <button type="submit" class="btn-member-login-submit">
+
+          <span>Đăng Nhập Không Gian Lab</span>
+
+          <i class="fa-solid fa-arrow-right-to-bracket"></i>
+
+        </button>
+
+
+
+        <div class="member-login-footer-hint">
+
+          <i class="fa-solid fa-shield-halved" style="color: #16a34a; margin-right: 4px;"></i>
+
+          <span>Dành cho Ban Cố vấn, Nghiên cứu viên và Sinh viên 100RE Lab</span>
+
+        </div>
+
+      </form>
+
+    </div>
+
+  </div>
+
+
+
+  `);
+  }
+
   // DOM Elements
   const adminTopbar = document.getElementById('adminTopbar');
   const adminUsername = document.getElementById('adminUsername');
@@ -551,7 +657,9 @@ document.addEventListener('DOMContentLoaded', () => {
       } else {
         if (loginErrorAlert) loginErrorAlert.style.display = 'none';
         if (loginForm) loginForm.reset();
+        toggleMobileMenu(true);
         openModal(loginModal);
+        document.getElementById('loginUsername')?.focus();
       }
     });
   }

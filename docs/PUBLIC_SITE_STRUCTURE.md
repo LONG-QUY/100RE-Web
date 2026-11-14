@@ -10,7 +10,7 @@ storage and authentication remain outside this change.
 | Research Teams | `research-areas.html` | Eight teams, research details, members, supervisors and alumni; projects and research experiences remain accessible here |
 | News & Activities | `news.html` | News, Journey and photo gallery |
 | Collaborators & Funding | `collaborations.html` | Academic/industry collaborators, project funding links and lab support |
-| Digital Systems & SCADA | `mini-scada.html` | SCADA preview, equipment/testbeds and useful links |
+| Operational Systems | `mini-scada.html` | SCADA preview, equipment/testbeds and useful links |
 | How to Join Us | `join-us.html` | Choose a team, prepare CV/letter, email application |
 
 ## Research team fields

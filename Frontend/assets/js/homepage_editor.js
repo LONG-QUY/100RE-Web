@@ -10,6 +10,20 @@
   const STORAGE_KEY = '100re_homepage_content';
   const API_ENDPOINT = '/api/public/content/homepage';
 
+  function safeGoogleMapUrl(value) {
+    try {
+      const url = new URL(value);
+      return url.protocol === 'https:' && ['www.google.com', 'maps.google.com', 'maps.app.goo.gl'].includes(url.hostname) ? url.href : '';
+    } catch { return ''; }
+  }
+
+  function isGoogleMapEmbed(value) {
+    if (!safeGoogleMapUrl(value)) return false;
+    const url = new URL(value);
+    return url.hostname !== 'maps.app.goo.gl' &&
+      (url.pathname.startsWith('/maps/embed') || (url.pathname === '/maps' && url.searchParams.get('output') === 'embed'));
+  }
+
   // 1. Default Master Dataset for Homepage
   const DEFAULT_HOMEPAGE_DATA = {
     hero: {
@@ -143,7 +157,9 @@
       university: "Hanoi University of Science and Technology (HUST)",
       offices: "Offices: D9-300 & C7-503",
       address: "No. 1 Dai Co Viet Road, Hai Ba Trung District, Hanoi 100000, Vietnam",
-      mapsUrl: "https://maps.google.com/?q=Hanoi+University+of+Science+and+Technology"
+      mapsUrl: "https://maps.app.goo.gl/hFzpthDUJZuCCqko9",
+      mapsEmbedUrl: "https://maps.google.com/maps?q=21.0037956%2C105.8444671&z=19&output=embed",
+      directionsUrl: "https://www.google.com/maps/dir/?api=1&destination=21.0037956%2C105.8444671"
     },
     footer: {
       supervisorName: "Nguyen Duc Tuyen",
@@ -418,8 +434,14 @@
 
         const mapBtn = locSection.querySelector('.hp-location-map-btn');
         if (mapBtn && data.location.mapsUrl) {
-          mapBtn.href = data.location.mapsUrl;
+          mapBtn.href = data.location.mapsUrl === 'https://maps.google.com/?q=Hanoi+University+of+Science+and+Technology'
+            ? DEFAULT_HOMEPAGE_DATA.location.mapsUrl : safeGoogleMapUrl(data.location.mapsUrl) || DEFAULT_HOMEPAGE_DATA.location.mapsUrl;
         }
+        const frame = locSection.querySelector('.hp-location-map');
+        const embedUrl = data.location.mapsEmbedUrl || DEFAULT_HOMEPAGE_DATA.location.mapsEmbedUrl;
+        if (frame && isGoogleMapEmbed(embedUrl) && frame.getAttribute('src') !== embedUrl) frame.src = embedUrl;
+        const directions = locSection.querySelector('.hp-location-directions');
+        if (directions) directions.href = safeGoogleMapUrl(data.location.directionsUrl) || DEFAULT_HOMEPAGE_DATA.location.directionsUrl;
       }
     }
 
@@ -856,6 +878,14 @@
           <label class="hp-form-label">Đường dẫn Google Maps</label>
           <input type="text" class="hp-form-input" id="inp_loc_mapsUrl" value="${escapeAttr(d.mapsUrl)}">
         </div>
+        <div class="hp-form-group">
+          <label class="hp-form-label" for="inp_loc_embed">Đường dẫn nhúng bản đồ (URL trong thuộc tính src của iframe Google Maps)</label>
+          <input type="url" class="hp-form-input" id="inp_loc_embed" value="${escapeAttr(d.mapsEmbedUrl || DEFAULT_HOMEPAGE_DATA.location.mapsEmbedUrl)}">
+        </div>
+        <div class="hp-form-group">
+          <label class="hp-form-label" for="inp_loc_directions">Đường dẫn chỉ đường Google Maps</label>
+          <input type="url" class="hp-form-input" id="inp_loc_directions" value="${escapeAttr(d.directionsUrl || DEFAULT_HOMEPAGE_DATA.location.directionsUrl)}">
+        </div>
       `;
     } else if (sectionType === 'footer') {
       modalTitle.textContent = 'Chỉnh sửa: Thông Tin Footer & Liên Hệ';
@@ -1004,12 +1034,20 @@
         items
       };
     } else if (currentEditingSection === 'location') {
+      if (!isGoogleMapEmbed(document.getElementById('inp_loc_embed').value.trim()) ||
+          !safeGoogleMapUrl(document.getElementById('inp_loc_mapsUrl').value.trim()) ||
+          !safeGoogleMapUrl(document.getElementById('inp_loc_directions').value.trim())) {
+        window.AdminCRUD.notify('Vui lòng nhập đường dẫn Google Maps hợp lệ. Ô nhúng bản đồ cần URL nhúng, không phải toàn bộ mã iframe.', true);
+        return;
+      }
       data.location = {
         title: document.getElementById('inp_loc_title').value.trim(),
         university: document.getElementById('inp_loc_uni').value.trim(),
         offices: document.getElementById('inp_loc_offices').value.trim(),
         address: document.getElementById('inp_loc_address').value.trim(),
-        mapsUrl: document.getElementById('inp_loc_mapsUrl').value.trim()
+        mapsUrl: document.getElementById('inp_loc_mapsUrl').value.trim(),
+        mapsEmbedUrl: document.getElementById('inp_loc_embed').value.trim(),
+        directionsUrl: document.getElementById('inp_loc_directions').value.trim()
       };
     } else if (currentEditingSection === 'footer') {
       data.footer = {

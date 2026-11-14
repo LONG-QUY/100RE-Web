@@ -1184,6 +1184,9 @@ img {
   transition: var(--transition);
 }
 
+/* Login must appear above the sticky header and the mobile navigation. */
+#loginModal { z-index: 4000; }
+
 .modal-backdrop.show {
   opacity: 1;
   visibility: visible;
