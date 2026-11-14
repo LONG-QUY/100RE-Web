@@ -1552,6 +1552,8 @@ document.addEventListener('DOMContentLoaded', () => {
   function toggleMobileMenu(forceClose = false) {
     if (!navMenu || !mobileToggle) return;
     const isOpening = forceClose ? false : !navMenu.classList.contains('show');
+    mobileToggle.setAttribute('aria-expanded', String(isOpening));
+    navMenu.inert = window.innerWidth <= 1439 && !isOpening;
     if (isOpening) {
       navMenu.classList.add('show');
       mobileBackdrop.classList.add('show');
@@ -1585,29 +1587,58 @@ document.addEventListener('DOMContentLoaded', () => {
   navItems.forEach(item => {
     const link = item.querySelector('.nav-link');
     const dropdown = item.querySelector('.dropdown-menu');
-    if (dropdown && link) {
-      link.addEventListener('click', (e) => {
-        if (window.innerWidth <= 900) {
-          e.preventDefault();
-          e.stopPropagation();
-          item.classList.toggle('dropdown-open');
-        }
+    const submenuToggle = item.querySelector('.nav-submenu-toggle');
+    if (dropdown && submenuToggle) {
+      submenuToggle.addEventListener('click', () => {
+        const opening = !item.classList.contains('dropdown-open');
+        navItems.forEach(other => {
+          other.classList.remove('dropdown-open');
+          other.querySelector('.nav-submenu-toggle')?.setAttribute('aria-expanded', 'false');
+        });
+        item.classList.toggle('dropdown-open', opening);
+        submenuToggle.setAttribute('aria-expanded', String(opening));
       });
       const subLinks = dropdown.querySelectorAll('a');
       subLinks.forEach(subLink => {
         subLink.addEventListener('click', () => {
-          if (window.innerWidth <= 900) {
+          if (window.innerWidth <= 1439) {
             toggleMobileMenu(true);
           }
         });
       });
     } else if (link && !link.classList.contains('btn-nav-login')) {
       link.addEventListener('click', () => {
-        if (window.innerWidth <= 900) {
+        if (window.innerWidth <= 1439) {
           toggleMobileMenu(true);
         }
       });
     }
+  });
+
+  if (navMenu) navMenu.inert = window.innerWidth <= 1439;
+  document.addEventListener('keydown', event => {
+    if (event.key !== 'Escape') return;
+    const openItem = document.querySelector('.nav-item.dropdown-open');
+    if (openItem) {
+      openItem.classList.remove('dropdown-open');
+      const toggle = openItem.querySelector('.nav-submenu-toggle');
+      toggle?.setAttribute('aria-expanded', 'false');
+      toggle?.focus();
+    } else if (navMenu?.classList.contains('show')) {
+      toggleMobileMenu(true);
+      mobileToggle?.focus();
+    }
+  });
+  document.addEventListener('click', event => {
+    if (event.target.closest('.has-dropdown')) return;
+    navItems.forEach(item => {
+      item.classList.remove('dropdown-open');
+      item.querySelector('.nav-submenu-toggle')?.setAttribute('aria-expanded', 'false');
+    });
+  });
+  window.addEventListener('resize', () => {
+    if (window.innerWidth > 1439) toggleMobileMenu(true);
+    else if (navMenu) navMenu.inert = !navMenu.classList.contains('show');
   });
 
   const navbar = document.querySelector('.navbar');

@@ -2428,3 +2428,44 @@ body.admin-mode .card-admin-actions {
   transform: translateY(-1px);
   box-shadow: 0 5px 15px rgba(220, 38, 38, 0.4);
 }
+
+/* Public information architecture: seven primary destinations. */
+.navbar .nav-container { max-width: 1800px; padding-inline: 24px; gap: 24px; }
+.navbar .nav-link { font-size: .9rem; padding: 12px 9px; letter-spacing: 0; white-space: nowrap; }
+.navbar .has-dropdown { display: flex; align-items: center; }
+.nav-submenu-toggle { background: none; border: 0; color: #475569; padding: 12px 5px; cursor: pointer; min-width: 28px; min-height: 44px; }
+.nav-submenu-toggle i { font-size: .65rem; }
+.navbar .nav-item:hover .dropdown-menu { opacity: 0; visibility: hidden; }
+.navbar .nav-item.dropdown-open .dropdown-menu { opacity: 1; visibility: visible; transform: none; }
+.navbar .dropdown-menu { min-width: 245px; }
+.navbar a:focus-visible, .navbar button:focus-visible, .section-links a:focus-visible, summary:focus-visible { outline: 2px solid #15803d; outline-offset: 3px; }
+.section-links { display: flex; flex-wrap: wrap; gap: 12px 24px; margin-bottom: 32px; padding-block: 16px; border-block: 1px solid #e2e8f0; }
+.section-links a { color: #166534; font-weight: 600; text-decoration: underline; text-underline-offset: 4px; }
+.section-links a:hover { color: #0f172a; }
+.directory-section { margin-bottom: 40px; scroll-margin-top: 100px; }
+.directory-section h2 { font-size: 1.8rem; margin-bottom: 14px; color: #0f172a; }
+.directory-section p { max-width: 72ch; line-height: 1.7; margin-bottom: 20px; }
+.application-steps { padding-left: 24px; max-width: 75ch; }
+.application-steps li { padding-left: 8px; margin-block: 22px; }
+.application-steps h3 { font-size: 1.15rem; margin-bottom: 6px; }
+.application-steps a { color: #166534; text-decoration: underline; overflow-wrap: anywhere; }
+.team-block, #supervisors-section, #scada-preview, #academicGrid, #industryGrid { scroll-margin-top: 100px; }
+.team-research-details { margin-block: 12px 20px; font-size: .9rem; line-height: 1.65; }
+.team-research-details summary { color: #166534; font-weight: 600; cursor: pointer; padding-block: 8px; }
+.team-research-details h4 { margin-top: 16px; color: #0f172a; }
+.team-research-details ul { padding-left: 20px; }
+.research-card:hover .research-card-thumb { transform: none; }
+@media (max-width: 1439px) {
+  .navbar .nav-menu { position: fixed; top: 0; right: -360px; width: min(340px, 100vw); height: 100dvh; background: #fff; flex-direction: column; align-items: stretch; padding: 80px 20px 30px; gap: 6px; border-left: 1px solid #e2e8f0; box-shadow: -6px 0 28px rgba(0,0,0,.15); overflow-y: auto; z-index: 3005; transition: right .25s ease; }
+  .navbar .nav-menu.show { right: 0; }
+  .navbar .mobile-toggle { display: block; position: relative; z-index: 3010; }
+  .navbar .has-dropdown { flex-wrap: wrap; }
+  .navbar .nav-item > .nav-link { flex: 1; font-size: 1rem; white-space: normal; padding: 12px 8px; }
+  .navbar .nav-submenu-toggle { width: 44px; }
+  .navbar .dropdown-menu { position: static; flex-basis: 100%; display: none; border: 0; background: #f8fafc; box-shadow: none; transform: none; margin: 0 0 8px; padding: 4px; min-width: 0; }
+  .navbar .nav-item.dropdown-open .dropdown-menu { display: block; }
+  .navbar .nav-container { padding-inline: 20px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .navbar *, .mobile-nav-backdrop { transition: none !important; }
+}

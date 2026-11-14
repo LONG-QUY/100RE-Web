@@ -11,7 +11,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   
   <!-- Custom Stylesheets -->
-  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/style.css?v=public-navigation-20261114">
   <link rel="stylesheet" href="assets/css/pages.css">
 </head>
 <body>
@@ -33,65 +33,18 @@
       <a href="index.html" class="logo-wrapper" title="100RE Laboratory - Toward 100% Renewable Energy">
         <img src="assets/images/logo.jpg" alt="100RE Laboratory Logo" class="logo-img">
       </a>
-      <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle navigation"><i class="fa-solid fa-bars"></i></button>
-      <!-- Modern 4-Category Distilled Navigation -->
-      <nav>
-        <ul class="nav-menu" id="navMenu">
-          <!-- 1. About & People -->
-          <li class="nav-item has-dropdown">
-            <a href="about.html" class="nav-link ">
-              <i class="fa-solid fa-circle-info"></i> About &amp; People <i class="fa-solid fa-chevron-down dropdown-icon"></i>
-            </a>
-            <ul class="dropdown-menu">
-              <li class="dropdown-item"><a href="about.html" class=""><i class="fa-solid fa-building-columns"></i> About Lab</a></li>
-              <li class="dropdown-item"><a href="members.html" class=""><i class="fa-solid fa-users"></i> Researchers &amp; Members</a></li>
-              <li class="dropdown-item"><a href="alumni.html" class=""><i class="fa-solid fa-user-graduate"></i> Lab Alumni</a></li>
-              <li class="dropdown-item"><a href="journey.html" class=""><i class="fa-solid fa-route"></i> Lab Journey</a></li>
-              <li class="dropdown-item"><a href="photos.html" class=""><i class="fa-solid fa-images"></i> Gallery &amp; Activities</a></li>
-            </ul>
-          </li>
-
-          <!-- 2. Research & Publications -->
-          <li class="nav-item has-dropdown">
-            <a href="research-areas.html" class="nav-link ">
-              <i class="fa-solid fa-flask"></i> Research &amp; Publications <i class="fa-solid fa-chevron-down dropdown-icon"></i>
-            </a>
-            <ul class="dropdown-menu">
-              <li class="dropdown-item"><a href="research-areas.html" class=""><i class="fa-solid fa-microscope"></i> 8 Research Teams</a></li>
-              <li class="dropdown-item"><a href="publications.html" class=""><i class="fa-solid fa-book-open"></i> Publications &amp; Papers</a></li>
-              <li class="dropdown-item"><a href="projects.html" class=""><i class="fa-solid fa-diagram-project"></i> Research Projects</a></li>
-              <li class="dropdown-item"><a href="research-experiences.html" class=""><i class="fa-solid fa-timeline"></i> Academic Timeline</a></li>
-              <li class="dropdown-item"><a href="collaborations.html" class=""><i class="fa-solid fa-handshake"></i> International Collaborations</a></li>
-            </ul>
-          </li>
-
-          <!-- 3. News -->
-          <li class="nav-item">
-            <a href="news.html" class="nav-link ">
-              <i class="fa-solid fa-newspaper"></i> News
-            </a>
-          </li>
-
-          <!-- 4. Lab & Join -->
-          <li class="nav-item has-dropdown">
-            <a href="lab-equipment.html" class="nav-link active">
-              <i class="fa-solid fa-solar-panel"></i> Lab &amp; Join <i class="fa-solid fa-chevron-down dropdown-icon"></i>
-            </a>
-            <ul class="dropdown-menu">
-              <li class="dropdown-item"><a href="lab-equipment.html" class="active"><i class="fa-solid fa-screwdriver-wrench"></i> Equipment &amp; Testbeds</a></li>
-              <li class="dropdown-item"><a href="mini-scada.html" class=""><i class="fa-solid fa-chart-line"></i> Mini SCADA Testbed</a></li>
-              <li class="dropdown-item"><a href="fund-raise.html" class=""><i class="fa-solid fa-hand-holding-dollar"></i> Fund Raising</a></li>
-              <li class="dropdown-item"><a href="join-us.html" class=""><i class="fa-solid fa-user-plus"></i> Join Our Team</a></li>
-              <li class="dropdown-item"><a href="useful-links.html" class=""><i class="fa-solid fa-link"></i> Useful Links</a></li>
-            </ul>
-          </li>
-
-          <!-- User / Login Action -->
-          <li class="nav-item" id="loginNavItem">
-            <button class="nav-link btn-nav-login" id="navLoginBtn"><i class="fa-solid fa-lock"></i> Login</button>
-          </li>
-        </ul>
-      </nav>
+      <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle navigation" aria-controls="navMenu" aria-expanded="false" aria-controls="navMenu" aria-expanded="false"><i class="fa-solid fa-bars"></i></button>
+      <!-- Public Navigation: 7 Primary Destinations -->
+      <nav aria-label="Main navigation"><ul class="nav-menu" id="navMenu">
+<li class="nav-item"><a href="index.html" class="nav-link">About Lab</a></li>
+<li class="nav-item"><a href="publications.html" class="nav-link">Publications</a></li>
+<li class="nav-item has-dropdown"><a href="research-areas.html" class="nav-link">Research Teams</a><button type="button" class="nav-submenu-toggle" aria-label="Show Research Teams menu" aria-expanded="false" aria-controls="public-submenu-2"><i class="fa-solid fa-chevron-down" aria-hidden="true"></i></button><ul class="dropdown-menu" id="public-submenu-2"><li class="dropdown-item"><a href="research-areas.html">8 Research Teams</a></li><li class="dropdown-item"><a href="members.html">Researchers &amp; Members</a></li><li class="dropdown-item"><a href="alumni.html">Lab Alumni</a></li><li class="dropdown-item"><a href="projects.html">Research Projects</a></li><li class="dropdown-item"><a href="research-experiences.html">Research Experiences</a></li></ul></li>
+<li class="nav-item has-dropdown"><a href="news.html" class="nav-link">News &amp; Activities</a><button type="button" class="nav-submenu-toggle" aria-label="Show News &amp; Activities menu" aria-expanded="false" aria-controls="public-submenu-3"><i class="fa-solid fa-chevron-down" aria-hidden="true"></i></button><ul class="dropdown-menu" id="public-submenu-3"><li class="dropdown-item"><a href="news.html">News</a></li><li class="dropdown-item"><a href="journey.html">Lab Journey</a></li><li class="dropdown-item"><a href="photos.html">Gallery &amp; Activities</a></li></ul></li>
+<li class="nav-item has-dropdown"><a href="collaborations.html" class="nav-link">Collaborators &amp; Funding</a><button type="button" class="nav-submenu-toggle" aria-label="Show Collaborators &amp; Funding menu" aria-expanded="false" aria-controls="public-submenu-4"><i class="fa-solid fa-chevron-down" aria-hidden="true"></i></button><ul class="dropdown-menu" id="public-submenu-4"><li class="dropdown-item"><a href="collaborations.html">Collaborators</a></li><li class="dropdown-item"><a href="collaborations.html#funding">Funding &amp; Support</a></li><li class="dropdown-item"><a href="fund-raise.html">Support the Lab</a></li></ul></li>
+<li class="nav-item has-dropdown"><a href="mini-scada.html" class="nav-link active">Digital Systems &amp; SCADA</a><button type="button" class="nav-submenu-toggle" aria-label="Show Digital Systems &amp; SCADA menu" aria-expanded="false" aria-controls="public-submenu-5"><i class="fa-solid fa-chevron-down" aria-hidden="true"></i></button><ul class="dropdown-menu" id="public-submenu-5"><li class="dropdown-item"><a href="mini-scada.html">Digital Systems &amp; SCADA</a></li><li class="dropdown-item"><a href="lab-equipment.html">Equipment &amp; Testbeds</a></li><li class="dropdown-item"><a href="useful-links.html">Useful Links</a></li></ul></li>
+<li class="nav-item"><a href="join-us.html" class="nav-link">How to Join Us</a></li>
+<li class="nav-item" id="loginNavItem"><button class="nav-link btn-nav-login" id="navLoginBtn"><i class="fa-solid fa-lock" aria-hidden="true"></i> Login</button></li>
+</ul></nav>
     </div>
   </header>
 
@@ -161,7 +114,7 @@
   <button class="back-to-top" id="backToTop" aria-label="Back to top"><i class="fa-solid fa-arrow-up"></i></button>
 
   <script src="assets/js/data.js"></script>
-  <script src="assets/js/public-site.js?v=verified-save"></script>
+  <script src="assets/js/public-site.js?v=public-navigation-20261114"></script>
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       const container = document.getElementById('equipmentContainer');

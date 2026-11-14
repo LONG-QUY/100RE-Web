@@ -26,7 +26,7 @@
       stat2Num: "40+",
       stat2Label: "Researchers & Members",
       stat3Num: "8",
-      stat3Label: "Research Areas",
+      stat3Label: "Research Teams",
       stat4Num: "10:1",
       stat4Label: "Student Supervisor Ratio"
     },

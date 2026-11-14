@@ -156,21 +156,34 @@
     },
 
     researchAreas: {
-      name: "Research Area",
-      plural: "Research Areas",
+      name: "Research Team",
+      plural: "Research Teams",
       containerId: "researchAreasContainer",
       fields: [
         { key: "title", label: "Area Title (e.g. Solar Energy (PV))", type: "text", required: true },
         { key: "team", label: "Team Name (e.g. PV Team)", type: "text", required: true },
+        { key: "teamCode", label: "Member Directory Team", type: "select", options: [
+          { value: '', label: 'Use existing team mapping' },
+          { value: 'pv', label: 'Solar PV' }, { value: 'ai', label: 'Artificial Intelligence' },
+          { value: 'dr_uc', label: 'Demand Response & Unit Commitment' }, { value: 'wind', label: 'Wind Energy' },
+          { value: 'smartgrid', label: 'Smart Grid' }, { value: 'ev', label: 'Electric Vehicle' },
+          { value: 'hydrogen', label: 'Hydrogen' }, { value: 'bess', label: 'Battery Energy Storage' }
+        ] },
         { key: "leader", label: "Leader Name (e.g. Bui Quang Minh)", type: "text", required: true },
         { key: "icon", label: "FontAwesome Icon (e.g. fa-solar-panel, fa-wind, fa-atom)", type: "text", defaultValue: "fa-atom" },
         { key: "heroImage", label: "Banner Image URL / Upload", type: "image", required: true },
         { key: "summary", label: "Summary & Objectives", type: "textarea", required: true },
+        { key: "vision", label: "Research Vision", type: "textarea" },
         { key: "topics", label: "Core Topics (one per line)", type: "multiline_list", required: true },
+        { key: "conducted", label: "Research & Experience", type: "textarea" },
         { key: "futureDirections", label: "Future Directions", type: "textarea" }
       ],
       renderItem(item) {
         const topics = Array.isArray(item.topics) ? item.topics : (typeof item.topics === 'string' ? item.topics.split('\n').filter(Boolean) : []);
+        const memberTeam = item.teamCode || {
+          solar: 'pv', wind: 'wind', 'unit-commitment-demand-response': 'dr_uc',
+          'smart-grid': 'smartgrid', 'electric-vehicle': 'ev', hydrogen: 'hydrogen', bess: 'bess', ai: 'ai'
+        }[item.slug || item.id];
         return `
           <article class="research-card" data-id="${item.id}">
             <div class="research-card-img-wrap">
@@ -192,6 +205,13 @@
                   <strong>Future Direction:</strong> ${item.futureDirections}
                 </div>
               ` : ''}
+              <details class="team-research-details">
+                <summary>Research details</summary>
+                ${item.vision ? `<h4>Research vision</h4><p>${item.vision}</p>` : ''}
+                ${topics.length ? `<h4>Research topics</h4><ul>${topics.map(topic => `<li>${topic}</li>`).join('')}</ul>` : ''}
+                ${item.conducted ? `<h4>Research &amp; experience</h4><p>${item.conducted}</p>` : ''}
+              </details>
+              ${memberTeam ? `<a class="research-card-link" href="members.html#team-${memberTeam}">Meet the team <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>` : ''}
               ${getAdminCardButtons('researchAreas', item.id)}
             </div>
           </article>
