@@ -10,14 +10,14 @@ document.addEventListener('DOMContentLoaded', () => {
     { key: 'digitalTwin', hash: 'digital-twin-pv', title: 'Digital Twin PV' }
   ];
   const fields = config.fields || [
-    ['title', 'Tên hệ thống', 'text', true],
-    ['overview', 'Giới thiệu hệ thống', 'textarea'],
-    ['location', 'Vị trí lắp đặt', 'text'],
-    ['capacity', 'Công suất / quy mô', 'text'],
-    ['systemUrl', 'Đường dẫn truy cập hệ thống', 'url'],
-    ['architecture', 'Cấu trúc hệ thống', 'textarea'],
-    ['features', 'Chức năng chính', 'textarea'],
-    ['specifications', 'Thông số kỹ thuật', 'textarea']
+    ['title', 'System Name', 'text', true],
+    ['overview', 'System Overview', 'textarea'],
+    ['location', 'Installation Location', 'text'],
+    ['capacity', 'Capacity / Scale', 'text'],
+    ['systemUrl', 'System URL', 'url'],
+    ['architecture', 'System Architecture', 'textarea'],
+    ['features', 'Key Features', 'textarea'],
+    ['specifications', 'Technical Specifications', 'textarea']
   ];
   const escape = value => String(value ?? '').replace(/[&<>"']/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[char]));
   const webUrl = value => {
@@ -57,57 +57,57 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function render(system) {
     const record = content[system.key];
-    const facts = [['Vị trí', record.location], ['Công suất / quy mô', record.capacity]];
+    const facts = [['Location', record.location], ['Capacity / Scale', record.capacity]];
     if (record.specifications) record.specifications.split('\n').filter(line => line.trim()).forEach(line => {
       const separator = line.indexOf(':');
-      facts.push(separator > 0 ? [line.slice(0, separator).trim(), line.slice(separator + 1).trim()] : ['Thông số', line]);
+      facts.push(separator > 0 ? [line.slice(0, separator).trim(), line.slice(separator + 1).trim()] : ['Specification', line]);
     });
     const factsHtml = research ? '' : facts.filter(([, value]) => value).map(([label, value]) => `<dt>${escape(label)}</dt><dd>${escape(value)}</dd>`).join('');
     const url = webUrl(record.systemUrl);
     const hasDetails = record.architecture || record.features;
     panel(system.key).innerHTML = `
       <div class="pv-heading">
-        <div><h2>${escape(record.title)}</h2><p>${escape(record.overview || 'Thông tin giới thiệu hệ thống sẽ được cập nhật tại đây.')}</p></div>
-        <button type="button" class="pv-button pv-admin" data-action="edit" hidden><i class="fa-solid fa-pen-to-square" aria-hidden="true"></i> Chỉnh sửa thông tin &amp; ảnh</button>
+        <div><h2>${escape(record.title)}</h2><p>${escape(record.overview || 'The system overview will be published here.')}</p></div>
+        <button type="button" class="pv-button pv-admin" data-action="edit" hidden><i class="fa-solid fa-pen-to-square" aria-hidden="true"></i> Edit Content &amp; Photos</button>
       </div>
-      <form class="pv-editor" hidden aria-label="Chỉnh sửa ${escape(system.title)}">
-        <h3>Cập nhật ${escape(system.title)}</h3>
-        <p>Nội dung và ảnh của ${research ? 'nhóm nghiên cứu' : 'hệ thống'} này được lưu riêng. Các thay đổi chỉ hiển thị công khai sau khi bạn lưu thành công.</p>
+      <form class="pv-editor" hidden aria-label="Edit ${escape(system.title)}">
+        <h3>Update ${escape(system.title)}</h3>
+        <p>Content and photos for this ${research ? 'research team' : 'system'} are saved separately. Changes are published only after a successful save.</p>
         <fieldset><div class="pv-form-grid">
           ${fields.map(([key, label, type, required]) => `<div class="pv-field ${type === 'textarea' ? 'wide' : ''}">
             <label for="${system.key}-${key}">${label}${required ? ' *' : ''}</label>
             ${type === 'textarea' ? `<textarea id="${system.key}-${key}" name="${key}" maxlength="8000" rows="4"></textarea>` : `<input id="${system.key}-${key}" name="${key}" type="${type}" maxlength="${key === 'title' ? 160 : 2000}" ${required ? 'required' : ''}>`}
-            ${key === 'specifications' && !research ? '<small>Mỗi dòng một thông số, ví dụ: Công suất: 3.6 kWp</small>' : ''}
-            ${key === 'systemUrl' ? '<small>Không bắt buộc. Sử dụng đường dẫn http:// hoặc https://.</small>' : ''}
+            ${key === 'specifications' && !research ? '<small>Enter one specification per line, e.g. Capacity: 3.6 kWp</small>' : ''}
+            ${key === 'systemUrl' ? '<small>Optional. Use an http:// or https:// URL.</small>' : ''}
           </div>`).join('')}
         </div>
-        <h4 class="pv-photos-heading">${research ? 'Hình ảnh nghiên cứu, mô hình & thí nghiệm' : 'Ảnh hệ thống thực tế'}</h4>
-        <p class="pv-notice">Tối đa 8 ảnh cho mỗi hệ thống. Chọn JPG, PNG hoặc WebP, tối đa 10 MB/ảnh. Ảnh được tối ưu trước khi lưu.</p>
+        <h4 class="pv-photos-heading">${research ? 'Research, Models & Experiments' : 'Real System Photos'}</h4>
+        <p class="pv-notice">Add up to 8 photos per profile. Choose JPG, PNG, or WebP files up to 10 MB each. Images are optimized before saving.</p>
         <div class="pv-photo-actions">
-          <div class="pv-field"><label for="${system.key}-photos">Chọn ảnh từ máy</label>
+          <div class="pv-field"><label for="${system.key}-photos">Choose Photos</label>
           <input id="${system.key}-photos" name="photos" type="file" accept="image/jpeg,image/png,image/webp" multiple>
-          </div><div class="pv-field"><label for="${system.key}-camera">Chụp ảnh (thiết bị có camera)</label>
+          </div><div class="pv-field"><label for="${system.key}-camera">Take Photo (camera-enabled devices)</label>
           <input id="${system.key}-camera" name="camera" type="file" accept="image/jpeg,image/png,image/webp" capture="environment"></div>
         </div>
         <div class="pv-draft-photos"></div>
-        <div class="pv-form-actions"><button class="pv-button" type="submit">Lưu &amp; hiển thị</button><button class="pv-button secondary" type="button" data-action="cancel">Hủy thay đổi</button></div>
+        <div class="pv-form-actions"><button class="pv-button" type="submit">Save &amp; Publish</button><button class="pv-button secondary" type="button" data-action="cancel">Discard Changes</button></div>
         </fieldset>
         <p class="pv-form-status" role="status" aria-live="polite"></p>
       </form>
       <div class="pv-public-content">
-        ${url ? `<a class="pv-button secondary" href="${escape(url)}" target="_blank" rel="noopener noreferrer">${research ? 'Tài liệu / demo nghiên cứu' : 'Mở hệ thống'} <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></a>` : ''}
+        ${url ? `<a class="pv-button secondary" href="${escape(url)}" target="_blank" rel="noopener noreferrer">${research ? 'Research Resources / Demo' : 'Open System'} <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></a>` : ''}
         <div class="pv-layout">
           <div class="pv-copy">${research ? [
-            ['architecture', 'Bối cảnh & mục tiêu nghiên cứu'], ['features', 'Các hướng nghiên cứu đang triển khai'],
-            ['specifications', 'Phương pháp & công cụ'], ['results', 'Kết quả & ứng dụng'], ['futureDirections', 'Định hướng tiếp theo']
-          ].filter(([key]) => record[key]).map(([key, label]) => `<section><h3>${label}</h3><p>${escape(record[key])}</p></section>`).join('') || '<p>Nội dung nghiên cứu chi tiết đang được cập nhật.</p>' : hasDetails ? [
-            record.architecture ? `<section><h3>Cấu trúc hệ thống</h3><p>${escape(record.architecture)}</p></section>` : '',
-            record.features ? `<section><h3>Chức năng chính</h3><p>${escape(record.features)}</p></section>` : ''
-          ].join('') : '<h3>Thông tin hệ thống</h3><p>Chưa có mô tả chi tiết cho hệ thống này.</p>'}</div>
-          ${research ? `<aside class="pv-facts"><h3>Về nhóm nghiên cứu</h3><p class="pv-notice">${escape(system.title)}</p><a class="pv-button secondary" href="members.html#team-${escape(system.memberCode)}">Thành viên của nhóm</a><a class="pv-button secondary" href="publications.html">Công bố khoa học</a></aside>` : `<aside class="pv-facts"><h3>Thông số &amp; triển khai</h3>${factsHtml ? `<dl>${factsHtml}</dl>` : '<p class="pv-notice">Thông số kỹ thuật đang được cập nhật.</p>'}</aside>`}
+            ['architecture', 'Research Context & Objectives'], ['features', 'Current Research Directions'],
+            ['specifications', 'Methods & Tools'], ['results', 'Results & Applications'], ['futureDirections', 'Future Directions']
+          ].filter(([key]) => record[key]).map(([key, label]) => `<section><h3>${label}</h3><p>${escape(record[key])}</p></section>`).join('') || '<p>Detailed research information will be published here.</p>' : hasDetails ? [
+            record.architecture ? `<section><h3>System Architecture</h3><p>${escape(record.architecture)}</p></section>` : '',
+            record.features ? `<section><h3>Key Features</h3><p>${escape(record.features)}</p></section>` : ''
+          ].join('') : '<h3>System Information</h3><p>A detailed description has not been added yet.</p>'}</div>
+          ${research ? `<aside class="pv-facts"><h3>About the Research Team</h3><p class="pv-notice">${escape(system.title)}</p><a class="pv-button secondary" href="members.html#team-${escape(system.memberCode)}">Team Members</a><a class="pv-button secondary" href="publications.html">Publications</a></aside>` : `<aside class="pv-facts"><h3>Specifications &amp; Deployment</h3>${factsHtml ? `<dl>${factsHtml}</dl>` : '<p class="pv-notice">Technical specifications will be published here.</p>'}</aside>`}
         </div>
-        <section class="pv-gallery" aria-label="Hình ảnh ${escape(system.title)}"><h3>${research ? 'Hình ảnh nghiên cứu & thí nghiệm' : 'Ảnh hệ thống thực tế'}</h3>
-          ${record.photos.length ? `<div class="pv-gallery-grid">${record.photos.map(photo => `<figure><img src="${escape(photo.src)}" alt="${escape(photo.caption || record.title)}" loading="lazy"><figcaption>${escape(photo.caption)}</figcaption></figure>`).join('')}</div>` : `<div class="pv-empty"><i class="fa-solid fa-camera" aria-hidden="true"></i><p>${research ? 'Chưa có ảnh nghiên cứu. Sơ đồ, mô hình, kết quả mô phỏng và ảnh thí nghiệm của nhóm sẽ được hiển thị tại đây.' : 'Chưa có ảnh hệ thống thực tế. Ảnh chụp thiết bị, khu vực lắp đặt và giao diện vận hành sẽ được hiển thị tại đây.'}</p><button type="button" class="pv-button secondary pv-admin" data-action="edit" hidden>Thêm hình ảnh</button></div>`}
+        <section class="pv-gallery" aria-label="Images ${escape(system.title)}"><h3>${research ? 'Research & Experimental Images' : 'Real System Photos'}</h3>
+          ${record.photos.length ? `<div class="pv-gallery-grid">${record.photos.map(photo => `<figure><img src="${escape(photo.src)}" alt="${escape(photo.caption || record.title)}" loading="lazy"><figcaption>${escape(photo.caption)}</figcaption></figure>`).join('')}</div>` : `<div class="pv-empty"><i class="fa-solid fa-camera" aria-hidden="true"></i><p>${research ? 'No research images yet. Diagrams, models, simulation results, and experiment photos will appear here.' : 'No system photos yet. Equipment, installation, and operating interface photos will appear here.'}</p><button type="button" class="pv-button secondary pv-admin" data-action="edit" hidden>Add Images</button></div>`}
         </section>
       </div>`;
     const editor = form(system.key);
@@ -149,21 +149,21 @@ document.addEventListener('DOMContentLoaded', () => {
   function renderDraftPhotos(system) {
     const target = form(system.key).querySelector('.pv-draft-photos');
     target.innerHTML = drafts[system.key].photos.map((photo, index) => `<div class="pv-draft-photo">
-      <img src="${escape(photo.src)}" alt="Ảnh xem trước ${index + 1}">
-      <div class="pv-field"><label for="${system.key}-caption-${index}">Chú thích ảnh ${index + 1}</label><input id="${system.key}-caption-${index}" type="text" maxlength="300" value="${escape(photo.caption)}"></div>
-      <button type="button" class="pv-button secondary" aria-label="Xóa ảnh ${index + 1}">Xóa ảnh</button></div>`).join('');
+      <img src="${escape(photo.src)}" alt="Image Preview ${index + 1}">
+      <div class="pv-field"><label for="${system.key}-caption-${index}">Photo Caption ${index + 1}</label><input id="${system.key}-caption-${index}" type="text" maxlength="300" value="${escape(photo.caption)}"></div>
+      <button type="button" class="pv-button secondary" aria-label="Remove Photo ${index + 1}">Remove Photo</button></div>`).join('');
     target.querySelectorAll('.pv-draft-photo').forEach((element, index) => {
       element.querySelector('input').addEventListener('input', event => { drafts[system.key].photos[index].caption = event.target.value; });
       element.querySelector('button').addEventListener('click', () => {
         drafts[system.key].photos.splice(index, 1); renderDraftPhotos(system);
-        status(system.key, 'Ảnh đã được gỡ khỏi bản chỉnh sửa. Bấm Lưu để áp dụng.');
+        status(system.key, 'Photo removed from the draft. Save to apply this change.');
       });
     });
   }
 
   async function optimizePhoto(file) {
-    if (!['image/jpeg', 'image/png', 'image/webp'].includes(file.type)) throw new Error('Chỉ hỗ trợ ảnh JPG, PNG hoặc WebP.');
-    if (file.size > 10 * 1024 * 1024) throw new Error('Ảnh vượt quá 10 MB. Vui lòng chọn ảnh nhỏ hơn.');
+    if (!['image/jpeg', 'image/png', 'image/webp'].includes(file.type)) throw new Error('Choose a JPG, PNG, or WebP image.');
+    if (file.size > 10 * 1024 * 1024) throw new Error('This image exceeds 10 MB. Choose a smaller file.');
     const objectUrl = URL.createObjectURL(file);
     try {
       const image = new Image(); image.src = objectUrl;
@@ -186,7 +186,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
       return { src, caption: '' };
     } catch (error) {
-      throw new Error('Không đọc được ảnh. Vui lòng chọn một ảnh JPG, PNG hoặc WebP hợp lệ.');
+      throw new Error('This image could not be read. Choose a valid JPG, PNG, or WebP file.');
     } finally { URL.revokeObjectURL(objectUrl); }
   }
 
@@ -196,16 +196,16 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!files.length) return;
     const draft = drafts[system.key];
     if (draft.photos.length + files.length > 8) {
-      status(system.key, 'Mỗi hệ thống có tối đa 8 ảnh. Vui lòng chọn ít ảnh hơn.', true); input.value = ''; return;
+      status(system.key, 'Each profile supports up to 8 photos. Select fewer files.', true); input.value = ''; return;
     }
     const fieldset = form(system.key).querySelector('fieldset');
     fieldset.disabled = true;
-    status(system.key, 'Đang xử lý ảnh…');
+    status(system.key, 'Processing images…');
     try {
       const photos = [];
       for (const file of files) photos.push(await optimizePhoto(file));
       draft.photos.push(...photos); renderDraftPhotos(system);
-      status(system.key, 'Ảnh đã sẵn sàng. Thêm chú thích và bấm Lưu để hiển thị công khai.');
+      status(system.key, 'Photos are ready. Add captions and save to publish.');
     } catch (error) { status(system.key, error.message, true); }
     finally { fieldset.disabled = false; input.value = ''; }
   }
@@ -216,13 +216,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const editor = form(system.key);
     const next = structuredClone(content);
     fields.forEach(([key]) => { drafts[system.key][key] = editor.elements[key].value.trim(); });
-    if (!drafts[system.key].title) { status(system.key, 'Vui lòng nhập tên hệ thống.', true); return; }
+    if (!drafts[system.key].title) { status(system.key, 'Enter a profile name.', true); return; }
     if (drafts[system.key].systemUrl && !webUrl(drafts[system.key].systemUrl)) {
-      status(system.key, 'Đường dẫn hệ thống phải bắt đầu bằng http:// hoặc https://.', true); return;
+      status(system.key, 'The URL must begin with http:// or https://.', true); return;
     }
     next[system.key] = structuredClone(drafts[system.key]);
     saving = true; syncAuth(); editor.querySelector('fieldset').disabled = true;
-    status(system.key, 'Đang lưu nội dung và ảnh…');
+    status(system.key, 'Saving content and photos…');
     try {
       await window.savePublicData(endpoint, 'PUT', next);
       content = next; delete drafts[system.key];
@@ -230,10 +230,10 @@ document.addEventListener('DOMContentLoaded', () => {
       // Keep confirmation visible after the editor has closed.
       const confirmation = document.createElement('p');
       confirmation.className = 'pv-form-status'; confirmation.setAttribute('role', 'status');
-      confirmation.textContent = 'Đã lưu. Nội dung và ảnh đã được hiển thị công khai.';
+      confirmation.textContent = 'Saved. Your content and photos are now published.';
       panel(system.key).querySelector('.pv-heading').after(confirmation);
       panel(system.key).querySelector('[data-action="edit"]').focus();
-    } catch (error) { status(system.key, `${error.message} Bản chỉnh sửa vẫn được giữ để bạn thử lại.`, true); }
+    } catch (error) { status(system.key, `${error.message} Your draft has been retained. Please try again.`, true); }
     finally { saving = false; form(system.key).querySelector('fieldset').disabled = false; syncAuth(); }
   }
 
@@ -270,7 +270,7 @@ document.addEventListener('DOMContentLoaded', () => {
     event.preventDefault(); event.returnValue = '';
   });
   async function load() {
-    loadStatus.textContent = 'Đang tải thông tin hệ thống…';
+    loadStatus.textContent = 'Loading profile information…';
     try {
       const response = await fetch(endpoint, { cache: 'no-store', signal: AbortSignal.timeout(15000) });
       if (!response.ok) throw new Error();
@@ -282,7 +282,7 @@ document.addEventListener('DOMContentLoaded', () => {
       loaded = true; systems.forEach(render); syncAuth(); loadStatus.hidden = true;
     } catch {
       loadStatus.className = 'pv-error';
-      loadStatus.innerHTML = 'Chưa tải được nội dung từ máy chủ. <button type="button" class="pv-button secondary">Thử lại</button>';
+      loadStatus.innerHTML = 'Unable to load content from the server. <button type="button" class="pv-button secondary">Try Again</button>';
       loadStatus.querySelector('button').addEventListener('click', load);
     }
   }

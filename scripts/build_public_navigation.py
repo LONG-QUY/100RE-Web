@@ -58,7 +58,7 @@ if __name__ == '__main__':
         source, count = re.subn(r'<nav>\s*<ul class="nav-menu" id="navMenu">.*?</nav>|<nav aria-label="Main navigation">.*?</nav>', render(path.name), source, count=1, flags=re.S)
         if count:
             source = re.sub(r'<button class="mobile-toggle"[^>]*>', '<button class="mobile-toggle" id="mobileToggle" aria-label="Toggle navigation" aria-controls="navMenu" aria-expanded="false">', source)
-            source = re.sub(r'(assets/js/public-site\.js)(?:\?[^"\s]*)?', r'\1?v=shared-login-20261114', source)
-            source = re.sub(r'(assets/css/style\.css)(?:\?[^"\s]*)?', r'\1?v=shared-login-20261114', source)
+            source = re.sub(r'(assets/js/public-site\.js)(?:\?[^"\s]*)?', r'\1?v=english-20261114', source)
+            source = re.sub(r'(assets/css/style\.css)(?:\?[^"\s]*)?', r'\1?v=english-20261114', source)
             path.write_bytes(source.replace('\n', newline).encode('utf-8'))
             print(path.name)

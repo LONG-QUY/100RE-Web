@@ -5,21 +5,21 @@
   const teams = window.LAB_DATA.researchAreas;
   const match = teams.find(team => team.id === selected);
   if (!match) {
-    document.getElementById('researchTitle').textContent = 'Không tìm thấy nhóm nghiên cứu';
+    document.getElementById('researchTitle').textContent = 'Research team not found';
     document.getElementById('researchProfiles').hidden = true;
     return;
   }
   window.PUBLIC_PROFILE_CONFIG = {
     kind: 'research', endpoint: '/api/public/content/researchTeamProfiles', selectedKey: match.id,
     fields: [
-      ['title', 'Tên nhóm / lĩnh vực nghiên cứu', 'text', true],
-      ['overview', 'Giới thiệu tổng quan', 'textarea'],
-      ['architecture', 'Bối cảnh, bài toán & mục tiêu nghiên cứu', 'textarea'],
-      ['features', 'Các hướng nghiên cứu đang triển khai (mô tả chi tiết)', 'textarea'],
-      ['specifications', 'Phương pháp, mô hình & công cụ', 'textarea'],
-      ['results', 'Kết quả nghiên cứu & ứng dụng', 'textarea'],
-      ['futureDirections', 'Định hướng tiếp theo', 'textarea'],
-      ['systemUrl', 'Liên kết tài liệu / demo nghiên cứu', 'url']
+      ['title', 'Team Name / Research Area', 'text', true],
+      ['overview', 'Overview', 'textarea'],
+      ['architecture', 'Research Context, Questions & Objectives', 'textarea'],
+      ['features', 'Current Research Directions (detailed description)', 'textarea'],
+      ['specifications', 'Methods, Models & Tools', 'textarea'],
+      ['results', 'Research Results & Applications', 'textarea'],
+      ['futureDirections', 'Future Directions', 'textarea'],
+      ['systemUrl', 'Research Resources / Demo URL', 'url']
     ],
     systems: teams.map(team => ({
       key: team.id, hash: team.id, title: team.title, memberCode: codes[team.id],

@@ -347,47 +347,24 @@ window.LAB_DATA = {
       authorAvatar: "assets/images/logo.jpg",
       views: "1.4k views",
       image: "assets/images/banner_pv.jpg",
-      imageCaption: "Toàn cảnh buổi Workshop Hợp tác Giáo dục và Nghiên cứu giữa ĐHBK Hà Nội và ĐH Bradford (Vương quốc Anh) tại tòa nhà Alumni HUST.",
-      excerpt: "Sáng ngày 10/12/2025, tại tầng 1 tòa nhà Alumni, Đại học Bách Khoa Hà Nội, workshop 'Hợp tác Nghiên cứu và Đào tạo giữa Đại học Bách khoa Hà Nội và Đại học Bradford' đã diễn ra thành công tốt đẹp, mở ra lộ trình cụ thể cho các mô hình đào tạo chuyển tiếp và nghiên cứu chuyên sâu về năng lượng tái tạo.",
+      imageCaption: "HUST and University of Bradford education and research collaboration workshop at the HUST Alumni building.",
+      excerpt: "On December 10, 2025, HUST and the University of Bradford held a workshop at the Alumni building to discuss joint education pathways and renewable energy research.",
       tags: ["HUST", "University of Bradford", "Renewable Energy", "Transnational Education", "UK-Vietnam"],
       content: `
-        <p class="article-lead">Sáng ngày 10/12/2025, tại tầng 1 tòa nhà Alumni, Đại học Bách Khoa Hà Nội, workshop <strong>"Hợp tác Nghiên cứu và Đào tạo giữa Đại học Bách khoa Hà Nội và Đại học Bradford”</strong> đã diễn ra thành công tốt đẹp. Sự kiện đánh dấu bước tiến quan trọng trong việc triển khai dự án đối tác giáo dục xuyên quốc gia, đồng thời mở ra lộ trình cụ thể cho các mô hình đào tạo chuyển tiếp và nghiên cứu chuyên sâu về năng lượng tái tạo.</p>
-        
-        <p>Tham dự sự kiện có sự hiện diện của các vị thầy cô quản lý, cùng đông đảo giảng viên và các em sinh viên, những người trực tiếp tham gia định hướng chiến lược và bảo đảm các thỏa thuận hợp tác giữa hai đại học được triển khai hiệu quả.</p>
-
-        <h3>Đại biểu tham dự từ hai trường đại học</h3>
-        <p><strong>Về phía Đại học Bradford (Vương quốc Anh):</strong></p>
-        <ul>
-          <li><strong>GS. Ben Whiteside</strong> – Giám đốc Viện Kỹ thuật số và Tương lai Bền vững.</li>
-          <li><strong>TS. Cường Đào</strong> – Giám đốc chương trình Thạc sĩ Năng lượng Tái tạo & Bền vững.</li>
-        </ul>
-
-        <p><strong>Về phía Đại học Bách Khoa Hà Nội (HUST):</strong></p>
-        <ul>
-          <li><strong>PGS.TS Nguyễn Hữu Thanh</strong> – Hiệu trưởng Trường Điện – Điện tử.</li>
-          <li><strong>PGS.TS Nguyễn Đức Tuyên</strong> – Trưởng phòng thí nghiệm 100RE Lab / PGRE.</li>
-          <li><strong>PGS.TS Nguyễn Quốc Minh</strong> – Phó Trưởng khoa Kỹ thuật Điện.</li>
-          <li><strong>PGS.TS Trương Thu Hương</strong> – Phó Trưởng khoa Kỹ thuật Truyền thông.</li>
-        </ul>
-
-        <blockquote>
-          "Hợp tác quốc tế trong đào tạo và nghiên cứu là chìa khóa để trang bị cho sinh viên năng lực toàn cầu và giải quyết các thách thức cấp bách của chuyển dịch năng lượng tại Việt Nam."
-          <cite>— PGS.TS Nguyễn Đức Tuyên, Trưởng PTN 100RE</cite>
-        </blockquote>
-
-        <h3>Chiến lược phát triển và chương trình song bằng 2026–2028</h3>
-        <p>Tại diễn đàn, PGS.TS Nguyễn Đức Tuyên đã có bài phát biểu mở đầu, phân tích bối cảnh của workshop, nhấn mạnh tầm quan trọng của hợp tác quốc tế hướng tới sinh viên và giảng viên trong bối cảnh chuyển dịch năng lượng toàn cầu. Tiếp nối định hướng đó, PGS.TS Nguyễn Quốc Minh đã có bài trình bày tổng quan về năng lực nghiên cứu và chương trình đào tạo của HUST trong lĩnh vực năng lượng và chuyển dịch năng lượng, khẳng định sự sẵn sàng của nhà trường trong việc tiếp nhận các chương trình tiên tiến.</p>
-
-        <p>Bên cạnh đó, các chuyên gia từ Vương quốc Anh cũng mang đến những thông tin giá trị. TS. Cường Đào đã giới thiệu dự án "Hợp tác giáo dục xuyên quốc gia Anh - Việt", trong khi GS. Ben Whiteside chia sẻ về các hướng nghiên cứu mũi nhọn tại Viện kỹ thuật số và Tương lai bền vững.</p>
-
-        <p>Đặc biệt, hội trường đã dành sự quan tâm lớn cho phần chia sẻ của PGS.TS Trương Thu Hương. Với kinh nghiệm dày dặn trong môi trường học thuật quốc tế, cô đã mang đến những góc nhìn thực tiễn về phương pháp nghiên cứu và học tập giữa Anh và Việt Nam, truyền cảm hứng mạnh mẽ cho các sinh viên và giảng viên trẻ có mặt tại sự kiện.</p>
-
-        <p>Các nội dung trao đổi tập trung vào xu hướng, kinh nghiệm và định hướng triển khai các chương trình Song bằng, mô hình chuyển tiếp và các nhóm nghiên cứu chung. Từ đó, các bên bày tỏ mong muốn từng bước đưa các thỏa thuận này vào thực tế trong giai đoạn 2026-2028, đồng thời mở ra cơ hội tăng cường trao đổi sinh viên và giảng viên giữa hai trường.</p>
-
-        <h3>Kết luận và Định hướng tương lai</h3>
-        <p>Kết thúc phiên thảo luận, PGS.TS Nguyễn Hữu Thanh đã có bài phát biểu tổng kết đầy tâm huyết. Thầy nhấn mạnh rằng sự kiện này không chỉ dừng lại ở những biên bản ghi nhớ, mà là bước khởi đầu cho một chiến lược dài hạn nhằm nâng tầm vị thế của Đại học Bách Khoa Hà Nội trên bản đồ giáo dục kỹ thuật thế giới.</p>
-        
-        <p>Sự kiện Workshop HUST - UoB là một dấu mốc quan trọng, khẳng định vai trò tiên phong của Trường Điện - Điện tử và Đại học Bách khoa Hà Nội trong việc thúc đẩy hợp tác giáo dục xuyên quốc gia và phát triển nguồn nhân lực năng lượng tái tạo, đồng thời thể hiện tinh thần hội nhập quốc tế và cam kết đóng góp tích cực vào sự phát triển bền vững tại Việt Nam.</p>
+<p class="article-lead">On the morning of December 10, 2025, the workshop <strong>Research and Education Collaboration between Hanoi University of Science and Technology and the University of Bradford</strong> took place on the first floor of the HUST Alumni building. The event advanced the transnational education partnership and outlined pathways for transfer programs and renewable energy research.</p>
+<p>University leaders, lecturers, and students attended to help shape the partnership and support the implementation of agreements between the two institutions.</p>
+<h3>Representatives from both universities</h3>
+<p><strong>University of Bradford, United Kingdom:</strong></p><ul><li><strong>Prof. Ben Whiteside</strong> — Director of the Institute of Digital and Sustainable Futures.</li><li><strong>Dr. Cường Đào</strong> — Director of the Renewable and Sustainable Energy MSc program.</li></ul>
+<p><strong>Hanoi University of Science and Technology:</strong></p><ul><li><strong>Assoc. Prof. Nguyễn Hữu Thanh</strong> — Dean of the School of Electrical and Electronic Engineering.</li><li><strong>Assoc. Prof. Nguyễn Đức Tuyên</strong> — Head of 100RE Lab / PGRE.</li><li><strong>Assoc. Prof. Nguyễn Quốc Minh</strong> — Deputy Head of Electrical Engineering.</li><li><strong>Assoc. Prof. Trương Thu Hương</strong> — Deputy Head of Communications Engineering.</li></ul>
+<blockquote>“International collaboration in education and research is key to equipping students with global capabilities and addressing the urgent challenges of Vietnam's energy transition.”<cite>— Assoc. Prof. Nguyễn Đức Tuyên, Head of 100RE Lab (translated from Vietnamese)</cite></blockquote>
+<h3>Development strategy and dual-degree programs, 2026–2028</h3>
+<p>Assoc. Prof. Nguyễn Đức Tuyên opened the workshop by discussing its context and the importance of international collaboration for students and lecturers during the global energy transition. Assoc. Prof. Nguyễn Quốc Minh then presented HUST's research capabilities and energy-related education programs, emphasizing the university's readiness to adopt advanced programs.</p>
+<p>Dr. Cường Đào introduced the UK–Vietnam transnational education collaboration project, while Prof. Ben Whiteside shared the research priorities of the Institute of Digital and Sustainable Futures.</p>
+<p>Assoc. Prof. Trương Thu Hương offered practical perspectives on research and study approaches in the United Kingdom and Vietnam, drawing on her international academic experience to encourage students and early-career lecturers.</p>
+<p>Discussions covered trends, experience, and implementation plans for dual-degree programs, transfer pathways, and joint research groups. Both sides expressed their intention to implement these agreements during 2026–2028 and strengthen student and staff exchanges.</p>
+<h3>Conclusions and future directions</h3>
+<p>In his closing remarks, Assoc. Prof. Nguyễn Hữu Thanh emphasized that the event was the beginning of a long-term strategy to strengthen HUST's standing in global engineering education, extending beyond memoranda of understanding.</p>
+<p>The HUST–UoB workshop highlighted the role of HUST and its School of Electrical and Electronic Engineering in transnational education and renewable energy workforce development, alongside their commitment to international cooperation and sustainable development in Vietnam.</p>
       `
     },
     {
@@ -402,24 +379,17 @@ window.LAB_DATA = {
       authorAvatar: "assets/images/logo.jpg",
       views: "1.1k views",
       image: "assets/images/banner_ai.jpg",
-      imageCaption: "Thành viên 100RE Lab Phan Văn Long cùng các đại biểu thanh niên và chuyên gia UNDP tại lễ ra mắt Báo cáo đặc biệt.",
-      excerpt: "Thành viên 100RE Lab Phan Văn Long đại diện cho thế hệ kỹ sư trẻ tham dự lễ công bố báo cáo đặc biệt 'Thanh niên Việt Nam hành động vì Khí hậu', khẳng định vai trò nòng cốt của tuổi trẻ trong hành trình Net Zero 2050.",
+      imageCaption: "100RE Lab member Phan Văn Long with youth delegates and UNDP experts at the special report launch.",
+      excerpt: "100RE Lab member Phan Văn Long joined the launch of the special report on Vietnamese youth climate action, highlighting the role of young engineers in the journey toward Net Zero 2050.",
       tags: ["Youth4Climate", "UNDP", "Climate Action", "Net Zero 2050", "HUST Engineers"],
       content: `
-        <p class="article-lead">Vừa qua, tại Hà Nội, Chương trình Phát triển Liên Hợp Quốc (UNDP) phối hợp cùng Cục Biến đổi Khí hậu (Bộ Tài nguyên và Môi trường) và Trung ương Đoàn TNCS Hồ Chí Minh đã tổ chức Lễ ra mắt Báo cáo Đặc biệt <strong>"Thanh niên Việt Nam hành động vì Khí hậu 2022–2025"</strong>. Thành viên 100RE Lab – kỹ sư trẻ Phan Văn Long đã vinh dự tham gia và đóng góp ý kiến tại diễn đàn quan trọng này.</p>
-
-        <h3>Vai trò tiên phong của thế hệ trẻ trong chuyển dịch năng lượng</h3>
-        <p>Báo cáo đặc biệt tổng hợp các sáng kiến, giải pháp công nghệ và mô hình khởi nghiệp xanh do thanh niên và sinh viên kỹ thuật thực hiện trên toàn quốc. Tại sự kiện, các đại biểu đã thảo luận về những cơ chế tài chính, chuyển giao công nghệ sạch và cơ hội phát triển nghề nghiệp trong ngành năng lượng tái tạo.</p>
-
-        <blockquote>
-          "Thế hệ trẻ không chỉ là những người chịu tác động mạnh mẽ nhất của biến đổi khí hậu, mà chính là lực lượng sáng tạo nhất với các công nghệ số, trí tuệ nhân tạo và kỹ thuật xanh để hiện thực hóa cam kết Net Zero 2050 của Việt Nam."
-          <cite>— Đại diện UNDP Việt Nam phát biểu tại buổi lễ</cite>
-        </blockquote>
-
-        <h3>Đóng góp thực tiễn từ phòng thí nghiệm 100RE Lab</h3>
-        <p>Trong khuôn khổ chương trình, Phan Văn Long cùng nhóm nghiên cứu 100RE Lab đã giới thiệu các mô hình giáo dục cộng đồng về năng lượng bền vững (SE4Y - Sustainable Energy for Youth), các bộ công cụ tính toán phát thải carbon và giải pháp ứng dụng hệ thống điện mặt trời mái nhà có lưu trữ BESS cho các vùng nông thôn.</p>
-
-        <p>Sự tham gia tích cực của các thành viên 100RE Lab tại các diễn đàn cấp quốc gia tiếp tục khẳng định cam kết của phòng thí nghiệm trong việc gắn liền nghiên cứu hàn lâm với trách nhiệm xã hội và lan tỏa tinh thần hành động vì khí hậu đến cộng đồng.</p>
+<p class="article-lead">In Hanoi, the United Nations Development Programme (UNDP), the Department of Climate Change under the Ministry of Natural Resources and Environment, and the Hồ Chí Minh Communist Youth Union jointly launched the special report <strong>Vietnamese Youth for Climate Action 2022–2025</strong>. 100RE Lab member and young engineer Phan Văn Long participated and contributed to the forum.</p>
+<h3>Young people's role in the energy transition</h3>
+<p>The report brings together initiatives, technological solutions, and green entrepreneurship models developed by young people and engineering students across Vietnam. Delegates discussed financial mechanisms, clean technology transfer, and career opportunities in renewable energy.</p>
+<blockquote>“Young people are not only among those most affected by climate change. They are also a highly creative force in digital technology, artificial intelligence, and green engineering to deliver Vietnam's Net Zero 2050 commitment.”<cite>— UNDP Vietnam representative at the event (translated from Vietnamese)</cite></blockquote>
+<h3>Practical contributions from 100RE Lab</h3>
+<p>Phan Văn Long and the 100RE Lab research group introduced community education models for sustainable energy through SE4Y (Sustainable Energy for Youth), carbon emissions calculation tools, and rooftop solar solutions with BESS storage for rural areas.</p>
+<p>Participation in national forums reflects the lab's commitment to connecting academic research with social responsibility and encouraging community climate action.</p>
       `
     },
     {
@@ -434,24 +404,17 @@ window.LAB_DATA = {
       authorAvatar: "assets/images/logo.jpg",
       views: "980 views",
       image: "assets/images/banner_hydrogen.jpg",
-      imageCaption: "Buổi tọa đàm chuyên đề và hướng dẫn thực hành phần mềm mô phỏng HOMER Pro tại phòng thí nghiệm D9-300.",
-      excerpt: "Nhóm nghiên cứu Hydrogen thuộc 100RE Lab tổ chức tọa đàm chuyên đề về tích hợp hệ thống lưu trữ Hydrogen trong lưới điện siêu nhỏ (Microgrid) và thực hành phần mềm mô phỏng tối ưu HOMER Pro.",
+      imageCaption: "Technical seminar and hands-on HOMER Pro modeling session at the D9-300 laboratory.",
+      excerpt: "The 100RE Lab Hydrogen Team held a technical seminar on hydrogen storage integration in microgrids and hands-on optimization using HOMER Pro.",
       tags: ["Hydrogen", "HOMER Pro", "Microgrid", "NREL", "Techno-Economic Analysis"],
       content: `
-        <p class="article-lead">Trong xu thế chuyển dịch sang năng lượng xanh và bền vững toàn cầu, việc tích hợp <strong>Hydro xanh (Green Hydrogen)</strong> vào lưới điện siêu nhỏ (Microgrid) đang mở ra những cơ hội đột phá cho hệ thống điện tương lai. Nhằm cập nhật kiến thức chuyên sâu và nâng cao kỹ năng nghiên cứu, nhóm nghiên cứu Hydrogen thuộc 100RE Lab đã tổ chức buổi Tọa đàm kỹ thuật nội bộ.</p>
-
-        <h3>Nội dung trọng tâm của buổi Seminar</h3>
-        <ul>
-          <li><strong>Giới thiệu phần mềm HOMER Pro:</strong> Công cụ mô phỏng chuẩn mực quốc tế do NREL (Phòng Thí nghiệm Năng lượng Tái tạo Quốc gia Hoa Kỳ) phát triển, hỗ trợ thiết kế tối ưu hệ thống năng lượng lai ghép (Hybrid Renewable Systems).</li>
-          <li><strong>Mô hình hóa điện phân nước (Electrolyzer) và Pin nhiên liệu (Fuel Cell):</strong> Phân tích hiệu suất chuyển đổi năng lượng từ nguồn điện gió/mặt trời dư thừa sang dạng lưu trữ Hydrogen dài hạn.</li>
-          <li><strong>Tối ưu hóa chi phí vòng đời (LCOE & NPC):</strong> Tính toán bài toán kinh tế kỹ thuật cho các kịch bản lưới điện đảo biệt lập và khu công nghiệp Net Zero.</li>
-        </ul>
-
-        <blockquote>
-          "Hydrogen đóng vai trò như một giải pháp lưu trữ năng lượng theo mùa (Seasonal Storage), giải quyết triệt để bài toán cắt giảm công suất tái tạo khi tỷ trọng điện gió và điện mặt trời vượt ngưỡng 50% tổng công suất phụ tải."
-        </blockquote>
-
-        <p>Buổi workshop đã thu hút sự tham gia nhiệt tình của hơn 25 thành viên nghiên cứu sinh, học viên cao học và sinh viên đề tài tốt nghiệp tại lab. Các thành viên đã trực tiếp thực hành xây dựng kịch bản cấp điện tự hòa lưới và độc lập trên phần mềm HOMER Pro dưới sự hướng dẫn của các nghiên cứu viên chính.</p>
+<p class="article-lead">The integration of <strong>green hydrogen</strong> into microgrids creates new opportunities for future power systems. To develop technical knowledge and research skills, the 100RE Lab Hydrogen Team held an internal technical seminar.</p>
+<h3>Seminar topics</h3><ul>
+<li><strong>Introduction to HOMER Pro:</strong> An internationally used simulation tool developed by NREL, supporting the optimal design of hybrid renewable energy systems.</li>
+<li><strong>Electrolyzer and fuel cell modeling:</strong> Analysis of conversion efficiency when surplus wind and solar electricity is used for long-term hydrogen storage.</li>
+<li><strong>Life-cycle cost optimization (LCOE and NPC):</strong> Techno-economic assessment for isolated grids and Net Zero industrial zones.</li></ul>
+<blockquote>“Hydrogen can provide seasonal energy storage to address renewable curtailment when wind and solar generation exceed 50% of total load capacity.”<cite>Translated from the original seminar report.</cite></blockquote>
+<p>More than 25 doctoral researchers, graduate students, and final-year students participated. They practiced building grid-connected and standalone supply scenarios in HOMER Pro under the guidance of senior researchers.</p>
       `
     },
     {
@@ -466,18 +429,15 @@ window.LAB_DATA = {
       authorAvatar: "assets/images/logo.jpg",
       views: "1.6k views",
       image: "assets/images/banner_smartgrid.jpg",
-      imageCaption: "Đoàn cán bộ và nghiên cứu sinh 100RE Lab nhận chứng nhận Best Paper Award tại Hội nghị GMSARN 2024.",
-      excerpt: "Đoàn nghiên cứu 100RE Lab xuất sắc giành giải thưởng Báo cáo xuất sắc (Best Paper Award) tại Hội nghị Quốc tế GMSARN lần thứ 18 với nghiên cứu về thuật toán điều khiển chống tách đảo và ổn định tần số cho lưới điện tích hợp pin BESS.",
+      imageCaption: "100RE Lab researchers receive a Best Paper Award certificate at GMSARN 2024.",
+      excerpt: "The 100RE Lab research delegation received a Best Paper Award at the 18th GMSARN International Conference for research on islanding detection and frequency stability in BESS-integrated grids.",
       tags: ["GMSARN 2024", "Best Paper Award", "BESS", "Islanding Detection", "Smart Grid"],
       content: `
-        <p class="article-lead">Tại Hội nghị Quốc tế GMSARN lần thứ 18 (The 18th GMSARN International Conference) tổ chức tại Đại học Bách Khoa Hà Nội, nhóm tác giả của phòng thí nghiệm 100RE Lab đã vinh dự được Hội đồng khoa học trao tặng giải thưởng <strong>Báo cáo xuất sắc nhất (Best Paper Award)</strong>.</p>
-
-        <h3>Công trình nghiên cứu đoạt giải</h3>
-        <p>Báo cáo khoa học đoạt giải mang tiêu đề: <em>"Adaptive Notch Filter-based islanding detection for grid-connected inverter with zero non-detection zone"</em> do nhóm tác giả gồm PGS.TS Nguyễn Đức Tuyên, KS. Lê Ngọc Dũng và ThS. Phạm Mạnh Hải thực hiện.</p>
-
-        <p>Nghiên cứu đã phát triển một thuật toán điều khiển tích cực mới trên nền tảng bộ lọc Notch thích nghi (ANF), cho phép phát hiện sự cố tách đảo trong vòng chưa đầy 2 chu kỳ sóng điện áp (dưới 40ms) mà không gây méo dạng sóng dòng điện, triệt tiêu hoàn toàn vùng không phát hiện (Zero Non-Detection Zone).</p>
-
-        <p>Thành tích xuất sắc này là sự ghi nhận xứng đáng cho những nỗ lực nghiên cứu bền bỉ và chất lượng học thuật đạt chuẩn quốc tế của tập thể phòng thí nghiệm 100RE Lab.</p>
+<p class="article-lead">At the <strong>18th GMSARN International Conference</strong>, hosted by Hanoi University of Science and Technology, a 100RE Lab research team received the scientific committee's <strong>Best Paper Award</strong>.</p>
+<h3>The award-winning research</h3>
+<p>The paper, <em>Adaptive Notch Filter-based islanding detection for grid-connected inverter with zero non-detection zone</em>, was authored by Assoc. Prof. Nguyễn Đức Tuyên, engineer Lê Ngọc Dũng, and Phạm Mạnh Hải, MSc.</p>
+<p>The research developed an active control algorithm based on an adaptive notch filter (ANF). It detects islanding in fewer than two voltage cycles (under 40 ms) without distorting the current waveform, eliminating the non-detection zone.</p>
+<p>The award recognizes the lab's sustained research efforts and international academic standards.</p>
       `
     },
     {
@@ -492,21 +452,14 @@ window.LAB_DATA = {
       authorAvatar: "assets/images/logo.jpg",
       views: "1.3k views",
       image: "assets/images/banner_wind.jpg",
-      imageCaption: "Các thành viên 100RE Lab tham quan và làm việc tại phòng thí nghiệm Điện trường thuộc Viện Công nghệ Shibaura (SIT), Tokyo.",
-      excerpt: "Chúc mừng 5 thành viên trẻ của 100RE Lab nhận học bổng toàn phần Sakura Science Exchange Program 2023, tham gia nghiên cứu thực địa và học tập tại Viện Công nghệ Shibaura (SIT), Nhật Bản.",
+      imageCaption: "100RE Lab members visit an electrical laboratory at Shibaura Institute of Technology (SIT), Tokyo.",
+      excerpt: "Five young 100RE Lab members received fully funded Sakura Science Exchange Program 2023 scholarships for field research and study at Shibaura Institute of Technology, Japan.",
       tags: ["Sakura Science", "Japan Exchange", "Shibaura Institute of Technology", "Scholarship"],
       content: `
-        <p class="article-lead">Chương trình Giao lưu Khoa học Sakura (Sakura Science Exchange Program) do Cơ quan Khoa học và Công nghệ Nhật Bản (JST) tài trợ đã chính thức trao học bổng toàn phần cho 5 sinh viên và nghiên cứu sinh xuất sắc thuộc phòng thí nghiệm 100RE Lab.</p>
-
-        <h3>Hành trình trải nghiệm học thuật tại Tokyo & Kyoto</h3>
-        <p>Trong chuyến công tác kéo dài 10 ngày, các bạn sinh viên đã được:</p>
-        <ul>
-          <li>Làm việc trực tiếp tại Phòng thí nghiệm Hệ thống Điện thuộc Viện Công nghệ Shibaura (SIT) dưới sự hướng dẫn của GS. Goro Fujita.</li>
-          <li>Tham quan trung tâm điều độ phụ tải thông minh và trạm biến áp số tại Tokyo.</li>
-          <li>Tham gia báo cáo tại Hội thảo Khoa học Sinh viên Quốc tế Việt - Nhật.</li>
-        </ul>
-
-        <p>Chương trình là cơ hội quý báu giúp các bạn sinh viên rèn luyện tư duy nghiên cứu độc lập, tiếp cận công nghệ năng lượng tiên tiến hàng đầu thế giới và mở rộng mạng lưới hợp tác quốc tế.</p>
+<p class="article-lead">The <strong>Sakura Science Exchange Program</strong>, funded by the Japan Science and Technology Agency (JST), awarded full scholarships to five outstanding students and researchers from 100RE Lab.</p>
+<h3>Academic experiences in Tokyo and Kyoto</h3>
+<p>During the ten-day visit, students:</p><ul><li>Worked at the Power Systems Laboratory of Shibaura Institute of Technology (SIT) under the guidance of Prof. Goro Fujita.</li><li>Visited a smart load dispatch center and a digital substation in Tokyo.</li><li>Presented at the Vietnam–Japan International Student Science Workshop.</li></ul>
+<p>The program helped students develop independent research skills, explore advanced energy technologies, and expand their international collaboration networks.</p>
       `
     }
   ],
@@ -539,7 +492,7 @@ window.LAB_DATA = {
     },
     {
       id: "j-4",
-      title: "Tọa đàm Chuyển dịch Năng lượng & Net Zero 2050",
+      title: "Energy Transition & Net Zero 2050 Roundtable",
       date: "29.08.2023",
       location: "Hanoi, Vietnam",
       image: "assets/images/banner_dr_uc.jpg",
@@ -1031,3 +984,6 @@ window.LAB_DATA = {
     { id: "photo-8", title: "Battery Energy Storage Systems (BESS)", category: "teams", caption: "Utility-scale BESS frequency regulation and battery degradation modeling.", image: "assets/images/banner_bess.jpg" }
   ]
 };
+
+// Recognize unchanged legacy news copy without replacing editor-authored content.
+window.LAB_LEGACY_NEWS_HASHES = {"news-1":{"imageCaption":1506782824,"excerpt":2510673181,"content":2014217281},"news-2":{"imageCaption":4027896952,"excerpt":2726447347,"content":957324392},"news-3":{"imageCaption":892201382,"excerpt":4152682024,"content":2266569930},"news-4":{"imageCaption":2934563239,"excerpt":1608934480,"content":1387763234},"news-5":{"imageCaption":2217461832,"excerpt":1980064137,"content":466216938}};

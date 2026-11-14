@@ -4,7 +4,7 @@
 
 window.savePublicData = async function (url, method, data) {
   const token = localStorage.getItem('100re_token');
-  const sessionError = 'Phiên đăng nhập đã hết hạn hoặc không hợp lệ. Vui lòng đăng nhập lại.';
+  const sessionError = 'Your session has expired or is invalid. Please sign in again.';
   if (!token) throw new Error(sessionError);
 
   const response = await fetch(url, {
@@ -16,7 +16,7 @@ window.savePublicData = async function (url, method, data) {
   const result = await response.json().catch(() => null);
   if (!response.ok || result?.success !== true || result.mocked) {
     console.warn('Public save rejected:', response.status, result);
-    throw new Error('Máy chủ chưa xác nhận lưu dữ liệu. Vui lòng thử lại.');
+    throw new Error('The server could not confirm your changes were saved. Please try again.');
   }
   return result;
 };
@@ -70,9 +70,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         </div>
 
-        <h3 class="member-login-title">Đăng Nhập Thành Viên</h3>
+        <h3 class="member-login-title">Member Sign In</h3>
 
-        <p class="member-login-desc">Cổng thông tin &amp; không gian làm việc nghiên cứu phòng Lab</p>
+        <p class="member-login-desc">100RE Laboratory research portal</p>
 
       </div>
 
@@ -88,13 +88,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
           <label class="member-form-label" for="loginUsername">
 
-            <i class="fa-regular fa-user"></i> Tên đăng nhập hoặc Email
+            <i class="fa-regular fa-user"></i> Username or Email
 
           </label>
 
           <div class="member-input-wrap">
 
-            <input type="text" id="loginUsername" class="member-form-input" placeholder="Nhập tên đăng nhập hoặc email" required autocomplete="username">
+            <input type="text" id="loginUsername" class="member-form-input" placeholder="Enter your username or email" required autocomplete="username">
 
           </div>
 
@@ -106,15 +106,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
           <label class="member-form-label" for="loginPassword">
 
-            <i class="fa-solid fa-lock"></i> Mật khẩu
+            <i class="fa-solid fa-lock"></i> Password
 
           </label>
 
           <div class="member-input-wrap" style="position: relative;">
 
-            <input type="password" id="loginPassword" class="member-form-input" placeholder="Nhập mật khẩu của bạn" required autocomplete="current-password">
+            <input type="password" id="loginPassword" class="member-form-input" placeholder="Enter your password" required autocomplete="current-password">
 
-            <button type="button" class="btn-toggle-pwd" id="btnToggleLoginPwd" aria-label="Hiện/ẩn mật khẩu">
+            <button type="button" class="btn-toggle-pwd" id="btnToggleLoginPwd" aria-label="Show or hide password">
 
               <i class="fa-regular fa-eye" id="pwdToggleIcon"></i>
 
@@ -128,7 +128,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         <button type="submit" class="btn-member-login-submit">
 
-          <span>Đăng Nhập Không Gian Lab</span>
+          <span>Sign In</span>
 
           <i class="fa-solid fa-arrow-right-to-bracket"></i>
 
@@ -140,7 +140,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
           <i class="fa-solid fa-shield-halved" style="color: #16a34a; margin-right: 4px;"></i>
 
-          <span>Dành cho Ban Cố vấn, Nghiên cứu viên và Sinh viên 100RE Lab</span>
+          <span>For 100RE Lab advisors, researchers, and students</span>
 
         </div>
 
@@ -264,7 +264,7 @@ document.addEventListener('DOMContentLoaded', () => {
         clearSession();
       }
     } catch (e) {
-      console.warn('Không thể kiểm tra phiên đăng nhập:', e);
+      console.warn('Could not verify the session:', e);
     }
   }
 
@@ -301,7 +301,7 @@ document.addEventListener('DOMContentLoaded', () => {
           <span class="user-chip-name">${escapeHtml(shortName)}</span>
           <i class="fa-solid fa-chevron-down user-chip-arrow"></i>
         `;
-        navLoginBtn.setAttribute('title', `Tài khoản: ${username} (Bấm để mở menu / Đăng xuất)`);
+        navLoginBtn.setAttribute('title', `Account: ${username} (Open account menu / Sign out)`);
       }
     } else {
       document.body.classList.remove('admin-mode');
@@ -311,7 +311,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       if (navLoginBtn) {
         navLoginBtn.classList.remove('user-logged-in-chip');
-        navLoginBtn.innerHTML = `<i class="fa-solid fa-arrow-right-to-bracket"></i> <span>Đăng Nhập</span>`;
+        navLoginBtn.innerHTML = `<i class="fa-solid fa-arrow-right-to-bracket"></i> <span>Sign In</span>`;
         navLoginBtn.removeAttribute('title');
       }
       if (dropdown) dropdown.classList.remove('show');
@@ -427,7 +427,7 @@ document.addEventListener('DOMContentLoaded', () => {
       grid.innerHTML = '';
 
       if (teamMembers.length === 0) {
-        grid.innerHTML = '<p class="empty-team-placeholder" style="color: #94a3b8; font-size: 0.875rem; font-style: italic; padding: 15px 0;">Chưa có thành viên trong nhóm này.</p>';
+        grid.innerHTML = '<p class="empty-team-placeholder" style="color: #94a3b8; font-size: 0.875rem; font-style: italic; padding: 15px 0;">This team has no members yet.</p>';
         return;
       }
 
@@ -469,14 +469,14 @@ document.addEventListener('DOMContentLoaded', () => {
               <i class="fa-solid fa-id-card"></i> View Profile
             </button>
             <div class="card-admin-actions">
-              <button class="btn-card-edit" type="button" title="Sửa thông tin thành viên">
-                <i class="fa-solid fa-pen-to-square"></i> Sửa
+              <button class="btn-card-edit" type="button" title="Edit member details">
+                <i class="fa-solid fa-pen-to-square"></i> Edit
               </button>
-              <button class="btn-card-alumni" type="button" title="Chuyển thành viên sang mục Alumni">
+              <button class="btn-card-alumni" type="button" title="Move member to Alumni">
                 <i class="fa-solid fa-user-graduate"></i> Alumni
               </button>
-              <button class="btn-card-delete" type="button" title="Xóa thành viên">
-                <i class="fa-solid fa-trash"></i> Xóa
+              <button class="btn-card-delete" type="button" title="Delete member">
+                <i class="fa-solid fa-trash"></i> Delete
               </button>
             </div>
           </div>
@@ -522,10 +522,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Global Reusable Modern Confirmation Modal Dialog
   window.showConfirmModal = function({
-    title = 'Xác Nhận Xóa',
-    message = 'Bạn có chắc chắn muốn thực hiện hành động này không?',
-    confirmText = 'Xóa Vĩnh Viễn',
-    cancelText = 'Hủy Bỏ',
+    title = 'Confirm Deletion',
+    message = 'Are you sure you want to continue?',
+    confirmText = 'Delete Permanently',
+    cancelText = 'Cancel',
     type = 'danger',
     icon = 'fa-trash-can'
   } = {}) {
@@ -606,15 +606,15 @@ document.addEventListener('DOMContentLoaded', () => {
           <i class="fa-solid fa-circle-user" style="font-size:1.6rem; color:#16a34a;"></i>
           <div>
             <strong id="dropdownUserName">100re</strong>
-            <small id="dropdownUserRole">Quản trị viên (Supervisor)</small>
+            <small id="dropdownUserRole">Administrator</small>
           </div>
         </div>
         <a href="members.html" class="user-dropdown-item">
-          <i class="fa-solid fa-users" style="color:#0284c7;"></i> Danh Sách Thành Viên
+          <i class="fa-solid fa-users" style="color:#0284c7;"></i> Member Directory
         </a>
         <div class="user-dropdown-divider"></div>
         <button class="user-dropdown-item text-danger" id="userDropdownLogoutBtn" type="button">
-          <i class="fa-solid fa-right-from-bracket"></i> Đăng xuất (Logout)
+          <i class="fa-solid fa-right-from-bracket"></i> Sign Out
         </button>
       `;
       loginItem.appendChild(dropdown);
@@ -643,7 +643,7 @@ document.addEventListener('DOMContentLoaded', () => {
     } catch (e) {}
 
     clearSession();
-    showToast('Đã đăng xuất khỏi tài khoản.');
+    showToast('You have signed out.');
   }
 
   // Login Modal Events & User Dropdown Toggle
@@ -721,18 +721,18 @@ document.addEventListener('DOMContentLoaded', () => {
           }
           setAdminState(true, data.display_name || data.user);
           closeModal(loginModal);
-          showToast(`Đăng nhập thành công: ${data.display_name || data.user}!`);
+          showToast(`Signed in as ${data.display_name || data.user}!`);
           await loadMembers();
         } else {
           if (loginErrorAlert) {
-            loginErrorAlert.textContent = data.error || 'Sai tên đăng nhập hoặc mật khẩu!';
+            loginErrorAlert.textContent = 'Unable to sign in. Check your username and password, then try again.';
             loginErrorAlert.style.display = 'block';
           }
         }
       } catch (err) {
         if (window.location.protocol !== 'file:') {
           if (loginErrorAlert) {
-            loginErrorAlert.textContent = 'Không thể kết nối với dịch vụ đăng nhập.';
+            loginErrorAlert.textContent = 'Unable to connect to the sign-in service. Please try again.';
             loginErrorAlert.style.display = 'block';
           }
           return;
@@ -882,11 +882,11 @@ document.addEventListener('DOMContentLoaded', () => {
           localStorage.setItem('100re_user_role', role);
           setAdminState(true, dispName);
           closeModal(loginModal);
-          showToast(`Đăng nhập thành công: ${dispName}!`);
+          showToast(`Signed in as ${dispName}!`);
           await loadMembers();
         } else {
           if (loginErrorAlert) {
-            loginErrorAlert.innerHTML = 'Sai tên đăng nhập hoặc mật khẩu!<br><small style="font-size:0.75rem; color:#64748b;">(Mật khẩu mặc định: 100re)</small>';
+            loginErrorAlert.innerHTML = 'Incorrect username or password.<br><small style="font-size:0.75rem; color:#64748b;">(Default password: 100re)</small>';
             loginErrorAlert.style.display = 'block';
           }
         }
@@ -940,7 +940,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const placeholder = document.getElementById('imagePreviewPlaceholder') || imagePreviewPlaceholder;
     const btnReCrop = document.getElementById('btnReCrop');
 
-    if (title) title.innerHTML = '<i class="fa-solid fa-user-plus" style="color: #16a34a;"></i> Thêm Thành Viên Mới';
+    if (title) title.innerHTML = '<i class="fa-solid fa-user-plus" style="color: #16a34a;"></i> Add New Member';
     if (alertBox) alertBox.style.display = 'none';
     if (form) form.reset();
     const roleInput = document.getElementById('formMemberRole') || formMemberRole;
@@ -974,7 +974,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const placeholder = document.getElementById('imagePreviewPlaceholder') || imagePreviewPlaceholder;
     const btnReCrop = document.getElementById('btnReCrop');
 
-    if (title) title.innerHTML = `<i class="fa-solid fa-pen-to-square" style="color: #16a34a;"></i> Chỉnh Sửa: ${escapeHtml(member.name)}`;
+    if (title) title.innerHTML = `<i class="fa-solid fa-pen-to-square" style="color: #16a34a;"></i> Edit: ${escapeHtml(member.name)}`;
     if (alertBox) alertBox.style.display = 'none';
     if (form) form.reset();
     if (idInput) idInput.value = member.id;
@@ -1255,7 +1255,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (btnReCrop) {
           btnReCrop.style.display = 'inline-flex';
         }
-        showToast('Đã cắt và tối ưu hóa ảnh thẻ thành công!');
+        showToast('Profile photo cropped and optimized.');
       }
 
       closeCropModal();
@@ -1338,7 +1338,7 @@ document.addEventListener('DOMContentLoaded', () => {
       e.preventDefault();
       const btnSave = document.getElementById('btnSaveMember');
       if (btnSave) {
-        btnSave.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Đang lưu...';
+        btnSave.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Saving...';
         btnSave.disabled = true;
       }
 
@@ -1411,10 +1411,10 @@ document.addEventListener('DOMContentLoaded', () => {
         safeSaveLocalStorage('100re_local_members', JSON.stringify(allMembers));
         renderAllTeamGrids();
         closeModal(document.getElementById('memberFormModal') || memberFormModal);
-        showToast(id ? 'Cập nhật thành viên thành công!' : 'Đã thêm thành viên mới thành công!');
+        showToast(id ? 'Member updated.' : 'New member added.');
       } catch (saveError) {
         console.error('Error saving member:', saveError);
-        showToast('Có lỗi xảy ra: ' + saveError.message, true);
+        showToast('An error occurred: ' + saveError.message, true);
       } finally {
         if (btnSave) {
           btnSave.innerHTML = '<i class="fa-solid fa-floppy-disk"></i> Save Member';
@@ -1428,10 +1428,10 @@ document.addEventListener('DOMContentLoaded', () => {
     // Move Member to Alumni Handler
   async function handleMoveMemberToAlumni(member) {
     const confirmed = await window.showConfirmModal({
-      title: 'Chuyển Sang Cựu Thành Viên (Alumni)',
-      message: `Bạn có chắc chắn muốn chuyển thành viên "${member.name}" sang danh sách Alumni (Cựu thành viên) của 100RE Lab không? Thông tin thành viên sẽ được lưu vĩnh viễn vào cơ sở dữ liệu.`,
-      confirmText: 'Chuyển Sang Alumni',
-      cancelText: 'Hủy Bỏ',
+      title: 'Move to Alumni',
+      message: `Move "${member.name}" to the 100RE Lab alumni directory? Their information will be retained in the database.`,
+      confirmText: 'Move to Alumni',
+      cancelText: 'Cancel',
       type: 'info',
       icon: 'fa-user-graduate'
     });
@@ -1471,7 +1471,7 @@ document.addEventListener('DOMContentLoaded', () => {
     } catch(e) {}
 
     renderAllTeamGrids();
-    showToast(`Đã chuyển thành viên "${member.name}" sang danh sách Alumni thành công!`);
+    showToast(`Moved "${member.name}" to the alumni directory.`);
 
     // 2. Sync to Backend Database (Cloudflare KV & D1)
     const tokenToSend = currentAuthToken || localStorage.getItem('100re_token') || '100re_admin_session';
@@ -1499,10 +1499,10 @@ document.addEventListener('DOMContentLoaded', () => {
   // Delete Member Handler
   async function handleDeleteMember(member) {
     const confirmed = await window.showConfirmModal({
-      title: 'Xác Nhận Xóa Thành Viên',
-      message: `Bạn có chắc chắn muốn xóa thành viên "${member.name}" khỏi danh sách phòng Lab không?`,
-      confirmText: 'Xóa Thành Viên',
-      cancelText: 'Hủy Bỏ',
+      title: 'Confirm Member Deletion',
+      message: `Delete "${member.name}" from the lab directory?`,
+      confirmText: 'Delete Member',
+      cancelText: 'Cancel',
       type: 'danger'
     });
     if (!confirmed) return;
@@ -1511,7 +1511,7 @@ document.addEventListener('DOMContentLoaded', () => {
     allMembers = allMembers.filter(m => String(m.id) !== String(member.id));
     safeSaveLocalStorage('100re_local_members', JSON.stringify(allMembers));
     renderAllTeamGrids();
-    showToast(`Đã xóa thành viên "${member.name}".`);
+    showToast(`Deleted member "${member.name}".`);
 
     // 2. Sync deletion to Cloudflare KV database
     const tokenToSend = currentAuthToken || localStorage.getItem('100re_token') || '100re_admin_session';

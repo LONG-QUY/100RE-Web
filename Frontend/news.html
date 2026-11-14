@@ -11,7 +11,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   
   <!-- Custom Stylesheets -->
-  <link rel="stylesheet" href="assets/css/style.css?v=shared-login-20261114">
+  <link rel="stylesheet" href="assets/css/style.css?v=english-20261114">
   <link rel="stylesheet" href="assets/css/pages.css">
 </head>
 <body>
@@ -68,11 +68,11 @@
     <!-- Admin Action Bar -->
     <div class="universal-admin-bar" id="newsAdminBar" style="display: none;">
       <div>
-        <strong style="color:#15803d; font-size: 0.95rem;"><i class="fa-solid fa-shield-halved"></i> Toà Soạn / Admin Newsroom Active</strong>
-        <div style="font-size: 0.8rem; color:#475569;">Bạn có quyền viết bài mới, chỉnh sửa hoặc xóa tin tức bài viết trên trang.</div>
+        <strong style="color:#15803d; font-size: 0.95rem;"><i class="fa-solid fa-shield-halved"></i> Editorial Mode</strong>
+        <div style="font-size: 0.8rem; color:#475569;">You can create, edit, and delete news articles.</div>
       </div>
       <button type="button" class="btn-universal-add" onclick="window.NewsApp.openComposer()">
-        <i class="fa-solid fa-feather-pointed"></i> + Soạn Bài Báo Mới (Write News Article)
+        <i class="fa-solid fa-feather-pointed"></i> + Write News Article
       </button>
     </div>
 
@@ -83,14 +83,14 @@
       <div class="news-control-bar">
         <div class="news-search-box">
           <i class="fa-solid fa-magnifying-glass"></i>
-          <input type="text" class="news-search-input" id="newsSearchInput" placeholder="Tìm kiếm bài viết theo tiêu đề, tác giả, nội dung hoặc từ khóa...">
+          <input type="text" class="news-search-input" id="newsSearchInput" placeholder="Search by title, author, content, or keyword...">
         </div>
         <div class="filter-pills" style="margin-bottom: 0;">
-          <button class="filter-btn active" data-news-filter="all">Tất Cả Bài Viết (All)</button>
-          <button class="filter-btn" data-news-filter="international">Hợp Tác Quốc Tế (International)</button>
-          <button class="filter-btn" data-news-filter="workshops">Hội Thảo &amp; Tọa Đàm (Workshops)</button>
-          <button class="filter-btn" data-news-filter="climate">Thanh Niên &amp; Khí Hậu (Climate)</button>
-          <button class="filter-btn" data-news-filter="awards">Giải Thưởng &amp; Học Bổng (Awards)</button>
+          <button class="filter-btn active" data-news-filter="all">All Articles</button>
+          <button class="filter-btn" data-news-filter="international">International</button>
+          <button class="filter-btn" data-news-filter="workshops">Workshops</button>
+          <button class="filter-btn" data-news-filter="climate">Climate</button>
+          <button class="filter-btn" data-news-filter="awards">Awards &amp; Scholarships</button>
         </div>
       </div>
 
@@ -156,9 +156,9 @@
 
   <button class="back-to-top" id="backToTop" aria-label="Back to top"><i class="fa-solid fa-arrow-up"></i></button>
 
-  <script src="assets/js/data.js"></script>
-  <script src="assets/js/public-site.js?v=shared-login-20261114"></script>
-  <script src="assets/js/admin_crud.js?v=research-team-directory-20261114"></script>
-  <script src="assets/js/news.js?v=verified-save"></script>
+  <script src="assets/js/data.js?v=english-20261114"></script>
+  <script src="assets/js/public-site.js?v=english-20261114"></script>
+  <script src="assets/js/admin_crud.js?v=english-20261114"></script>
+  <script src="assets/js/news.js?v=english-20261114"></script>
 </body>
 </html>

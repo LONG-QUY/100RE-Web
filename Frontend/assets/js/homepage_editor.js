@@ -241,9 +241,9 @@
     }
 
     if (typeof showToast === 'function') {
-      showToast('Đã lưu thay đổi trang chủ thành công!');
+      showToast('Homepage changes saved.');
     } else {
-      window.AdminCRUD.notify('Đã lưu thay đổi trang chủ.');
+      window.AdminCRUD.notify('Homepage changes saved.');
     }
     window.dispatchEvent(new CustomEvent('100re_homepage_updated', { detail: data }));
     return true;
@@ -500,38 +500,38 @@
 
     // Attach to Hero
     const heroSec = document.querySelector('.home-master-hero');
-    if (heroSec) attachEditBtn(heroSec, 'hero', 'Chỉnh sửa Banner Hero');
+    if (heroSec) attachEditBtn(heroSec, 'hero', 'Edit Hero Banner');
 
     // Attach to Stats
     const statsSec = document.querySelector('.stats-section');
-    if (statsSec) attachEditBtn(statsSec, 'stats', 'Chỉnh sửa Số Liệu Thống Kê');
+    if (statsSec) attachEditBtn(statsSec, 'stats', 'Edit Statistics');
 
     // Attach to Goals
     const goalsSec = document.getElementById('section-goals');
-    if (goalsSec) attachEditBtn(goalsSec, 'goals', 'Chỉnh sửa Mục Tiêu (Goals)');
+    if (goalsSec) attachEditBtn(goalsSec, 'goals', 'Edit Goals');
 
     // Attach to Platform Header
     const rpeHeader = document.querySelector('.rpe-header-block');
-    if (rpeHeader) attachEditBtn(rpeHeader, 'platformHeader', 'Chỉnh sửa Giới Thiệu Nền Tảng');
+    if (rpeHeader) attachEditBtn(rpeHeader, 'platformHeader', 'Edit Research Introduction');
 
     // Attach to each of the 8 Research Teams
     const teams = ['pv', 'ai', 'dr_uc', 'wind', 'smartgrid', 'ev', 'hydrogen', 'bess'];
     teams.forEach(teamKey => {
       const unit = document.getElementById(`rpe-team-${teamKey}`);
-      if (unit) attachEditBtn(unit, 'team', `Chỉnh sửa nhóm ${teamKey.toUpperCase()}`, teamKey);
+      if (unit) attachEditBtn(unit, 'team', `Edit team ${teamKey.toUpperCase()}`, teamKey);
     });
 
     // Attach to Gallery
     const galSec = document.getElementById('section-gallery-preview');
-    if (galSec) attachEditBtn(galSec, 'gallery', 'Chỉnh sửa Thư Viện Ảnh');
+    if (galSec) attachEditBtn(galSec, 'gallery', 'Edit Gallery');
 
     // Attach to Location
     const locSec = document.getElementById('section-location');
-    if (locSec) attachEditBtn(locSec, 'location', 'Chỉnh sửa Địa Chỉ & Bản Đồ');
+    if (locSec) attachEditBtn(locSec, 'location', 'Edit Address & Map');
 
     // Attach to Footer
     const footSec = document.querySelector('.footer');
-    if (footSec) attachEditBtn(footSec, 'footer', 'Chỉnh sửa Thông Tin Liên Hệ & Footer');
+    if (footSec) attachEditBtn(footSec, 'footer', 'Edit Contact Details & Footer');
   }
 
   function attachEditBtn(container, sectionType, btnLabel, subKey = null) {
@@ -567,18 +567,18 @@
         <div class="hp-modal-header">
           <div class="hp-modal-title-group">
             <div class="hp-modal-icon"><i class="fa-solid fa-pen-to-square"></i></div>
-            <h3 class="hp-modal-title" id="hpModalTitle">Chỉnh sửa nội dung</h3>
+            <h3 class="hp-modal-title" id="hpModalTitle">Edit Content</h3>
           </div>
-          <button type="button" class="hp-modal-close" id="hpModalCloseBtn" aria-label="Đóng"><i class="fa-solid fa-xmark"></i></button>
+          <button type="button" class="hp-modal-close" id="hpModalCloseBtn" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
         </div>
         <div class="hp-modal-body" id="hpModalBody">
           <!-- Dynamic form fields -->
         </div>
         <div class="hp-modal-footer">
-          <button type="button" class="hp-btn-reset" id="hpBtnResetSection"><i class="fa-solid fa-rotate-left"></i> Khôi phục mặc định mục này</button>
+          <button type="button" class="hp-btn-reset" id="hpBtnResetSection"><i class="fa-solid fa-rotate-left"></i> Reset This Section</button>
           <div class="hp-modal-footer-right">
-            <button type="button" class="hp-btn-cancel" id="hpBtnCancel">Hủy bỏ</button>
-            <button type="button" class="hp-btn-save" id="hpBtnSave"><i class="fa-solid fa-check"></i> Lưu thay đổi</button>
+            <button type="button" class="hp-btn-cancel" id="hpBtnCancel">Cancel</button>
+            <button type="button" class="hp-btn-save" id="hpBtnSave"><i class="fa-solid fa-check"></i> Save Changes</button>
           </div>
         </div>
       </div>
@@ -616,157 +616,157 @@
     modalBody.innerHTML = '';
 
     if (sectionType === 'hero') {
-      modalTitle.textContent = 'Chỉnh sửa: Banner Hero Trang Chủ';
+      modalTitle.textContent = 'Edit Homepage Hero';
       const d = allData.hero || DEFAULT_HOMEPAGE_DATA.hero;
       modalBody.innerHTML = `
         <div class="hp-form-group">
-          <label class="hp-form-label">Tiêu đề Hero (Hỗ trợ HTML/thẻ span làm nổi bật)</label>
+          <label class="hp-form-label">Hero Title (HTML and span highlighting supported)</label>
           <input type="text" class="hp-form-input" id="inp_hero_title" value="${escapeAttr(d.title)}">
         </div>
         <div class="hp-form-group">
-          <label class="hp-form-label">Mô tả / Tôn chỉ phòng Lab</label>
+          <label class="hp-form-label">Description / Lab Mission</label>
           <textarea class="hp-form-textarea" rows="4" id="inp_hero_desc">${escapeHtml(d.desc)}</textarea>
         </div>
         <div class="hp-form-row">
           <div class="hp-form-group">
-            <label class="hp-form-label">Nút 1 - Nhãn</label>
+            <label class="hp-form-label">Button 1 - Label</label>
             <input type="text" class="hp-form-input" id="inp_hero_btn1Text" value="${escapeAttr(d.btn1Text)}">
           </div>
           <div class="hp-form-group">
-            <label class="hp-form-label">Nút 1 - Đường dẫn (URL)</label>
+            <label class="hp-form-label">Button 1 - URL</label>
             <input type="text" class="hp-form-input" id="inp_hero_btn1Link" value="${escapeAttr(d.btn1Link)}">
           </div>
         </div>
         <div class="hp-form-row">
           <div class="hp-form-group">
-            <label class="hp-form-label">Nút 2 - Nhãn</label>
+            <label class="hp-form-label">Button 2 - Label</label>
             <input type="text" class="hp-form-input" id="inp_hero_btn2Text" value="${escapeAttr(d.btn2Text)}">
           </div>
           <div class="hp-form-group">
-            <label class="hp-form-label">Nút 2 - Đường dẫn (URL)</label>
+            <label class="hp-form-label">Button 2 - URL</label>
             <input type="text" class="hp-form-input" id="inp_hero_btn2Link" value="${escapeAttr(d.btn2Link)}">
           </div>
         </div>
       `;
     } else if (sectionType === 'stats') {
-      modalTitle.textContent = 'Chỉnh sửa: Khối Số Liệu Thống Kê';
+      modalTitle.textContent = 'Edit Statistics';
       const d = allData.stats || DEFAULT_HOMEPAGE_DATA.stats;
       modalBody.innerHTML = `
         <div class="hp-form-row">
           <div class="hp-form-group">
-            <label class="hp-form-label">Chỉ số 1 - Con số (VD: 200+)</label>
+            <label class="hp-form-label">Statistic 1 - Value (e.g. 200+)</label>
             <input type="text" class="hp-form-input" id="inp_stat1Num" value="${escapeAttr(d.stat1Num)}">
           </div>
           <div class="hp-form-group">
-            <label class="hp-form-label">Chỉ số 1 - Tên nhãn (VD: Publications)</label>
+            <label class="hp-form-label">Statistic 1 - Label (e.g. Publications)</label>
             <input type="text" class="hp-form-input" id="inp_stat1Label" value="${escapeAttr(d.stat1Label)}">
           </div>
         </div>
         <div class="hp-form-row">
           <div class="hp-form-group">
-            <label class="hp-form-label">Chỉ số 2 - Con số (VD: 40+)</label>
+            <label class="hp-form-label">Statistic 2 - Value (e.g. 40+)</label>
             <input type="text" class="hp-form-input" id="inp_stat2Num" value="${escapeAttr(d.stat2Num)}">
           </div>
           <div class="hp-form-group">
-            <label class="hp-form-label">Chỉ số 2 - Tên nhãn</label>
+            <label class="hp-form-label">Statistic 2 - Label</label>
             <input type="text" class="hp-form-input" id="inp_stat2Label" value="${escapeAttr(d.stat2Label)}">
           </div>
         </div>
         <div class="hp-form-row">
           <div class="hp-form-group">
-            <label class="hp-form-label">Chỉ số 3 - Con số (VD: 8)</label>
+            <label class="hp-form-label">Statistic 3 - Value (e.g. 8)</label>
             <input type="text" class="hp-form-input" id="inp_stat3Num" value="${escapeAttr(d.stat3Num)}">
           </div>
           <div class="hp-form-group">
-            <label class="hp-form-label">Chỉ số 3 - Tên nhãn</label>
+            <label class="hp-form-label">Statistic 3 - Label</label>
             <input type="text" class="hp-form-input" id="inp_stat3Label" value="${escapeAttr(d.stat3Label)}">
           </div>
         </div>
         <div class="hp-form-row">
           <div class="hp-form-group">
-            <label class="hp-form-label">Chỉ số 4 - Con số (VD: 10:1)</label>
+            <label class="hp-form-label">Statistic 4 - Value (e.g. 10:1)</label>
             <input type="text" class="hp-form-input" id="inp_stat4Num" value="${escapeAttr(d.stat4Num)}">
           </div>
           <div class="hp-form-group">
-            <label class="hp-form-label">Chỉ số 4 - Tên nhãn</label>
+            <label class="hp-form-label">Statistic 4 - Label</label>
             <input type="text" class="hp-form-input" id="inp_stat4Label" value="${escapeAttr(d.stat4Label)}">
           </div>
         </div>
       `;
     } else if (sectionType === 'goals') {
-      modalTitle.textContent = 'Chỉnh sửa: Mục Tiêu & Tầm Nhìn (Goals)';
+      modalTitle.textContent = 'Edit Goals & Vision';
       const d = allData.goals || DEFAULT_HOMEPAGE_DATA.goals;
       modalBody.innerHTML = `
         <div class="hp-form-group">
-          <label class="hp-form-label">Tiêu đề mục</label>
+          <label class="hp-form-label">Section Title</label>
           <input type="text" class="hp-form-input" id="inp_goals_title" value="${escapeAttr(d.title)}">
         </div>
         <div class="hp-form-group">
-          <label class="hp-form-label">Đoạn văn 1</label>
+          <label class="hp-form-label">Paragraph 1</label>
           <textarea class="hp-form-textarea" rows="3" id="inp_goals_p1">${escapeHtml(d.p1)}</textarea>
         </div>
         <div class="hp-form-group">
-          <label class="hp-form-label">Đoạn văn 2</label>
+          <label class="hp-form-label">Paragraph 2</label>
           <textarea class="hp-form-textarea" rows="3" id="inp_goals_p2">${escapeHtml(d.p2)}</textarea>
         </div>
         <div class="hp-form-group">
-          <label class="hp-form-label">Đoạn văn 3 (Kết luận)</label>
+          <label class="hp-form-label">Paragraph 3 (Conclusion)</label>
           <textarea class="hp-form-textarea" rows="3" id="inp_goals_p3">${escapeHtml(d.p3)}</textarea>
         </div>
         <div class="hp-form-row">
           <div class="hp-form-group">
-            <label class="hp-form-label">Tác giả trích dẫn (Author)</label>
+            <label class="hp-form-label">Quote Author</label>
             <input type="text" class="hp-form-input" id="inp_goals_author" value="${escapeAttr(d.author)}">
           </div>
           <div class="hp-form-group">
-            <label class="hp-form-label">Ngày thành lập / ghi nhận</label>
+            <label class="hp-form-label">Established / Recorded Date</label>
             <input type="text" class="hp-form-input" id="inp_goals_date" value="${escapeAttr(d.date)}">
           </div>
         </div>
       `;
     } else if (sectionType === 'platformHeader') {
-      modalTitle.textContent = 'Chỉnh sửa: Giới Thiệu Nền Tảng Nghiên Cứu';
+      modalTitle.textContent = 'Edit Research Introduction';
       const d = allData.platformHeader || DEFAULT_HOMEPAGE_DATA.platformHeader;
       modalBody.innerHTML = `
         <div class="hp-form-group">
-          <label class="hp-form-label">Tiêu đề chính nền tảng</label>
+          <label class="hp-form-label">Research Platform Title</label>
           <input type="text" class="hp-form-input" id="inp_rpe_title" value="${escapeAttr(d.title)}">
         </div>
         <div class="hp-form-group">
-          <label class="hp-form-label">Đoạn mở đầu (Lead paragraph)</label>
+          <label class="hp-form-label">Lead Paragraph</label>
           <textarea class="hp-form-textarea" rows="4" id="inp_rpe_lead">${escapeHtml(d.lead)}</textarea>
         </div>
         <div class="hp-form-group">
-          <label class="hp-form-label">Tiêu đề phụ 1 (Hạ tầng Lab)</label>
+          <label class="hp-form-label">Subheading 1 (Lab Infrastructure)</label>
           <input type="text" class="hp-form-input" id="inp_rpe_sub1Title" value="${escapeAttr(d.sub1Title)}">
         </div>
         <div class="hp-form-group">
-          <label class="hp-form-label">Nội dung phụ 1</label>
+          <label class="hp-form-label">Section 1 Content</label>
           <textarea class="hp-form-textarea" rows="4" id="inp_rpe_sub1Text">${escapeHtml(d.sub1Text)}</textarea>
         </div>
         <div class="hp-form-group">
-          <label class="hp-form-label">Tiêu đề phụ 2 (8 Nhóm nghiên cứu)</label>
+          <label class="hp-form-label">Subheading 2 (8 Research Teams)</label>
           <input type="text" class="hp-form-input" id="inp_rpe_sub2Title" value="${escapeAttr(d.sub2Title)}">
         </div>
         <div class="hp-form-group">
-          <label class="hp-form-label">Nội dung phụ 2</label>
+          <label class="hp-form-label">Section 2 Content</label>
           <textarea class="hp-form-textarea" rows="2" id="inp_rpe_sub2Text">${escapeHtml(d.sub2Text)}</textarea>
         </div>
       `;
     } else if (sectionType === 'team' && subKey) {
       const d = (allData.teams && allData.teams[subKey]) || DEFAULT_HOMEPAGE_DATA.teams[subKey];
-      modalTitle.textContent = `Chỉnh sửa Nhóm: ${d.title}`;
+      modalTitle.textContent = `Edit Team: ${d.title}`;
       modalBody.innerHTML = `
         <div class="hp-form-group">
-          <label class="hp-form-label">Tên nhóm nghiên cứu &amp; Tiêu đề hiển thị</label>
+          <label class="hp-form-label">Research Team &amp; Display Title</label>
           <input type="text" class="hp-form-input" id="inp_team_title" value="${escapeAttr(d.title)}">
         </div>
         <div class="hp-form-group">
-          <label class="hp-form-label">Hình ảnh minh họa nhóm (URL hoặc tải từ máy tính)</label>
+          <label class="hp-form-label">Team Image (URL or file upload)</label>
           <div style="display: flex; gap: 10px; margin-bottom: 8px;">
-            <input type="text" class="hp-form-input" id="inp_team_image" value="${escapeAttr(d.image)}" placeholder="assets/images/banner_...jpg hoặc link ảnh">
+            <input type="text" class="hp-form-input" id="inp_team_image" value="${escapeAttr(d.image)}" placeholder="assets/images/banner_...jpg or image URL">
             <label class="hp-btn-upload-file">
-              <i class="fa-solid fa-cloud-arrow-up"></i> Chọn ảnh
+              <i class="fa-solid fa-cloud-arrow-up"></i> Choose Image
               <input type="file" id="file_team_image" accept="image/*" style="display:none;">
             </label>
           </div>
@@ -775,24 +775,24 @@
           </div>
         </div>
         <div class="hp-form-group">
-          <label class="hp-form-label">Chú thích ảnh học thuật (Photo / Source Caption)</label>
+          <label class="hp-form-label">Photo Caption / Source</label>
           <input type="text" class="hp-form-input" id="inp_team_caption" value="${escapeAttr(d.caption)}">
         </div>
         <div class="hp-form-group">
-          <label class="hp-form-label">Đoạn văn chuyên môn 1 (Mục tiêu &amp; Lĩnh vực cốt lõi)</label>
+          <label class="hp-form-label">Research Paragraph 1 (Goals &amp; Core Areas)</label>
           <textarea class="hp-form-textarea" rows="4" id="inp_team_p1">${escapeHtml(d.p1)}</textarea>
         </div>
         <div class="hp-form-group">
-          <label class="hp-form-label">Đoạn văn chuyên môn 2 (Ứng dụng thực tiễn &amp; Hợp tác)</label>
+          <label class="hp-form-label">Research Paragraph 2 (Applications &amp; Collaboration)</label>
           <textarea class="hp-form-textarea" rows="4" id="inp_team_p2">${escapeHtml(d.p2)}</textarea>
         </div>
         <div class="hp-form-row">
           <div class="hp-form-group">
-            <label class="hp-form-label">Chữ nút liên kết (Link Text)</label>
+            <label class="hp-form-label">Link Text</label>
             <input type="text" class="hp-form-input" id="inp_team_linkText" value="${escapeAttr(d.linkText || 'View Team Members & Projects')}">
           </div>
           <div class="hp-form-group">
-            <label class="hp-form-label">Đường dẫn liên kết (Link URL)</label>
+            <label class="hp-form-label">Link URL</label>
             <input type="text" class="hp-form-input" id="inp_team_linkUrl" value="${escapeAttr(d.linkUrl || `members.html#grid-${subKey}`)}">
           </div>
         </div>
@@ -819,20 +819,20 @@
         }
       });
     } else if (sectionType === 'gallery') {
-      modalTitle.textContent = 'Chỉnh sửa: Thư Viện Ảnh Nổi Bật';
+      modalTitle.textContent = 'Edit Featured Gallery';
       const d = allData.gallery || DEFAULT_HOMEPAGE_DATA.gallery;
       let itemsHTML = '';
       (d.items || []).forEach((item, idx) => {
         itemsHTML += `
           <div class="hp-sub-card">
-            <h5 style="margin: 0 0 8px 0; color: #16a34a;">Ảnh ${idx + 1}</h5>
+            <h5 style="margin: 0 0 8px 0; color: #16a34a;">Photo ${idx + 1}</h5>
             <div class="hp-form-row">
               <div class="hp-form-group">
-                <label class="hp-form-label">Đường dẫn ảnh</label>
+                <label class="hp-form-label">Image URL</label>
                 <input type="text" class="hp-form-input inp-gal-img" data-idx="${idx}" value="${escapeAttr(item.image)}">
               </div>
               <div class="hp-form-group">
-                <label class="hp-form-label">Chú thích ảnh</label>
+                <label class="hp-form-label">Photo Caption</label>
                 <input type="text" class="hp-form-input inp-gal-cap" data-idx="${idx}" value="${escapeAttr(item.caption)}">
               </div>
             </div>
@@ -843,68 +843,68 @@
       modalBody.innerHTML = `
         <div class="hp-form-row">
           <div class="hp-form-group">
-            <label class="hp-form-label">Tiêu đề thư viện ảnh</label>
+            <label class="hp-form-label">Gallery Title</label>
             <input type="text" class="hp-form-input" id="inp_gal_title" value="${escapeAttr(d.title)}">
           </div>
           <div class="hp-form-group">
-            <label class="hp-form-label">Nhãn nút xem thêm</label>
+            <label class="hp-form-label">View More Button Label</label>
             <input type="text" class="hp-form-input" id="inp_gal_linkText" value="${escapeAttr(d.linkText)}">
           </div>
         </div>
-        <h4 style="margin: 16px 0 10px 0; font-size: 0.95rem; color: #0f172a;">4 Ảnh hiển thị trên trang chủ:</h4>
+        <h4 style="margin: 16px 0 10px 0; font-size: 0.95rem; color: #0f172a;">4 Homepage Photos:</h4>
         ${itemsHTML}
       `;
     } else if (sectionType === 'location') {
-      modalTitle.textContent = 'Chỉnh sửa: Địa Chỉ & Vị Trí Phòng Lab';
+      modalTitle.textContent = 'Edit Lab Address & Location';
       const d = allData.location || DEFAULT_HOMEPAGE_DATA.location;
       modalBody.innerHTML = `
         <div class="hp-form-group">
-          <label class="hp-form-label">Tiêu đề mục</label>
+          <label class="hp-form-label">Section Title</label>
           <input type="text" class="hp-form-input" id="inp_loc_title" value="${escapeAttr(d.title)}">
         </div>
         <div class="hp-form-group">
-          <label class="hp-form-label">Đơn vị / Trường Đại học</label>
+          <label class="hp-form-label">Institution / University</label>
           <input type="text" class="hp-form-input" id="inp_loc_uni" value="${escapeAttr(d.university)}">
         </div>
         <div class="hp-form-group">
-          <label class="hp-form-label">Phòng làm việc (Offices)</label>
+          <label class="hp-form-label">Offices</label>
           <input type="text" class="hp-form-input" id="inp_loc_offices" value="${escapeAttr(d.offices)}">
         </div>
         <div class="hp-form-group">
-          <label class="hp-form-label">Địa chỉ chi tiết</label>
+          <label class="hp-form-label">Full Address</label>
           <input type="text" class="hp-form-input" id="inp_loc_address" value="${escapeAttr(d.address)}">
         </div>
         <div class="hp-form-group">
-          <label class="hp-form-label">Đường dẫn Google Maps</label>
+          <label class="hp-form-label">Google Maps URL</label>
           <input type="text" class="hp-form-input" id="inp_loc_mapsUrl" value="${escapeAttr(d.mapsUrl)}">
         </div>
         <div class="hp-form-group">
-          <label class="hp-form-label" for="inp_loc_embed">Đường dẫn nhúng bản đồ (URL trong thuộc tính src của iframe Google Maps)</label>
+          <label class="hp-form-label" for="inp_loc_embed">Map Embed URL (the src URL from the Google Maps iframe)</label>
           <input type="url" class="hp-form-input" id="inp_loc_embed" value="${escapeAttr(d.mapsEmbedUrl || DEFAULT_HOMEPAGE_DATA.location.mapsEmbedUrl)}">
         </div>
         <div class="hp-form-group">
-          <label class="hp-form-label" for="inp_loc_directions">Đường dẫn chỉ đường Google Maps</label>
+          <label class="hp-form-label" for="inp_loc_directions">Google Maps Directions URL</label>
           <input type="url" class="hp-form-input" id="inp_loc_directions" value="${escapeAttr(d.directionsUrl || DEFAULT_HOMEPAGE_DATA.location.directionsUrl)}">
         </div>
       `;
     } else if (sectionType === 'footer') {
-      modalTitle.textContent = 'Chỉnh sửa: Thông Tin Footer & Liên Hệ';
+      modalTitle.textContent = 'Edit Footer & Contact Details';
       const d = allData.footer || DEFAULT_HOMEPAGE_DATA.footer;
       modalBody.innerHTML = `
-        <h4 style="color: #16a34a; margin: 0 0 10px 0;">1. Người phụ trách phòng Lab (Supervisor)</h4>
+        <h4 style="color: #16a34a; margin: 0 0 10px 0;">1. Lab Supervisor</h4>
         <div class="hp-form-row">
           <div class="hp-form-group">
-            <label class="hp-form-label">Họ và tên</label>
+            <label class="hp-form-label">Full Name</label>
             <input type="text" class="hp-form-input" id="inp_foot_supName" value="${escapeAttr(d.supervisorName)}">
           </div>
           <div class="hp-form-group">
-            <label class="hp-form-label">Học hàm / Học vị</label>
+            <label class="hp-form-label">Academic Title / Degree</label>
             <input type="text" class="hp-form-input" id="inp_foot_supTitle" value="${escapeAttr(d.supervisorTitle)}">
           </div>
         </div>
         <div class="hp-form-row">
           <div class="hp-form-group">
-            <label class="hp-form-label">Số điện thoại</label>
+            <label class="hp-form-label">Phone Number</label>
             <input type="text" class="hp-form-input" id="inp_foot_supPhone" value="${escapeAttr(d.supervisorPhone)}">
           </div>
           <div class="hp-form-group">
@@ -913,24 +913,24 @@
           </div>
         </div>
         <div class="hp-form-group">
-          <label class="hp-form-label">Email 2 (Quốc tế)</label>
+          <label class="hp-form-label">Email 2 (International)</label>
           <input type="text" class="hp-form-input" id="inp_foot_supEmail2" value="${escapeAttr(d.supervisorEmail2)}">
         </div>
 
-        <h4 style="color: #16a34a; margin: 18px 0 10px 0;">2. Liên hệ thông tin chung (Contact for Information)</h4>
+        <h4 style="color: #16a34a; margin: 18px 0 10px 0;">2. General Contact</h4>
         <div class="hp-form-row">
           <div class="hp-form-group">
-            <label class="hp-form-label">Họ và tên</label>
+            <label class="hp-form-label">Full Name</label>
             <input type="text" class="hp-form-input" id="inp_foot_cntName" value="${escapeAttr(d.contactName)}">
           </div>
           <div class="hp-form-group">
-            <label class="hp-form-label">Học vị / Vị trí</label>
+            <label class="hp-form-label">Degree / Position</label>
             <input type="text" class="hp-form-input" id="inp_foot_cntTitle" value="${escapeAttr(d.contactTitle)}">
           </div>
         </div>
         <div class="hp-form-row">
           <div class="hp-form-group">
-            <label class="hp-form-label">Số điện thoại</label>
+            <label class="hp-form-label">Phone Number</label>
             <input type="text" class="hp-form-input" id="inp_foot_cntPhone" value="${escapeAttr(d.contactPhone)}">
           </div>
           <div class="hp-form-group">
@@ -939,9 +939,9 @@
           </div>
         </div>
 
-        <h4 style="color: #16a34a; margin: 18px 0 10px 0;">3. Bản quyền</h4>
+        <h4 style="color: #16a34a; margin: 18px 0 10px 0;">3. Copyright</h4>
         <div class="hp-form-group">
-          <label class="hp-form-label">Dòng bản quyền</label>
+          <label class="hp-form-label">Copyright Notice</label>
           <input type="text" class="hp-form-input" id="inp_foot_copyright" value="${escapeAttr(d.copyright)}">
         </div>
       `;
@@ -1037,7 +1037,7 @@
       if (!isGoogleMapEmbed(document.getElementById('inp_loc_embed').value.trim()) ||
           !safeGoogleMapUrl(document.getElementById('inp_loc_mapsUrl').value.trim()) ||
           !safeGoogleMapUrl(document.getElementById('inp_loc_directions').value.trim())) {
-        window.AdminCRUD.notify('Vui lòng nhập đường dẫn Google Maps hợp lệ. Ô nhúng bản đồ cần URL nhúng, không phải toàn bộ mã iframe.', true);
+        window.AdminCRUD.notify('Enter valid Google Maps URLs. The embed field requires the embed URL, not the full iframe code.', true);
         return;
       }
       data.location = {
@@ -1069,7 +1069,7 @@
   }
 
   async function handleResetSectionModal() {
-    if (!confirm('Bạn có chắc chắn muốn khôi phục mục này về nội dung mặc định của phòng Lab?')) return;
+    if (!confirm('Restore this section to the default lab content?')) return;
 
     const data = getHomepageData();
     if (currentEditingSection === 'hero') {
@@ -1139,7 +1139,7 @@
       saveData: saveHomepageData,
       openModal: openHomepageEditModal,
       resetAll() {
-        if (confirm('Khôi phục toàn bộ trang chủ về mặc định gốc?')) {
+        if (confirm('Restore the entire homepage to its default content?')) {
           return saveHomepageData(DEFAULT_HOMEPAGE_DATA);
         }
       }

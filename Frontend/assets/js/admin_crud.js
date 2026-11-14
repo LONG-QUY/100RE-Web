@@ -9,11 +9,28 @@
   // 1. Unified Data Manager with Cloudflare KV Real-Time Database Sync
   const API_BASE = window.location.origin.includes('localhost') || window.location.origin.includes('127.0.0.1') ? '' : '';
 
+  const englishNewsDefaults = structuredClone(window.LAB_DATA?.news || []);
+  function localizeLegacyNews(key, items) {
+    if (key !== 'news' || !Array.isArray(items)) return items;
+    return items.map(item => {
+      const defaults = englishNewsDefaults.find(record => record.id === item.id);
+      const hashes = window.LAB_LEGACY_NEWS_HASHES?.[item.id];
+      if (!defaults || !hashes) return item;
+      const localized = { ...item };
+      for (const field of ['imageCaption', 'excerpt', 'content']) {
+        let hash = 2166136261;
+        for (const char of item[field] || '') hash = Math.imul(hash ^ char.charCodeAt(0), 16777619) >>> 0;
+        if (hash === hashes[field]) localized[field] = defaults[field];
+      }
+      return localized;
+    });
+  }
+
   const DataManager = {
     get(key) {
       try {
         const saved = localStorage.getItem('100re_data_' + key);
-        if (saved) return JSON.parse(saved);
+        if (saved) return localizeLegacyNews(key, JSON.parse(saved));
       } catch (e) {
         console.warn('Error reading from localStorage for ' + key, e);
       }
@@ -24,6 +41,7 @@
     savedCollections: new Set(),
 
     cache(key, items) {
+      items = localizeLegacyNews(key, items);
       try {
         localStorage.setItem('100re_data_' + key, JSON.stringify(items));
       } catch (e) {
@@ -34,7 +52,7 @@
     },
 
     async set(key, items) {
-      if (this.pendingWrites.has(key)) throw new Error('Đang lưu dữ liệu. Vui lòng đợi.');
+      if (this.pendingWrites.has(key)) throw new Error('Saving your changes. Please wait.');
       this.pendingWrites.add(key);
       try {
         await window.savePublicData(`${API_BASE}/api/public/content/${key}`, 'PUT', items);
@@ -77,7 +95,7 @@
         await this.set(key, items);
         return items[idx];
       }
-      throw new Error('Không tìm thấy mục cần sửa.');
+      throw new Error('The item you want to edit could not be found.');
     },
 
     async remove(key, id) {
@@ -205,8 +223,8 @@
                   <strong>Future Direction:</strong> ${item.futureDirections}
                 </div>
               ` : ''}
-              <div class="pv-form-actions"><a class="pv-button" href="research-team.html?team=${encodeURIComponent(item.id)}">Khám phá nghiên cứu <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
-              ${memberTeam ? `<a class="pv-button secondary" href="members.html#team-${memberTeam}">Thành viên</a>` : ''}</div>
+              <div class="pv-form-actions"><a class="pv-button" href="research-team.html?team=${encodeURIComponent(item.id)}">Explore Research <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+              ${memberTeam ? `<a class="pv-button secondary" href="members.html#team-${memberTeam}">Members</a>` : ''}</div>
               ${getAdminCardButtons('researchAreas', item.id)}
             </div>
           </article>
@@ -256,7 +274,6 @@
         { key: "venue", label: "Journal / Conference Venue", type: "text", required: true },
         { key: "year", label: "Publication Year (e.g. 2024)", type: "text", required: true },
         { key: "category", label: "Category", type: "select", options: ["international-journal", "domestic-journal", "conference", "book-chapter", "invited-talk"], required: true },
-        { key: "quartile", label: "Quartile (optional, e.g. Q1 / Q2)", type: "text" },
         { key: "doi", label: "DOI / Paper Link (e.g. 10.1016/j.renene.2023.123456)", type: "text" },
         { key: "url", label: "Google Scholar / Publisher URL", type: "text" },
         { key: "citations", label: "Citations Count", type: "text" }
@@ -270,7 +287,6 @@
           <article class="pub-item" data-id="${item.id}" data-category="${item.category || 'international-journal'}">
             <div class="pub-meta-top">
               <span class="pub-badge-category">${catName}</span>
-              ${item.quartile ? `<span class="pub-badge-quartile">${item.quartile}</span>` : ''}
               <span class="pub-year"><i class="fa-regular fa-calendar"></i> ${item.year || ''}</span>
             </div>
             <h3 class="pub-title">${item.title}</h3>
@@ -278,7 +294,7 @@
             <div class="pub-venue"><strong>Venue:</strong> ${item.venue || item.journal || ''}</div>
             <div class="pub-links">
               ${item.doi ? `<a href="${item.doi.startsWith('http') ? item.doi : 'https://doi.org/' + item.doi}" target="_blank" rel="noopener noreferrer" class="pub-link-btn"><i class="fa-solid fa-link"></i> DOI: ${item.doi}</a>` : ''}
-              <button class="pub-link-btn" type="button" onclick="navigator.clipboard.writeText('${(item.authors || '').replace(/'/g, "\\'")} (${item.year}). ${(item.title || '').replace(/'/g, "\\'")}. ${(item.venue || item.journal || '').replace(/'/g, "\\'")}.'); if (typeof showToast === 'function') { showToast('Đã sao chép trích dẫn APA vào clipboard!'); } else { alert('Citation copied to clipboard!'); }">
+              <button class="pub-link-btn" type="button" onclick="navigator.clipboard.writeText('${(item.authors || '').replace(/'/g, "\\'")} (${item.year}). ${(item.title || '').replace(/'/g, "\\'")}. ${(item.venue || item.journal || '').replace(/'/g, "\\'")}.'); if (typeof showToast === 'function') { showToast('APA citation copied to clipboard.'); } else { alert('Citation copied to clipboard!'); }">
                 <i class="fa-regular fa-copy"></i> Copy Citation
               </button>
             </div>
@@ -884,7 +900,7 @@
         return;
       }
 
-      this.notify('Đã lưu thay đổi.');
+      this.notify('Changes saved.');
       this.closeModal();
       this.renderCurrentPage();
     },
@@ -894,27 +910,27 @@
       if (!schema) return;
 
       const collTitles = {
-        'photos': 'Ảnh Thư Viện',
-        'projects': 'Đề Tài Nghiên Cứu',
-        'news': 'Bài Báo / Tin Tức',
-        'publications': 'Bài Báo Khoa Học',
-        'journey': 'Cột Mốc Hành Trình',
-        'research': 'Hướng Nghiên Cứu',
-        'collaborations': 'Đối Tác Hợp Tác',
-        'lab_equipment': 'Thiết Bị Phòng Lab',
-        'fund_raise': 'Khoản Tài Trợ',
-        'featuredAlumni': 'Hồ Sơ Cựu Thành Viên Tiêu Biểu',
-        'teamAlumni': 'Cựu Thành Viên Nhóm'
+        'photos': 'Gallery Photo',
+        'projects': 'Research Project',
+        'news': 'News Article',
+        'publications': 'Publication',
+        'journey': 'Journey Entry',
+        'research': 'Research Direction',
+        'collaborations': 'Collaborator',
+        'lab_equipment': 'Lab Equipment',
+        'fund_raise': 'Funding Contribution',
+        'featuredAlumni': 'Featured Alumni Profile',
+        'teamAlumni': 'Team Alumni'
       };
-      const itemName = collTitles[collectionKey] || schema.name || 'mục';
+        const itemName = collTitles[collectionKey] || schema.name || 'item';
 
       let isConfirmed = false;
       if (typeof window.showConfirmModal === 'function') {
         isConfirmed = await window.showConfirmModal({
-          title: `Xác Nhận Xóa ${itemName}`,
-          message: `Bạn có chắc chắn muốn xóa vĩnh viễn ${itemName.toLowerCase()} này không? Thao tác này không thể hoàn tác.`,
-          confirmText: 'Xóa Vĩnh Viễn',
-          cancelText: 'Hủy Bỏ',
+          title: `Confirm Deletion ${itemName}`,
+          message: `Permanently delete this ${itemName.toLowerCase()}? This cannot be undone.`,
+          confirmText: 'Delete Permanently',
+          cancelText: 'Cancel',
           type: 'danger'
         });
       } else {
@@ -928,7 +944,7 @@
           this.notify(error.message, true);
           return;
         }
-        this.notify(`Đã xóa ${itemName.toLowerCase()} thành công!`);
+        this.notify(`The ${itemName.toLowerCase()} has been deleted.`);
         this.renderCurrentPage();
       }
     },

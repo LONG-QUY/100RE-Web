@@ -1,5 +1,11 @@
 # Public website structure
 
+The public website uses English for navigation, forms, editors, notifications,
+empty states, and default news content. Person names and original citation metadata
+are retained. English publication display titles are stored separately from the
+original titles used by citation copying. Cached, unchanged default news fields
+are migrated to English; content written by editors is preserved.
+
 The public navigation has seven primary destinations. Workspace code, permissions,
 storage and authentication remain outside this change.
 

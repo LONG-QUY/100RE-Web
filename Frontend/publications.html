@@ -24,7 +24,7 @@
 
   <!-- Custom Stylesheets -->
 
-  <link rel="stylesheet" href="assets/css/style.css?v=shared-login-20261114">
+  <link rel="stylesheet" href="assets/css/style.css?v=english-20261114">
 
   <link rel="stylesheet" href="assets/css/pages.css">
 
@@ -137,7 +137,7 @@
 
         <button class="filter-btn active" data-pub-filter="all">All</button>
 
-        <button class="filter-btn" data-pub-filter="international-journal">International Journals (Q1/Q2)</button>
+        <button class="filter-btn" data-pub-filter="international-journal">International Journals</button>
 
         <button class="filter-btn" data-pub-filter="domestic-journal">Domestic Journals</button>
 
@@ -157,17 +157,17 @@
 
         <div class="pub-toolbar-left">
 
-          <button type="button" class="btn-pub-tool" id="btnExpandAllPubs"><i class="fa-solid fa-angles-down"></i> Mở tất cả (Expand All)</button>
+          <button type="button" class="btn-pub-tool" id="btnExpandAllPubs"><i class="fa-solid fa-angles-down"></i> Expand All</button>
 
-          <button type="button" class="btn-pub-tool" id="btnCollapseAllPubs"><i class="fa-solid fa-angles-up"></i> Thu gọn (Collapse All)</button>
+          <button type="button" class="btn-pub-tool" id="btnCollapseAllPubs"><i class="fa-solid fa-angles-up"></i> Collapse All</button>
 
-          <select class="pub-year-jump-select" id="pubYearJump" aria-label="Chuyển tới năm">
+          <select class="pub-year-jump-select" id="pubYearJump" aria-label="Jump to year">
 
-            <option value="">Chuyển tới năm (Jump to year)...</option>
+            <option value="">Jump to year...</option>
 
           </select>
 
-          <a href="https://scholar.google.com/citations?hl=en&amp;user=89Jk4L0AAAAJ&amp;view_op=list_works&amp;sortby=pubdate" target="_blank" rel="noopener noreferrer" class="btn-pub-tool" title="Xem hồ sơ Nguyen Duc Tuyen trên Google Scholar">
+          <a href="https://scholar.google.com/citations?hl=en&amp;user=89Jk4L0AAAAJ&amp;view_op=list_works&amp;sortby=pubdate" target="_blank" rel="noopener noreferrer" class="btn-pub-tool" title="View Nguyen Duc Tuyen on Google Scholar">
 
             <i class="fa-brands fa-google-scholar" style="color: #4285F4;"></i> Google Scholar Profile
 
@@ -179,7 +179,7 @@
 
           <button type="button" class="btn-primary btn-add-pub" id="btnAddPublication" onclick="window.AdminCRUD && window.AdminCRUD.openModal('publications')">
 
-            <i class="fa-solid fa-plus"></i> Thêm bài báo mới (Add Publication)
+            <i class="fa-solid fa-plus"></i> Add Publication
 
           </button>
 
@@ -291,12 +291,12 @@
 
 
 
-  <script src="assets/js/data.js"></script>
-  <script src="assets/js/publications_data.js"></script>
+  <script src="assets/js/data.js?v=english-20261114"></script>
+  <script src="assets/js/publications_data.js?v=english-20261114"></script>
 
-  <script src="assets/js/public-site.js?v=shared-login-20261114"></script>
+  <script src="assets/js/public-site.js?v=english-20261114"></script>
 
-  <script src="assets/js/admin_crud.js?v=research-team-directory-20261114"></script>
+  <script src="assets/js/admin_crud.js?v=publication-labels-20261114"></script>
 
   <script>
 
@@ -358,11 +358,11 @@
 
           if (typeof showToast === 'function') {
 
-            showToast('Đã sao chép trích dẫn APA vào clipboard!');
+            showToast('APA citation copied to clipboard.');
 
           } else {
 
-            alert('Trích dẫn đã được sao chép vào clipboard!');
+            alert('Citation copied to clipboard.');
 
           }
 
@@ -412,11 +412,11 @@
 
               <i class="fa-solid fa-file-circle-question empty-state-icon"></i>
 
-              <h4 class="empty-state-title">Không tìm thấy bài báo phù hợp</h4>
+              <h4 class="empty-state-title">No matching publications</h4>
 
-              <p class="empty-state-desc">Không có bài báo nào khớp với từ khóa <em>"${escapeHtml(query || 'bộ lọc đã chọn')}"</em>. Hãy thử từ khóa khác hoặc đặt lại bộ lọc.</p>
+              <p class="empty-state-desc">No publications match <em>"${escapeHtml(query || 'the selected filters')}"</em>. Try another keyword or reset the filters.</p>
 
-              <button class="btn-reset-filters" onclick="resetPubFilters()"><i class="fa-solid fa-rotate-left"></i> Đặt lại tất cả bộ lọc</button>
+              <button class="btn-reset-filters" onclick="resetPubFilters()"><i class="fa-solid fa-rotate-left"></i> Reset All Filters</button>
 
             </div>
 
@@ -468,7 +468,7 @@
 
             opt.value = y;
 
-            opt.textContent = `Năm ${y} (${yearGroups[y].length} bài)`;
+            opt.textContent = `Year ${y}`;
 
             yearJumpSelect.appendChild(opt);
 
@@ -524,8 +524,6 @@
 
                 <span class="pub-year-title">${year}</span>
 
-                <span class="pub-year-count">(${pubs.length} ${pubs.length === 1 ? 'publication' : 'publications'})</span>
-
               </button>
 
               <div class="pub-year-body ${isOpen ? 'show' : ''}" id="pub-year-body-${year}">
@@ -550,9 +548,9 @@
 
                       <div>
 
-                        <a href="${paperLink}" target="_blank" rel="noopener noreferrer" class="pub-kit-title-link" title="Xem bài báo gốc / Google Scholar">
+                        <a href="${paperLink}" target="_blank" rel="noopener noreferrer" class="pub-kit-title-link" title="View Original Publication / Google Scholar">
 
-                          ${escapeHtml(pub.title)}
+                          ${escapeHtml(pub.englishTitle || pub.title)}
 
                         </a>
 
@@ -574,7 +572,7 @@
 
                       <div class="pub-kit-citation-line">
 
-                        <span>${pub.year}. ${escapeHtml(venueStr)}.</span>
+                        <span>${pub.year}. ${escapeHtml(pub.englishVenue || venueStr)}.</span>
 
 
 
@@ -597,14 +595,6 @@
                             <i class="fa-brands fa-google-scholar"></i> Scholar Link <i class="fa-solid fa-arrow-up-right-from-square" style="font-size: 0.725rem;"></i>
 
                           </a>
-
-                        ` : ''}
-
-
-
-                        ${pub.quartile ? `
-
-                          <span class="pub-kit-meta-badge ${pub.quartile === 'Q1' ? 'pub-kit-badge-q1' : 'pub-kit-badge-q2'}">${pub.quartile}</span>
 
                         ` : ''}
 
@@ -732,35 +722,10 @@
       window.renderPublications = renderPublications;
       window.updateCategoryCounts = updateCategoryCounts;
 
+      // Keep the integration hook without displaying category totals.
       function updateCategoryCounts() {
-
-        const allPubs = (window.DataManager ? window.DataManager.get('publications') : (window.LAB_DATA ? window.LAB_DATA.publications : [])) || [];
-
-        filterBtns.forEach(btn => {
-
-          const cat = btn.getAttribute('data-pub-filter');
-
-          const count = cat === 'all' ? allPubs.length : allPubs.filter(p => p.category === cat).length;
-
-          let badge = btn.querySelector('.filter-badge-count');
-
-          if (!badge) {
-
-            badge = document.createElement('span');
-
-            badge.className = 'filter-badge-count';
-
-            btn.appendChild(badge);
-
-          }
-
-          badge.textContent = count;
-
-        });
-
+        document.querySelectorAll('.filter-badge-count').forEach(badge => badge.remove());
       }
-
-
 
       window.resetPubFilters = function() {
 

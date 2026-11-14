@@ -766,7 +766,8 @@ window.LAB_DATA.publications = [
         "quartile": "",
         "doi": "",
         "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=89Jk4L0AAAAJ&cstart=100&pagesize=100&citation_for_view=89Jk4L0AAAAJ:4OULZ7Gr8RgC",
-        "citations": 0
+        "citations": 0,
+        "englishVenue": "Hanoi University of Industry"
     },
     {
         "id": "pub-65",
@@ -1066,7 +1067,8 @@ window.LAB_DATA.publications = [
         "quartile": "",
         "doi": "",
         "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=89Jk4L0AAAAJ&cstart=100&pagesize=100&citation_for_view=89Jk4L0AAAAJ:WF5omc3nYNoC",
-        "citations": 0
+        "citations": 0,
+        "englishVenue": "Hanoi University of Industry"
     },
     {
         "id": "pub-90",
@@ -1162,7 +1164,8 @@ window.LAB_DATA.publications = [
         "quartile": "",
         "doi": "",
         "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=89Jk4L0AAAAJ&cstart=100&pagesize=100&citation_for_view=89Jk4L0AAAAJ:YFjsv_pBGBYC",
-        "citations": 0
+        "citations": 0,
+        "englishVenue": "Hanoi University of Industry"
     },
     {
         "id": "pub-98",
@@ -1570,7 +1573,8 @@ window.LAB_DATA.publications = [
         "quartile": "",
         "doi": "",
         "url": "#",
-        "citations": 0
+        "citations": 0,
+        "englishTitle": "Draft Power Development Plan VIII Roundtable: Open or Closed to the Green Energy Transition, GreenID, September 16, 2021"
     },
     {
         "id": "pub-132",
@@ -1594,7 +1598,8 @@ window.LAB_DATA.publications = [
         "quartile": "",
         "doi": "",
         "url": "#",
-        "citations": 0
+        "citations": 0,
+        "englishTitle": "Cybersecurity in Inverter-Based Smart Power Systems and Microgrids with High Renewable Energy Penetration"
     },
     {
         "id": "pub-134",
@@ -1606,7 +1611,9 @@ window.LAB_DATA.publications = [
         "quartile": "",
         "doi": "",
         "url": "#",
-        "citations": 0
+        "citations": 0,
+        "englishTitle": "Technical Infrastructure Requirements for Power System Flexibility Solutions",
+        "englishVenue": "Solutions for Power System Flexibility and Stability, GreenID, August 27, 2021"
     },
     {
         "id": "pub-135",
@@ -1654,7 +1661,9 @@ window.LAB_DATA.publications = [
         "quartile": "",
         "doi": "",
         "url": "#",
-        "citations": 0
+        "citations": 0,
+        "englishTitle": "International Experience with 100% Renewable Energy and the Vietnamese Context",
+        "englishVenue": "Promoting a Network of Business Pioneers toward 100% Renewable Energy, WWF, November 9, 2021"
     },
     {
         "id": "pub-139",
@@ -1774,7 +1783,9 @@ window.LAB_DATA.publications = [
         "quartile": "",
         "doi": "",
         "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=89Jk4L0AAAAJ&cstart=100&pagesize=100&citation_for_view=89Jk4L0AAAAJ:TFP_iSt0sucC",
-        "citations": 0
+        "citations": 0,
+        "englishTitle": "Reactive Power Control Using a Three-Phase Inverter for Grid-Connected Photovoltaic Systems",
+        "englishVenue": "Hanoi University of Industry"
     },
     {
         "id": "pub-149",
@@ -1786,7 +1797,9 @@ window.LAB_DATA.publications = [
         "quartile": "",
         "doi": "",
         "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=89Jk4L0AAAAJ&cstart=100&pagesize=100&citation_for_view=89Jk4L0AAAAJ:ldfaerwXgEUC",
-        "citations": 0
+        "citations": 0,
+        "englishTitle": "Electrical Output Characteristics of a Photovoltaic Array under Nonuniform Conditions",
+        "englishVenue": "Hanoi University of Industry"
     },
     {
         "id": "pub-150",
@@ -1798,7 +1811,8 @@ window.LAB_DATA.publications = [
         "quartile": "",
         "doi": "",
         "url": "#",
-        "citations": 0
+        "citations": 0,
+        "englishTitle": "Self-Sufficient Hydrogen Production Using Small Wind Turbines"
     },
     {
         "id": "pub-151",
@@ -2050,7 +2064,9 @@ window.LAB_DATA.publications = [
         "quartile": "",
         "doi": "",
         "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=89Jk4L0AAAAJ&cstart=100&pagesize=100&citation_for_view=89Jk4L0AAAAJ:MXK_kJrjxJIC",
-        "citations": 0
+        "citations": 0,
+        "englishTitle": "Solar Irradiance Forecasting Using Artificial Neural Networks and Mean Squared Error Evaluation",
+        "englishVenue": "Hanoi University of Industry"
     },
     {
         "id": "pub-172",
@@ -2194,7 +2210,8 @@ window.LAB_DATA.publications = [
         "quartile": "",
         "doi": "",
         "url": "#",
-        "citations": 0
+        "citations": 0,
+        "englishTitle": "High-Altitude Airborne Wind Turbines"
     },
     {
         "id": "pub-184",
@@ -2734,7 +2751,8 @@ window.LAB_DATA.publications = [
         "quartile": "",
         "doi": "",
         "url": "#",
-        "citations": 0
+        "citations": 0,
+        "englishTitle": "Measurement of Small Wind Turbine Power Output Fluctuations under Real Operating Conditions"
     },
     {
         "id": "pub-229",
@@ -3238,7 +3256,8 @@ window.LAB_DATA.publications = [
         "quartile": "",
         "doi": "",
         "url": "#",
-        "citations": 0
+        "citations": 0,
+        "englishTitle": "Autonomous Distributed Control of a Microgrid Using Diesel Generators"
     },
     {
         "id": "pub-271",

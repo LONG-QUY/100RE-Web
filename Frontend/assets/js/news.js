@@ -229,7 +229,7 @@
     articleView.innerHTML = `
       <div class="article-back-nav">
         <button type="button" class="btn-article-back" onclick="window.NewsApp.closeArticle()">
-          <i class="fa-solid fa-arrow-left"></i> Quay lại tất cả tin tức (Back to All News)
+          <i class="fa-solid fa-arrow-left"></i> Back to All News
         </button>
       </div>
 
@@ -255,19 +255,19 @@
 
           <div class="article-share-group">
             <span style="font-size: 0.8rem; font-weight: 700; color: #64748b; text-transform: uppercase;">Share:</span>
-            <button type="button" class="btn-share-icon" title="Sao chép liên kết" onclick="window.NewsApp.copyArticleLink()">
+            <button type="button" class="btn-share-icon" title="Copy Link" onclick="window.NewsApp.copyArticleLink()">
               <i class="fa-solid fa-link"></i>
             </button>
-            <button type="button" class="btn-share-icon" title="Chia sẻ Facebook" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(window.location.href), '_blank')">
+            <button type="button" class="btn-share-icon" title="Share on Facebook" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(window.location.href), '_blank')">
               <i class="fa-brands fa-facebook-f"></i>
             </button>
-            <button type="button" class="btn-share-icon" title="Chia sẻ Twitter / X" onclick="window.open('https://twitter.com/intent/tweet?url=' + encodeURIComponent(window.location.href) + '&text=' + encodeURIComponent('${article.title.replace(/'/g, "\\\'")}'), '_blank')">
+            <button type="button" class="btn-share-icon" title="Share on X" onclick="window.open('https://twitter.com/intent/tweet?url=' + encodeURIComponent(window.location.href) + '&text=' + encodeURIComponent('${article.title.replace(/'/g, "\\\'")}'), '_blank')">
               <i class="fa-brands fa-x-twitter"></i>
             </button>
-            <button type="button" class="btn-share-icon" title="Chia sẻ LinkedIn" onclick="window.open('https://www.linkedin.com/sharing/share-offsite/?url=' + encodeURIComponent(window.location.href), '_blank')">
+            <button type="button" class="btn-share-icon" title="Share on LinkedIn" onclick="window.open('https://www.linkedin.com/sharing/share-offsite/?url=' + encodeURIComponent(window.location.href), '_blank')">
               <i class="fa-brands fa-linkedin-in"></i>
             </button>
-            <button type="button" class="btn-share-icon" title="In bài viết" onclick="window.print()">
+            <button type="button" class="btn-share-icon" title="Print Article" onclick="window.print()">
               <i class="fa-solid fa-print"></i>
             </button>
           </div>
@@ -296,13 +296,13 @@
         <img src="${article.authorAvatar || 'assets/images/logo.jpg'}" alt="${article.author}" class="article-author-box-avatar" onerror="this.src='assets/images/logo.jpg'">
         <div>
           <h4 class="article-author-box-name">${article.author || '100RE Laboratory Editorial'}</h4>
-          <p class="article-author-box-bio">Ban Biên tập &amp; Nhóm Truyền thông Khoa học — Phòng Thí nghiệm Nghiên cứu Hướng tới 100% Năng lượng Tái tạo (100RE Lab), Đại học Bách Khoa Hà Nội.</p>
+          <p class="article-author-box-bio">Editorial &amp; Science Communications Team — 100% Renewable Energy Laboratory (100RE Lab), Hanoi University of Science and Technology.</p>
         </div>
       </div>
 
       ${related.length ? `
         <section class="related-news-section">
-          <h3 class="related-news-title"><i class="fa-solid fa-newspaper" style="color: #16a34a;"></i> Bài Viết Khác Cùng Chuyên Mục (Related Articles)</h3>
+          <h3 class="related-news-title"><i class="fa-solid fa-newspaper" style="color: #16a34a;"></i> Related Articles</h3>
           <div class="news-grid">
             ${related.map(item => renderCardHtml(item)).join('')}
           </div>
@@ -328,7 +328,7 @@
   function copyArticleLink() {
     navigator.clipboard.writeText(window.location.href);
     if (typeof showToast === 'function') {
-      showToast('Đã sao chép liên kết bài viết vào bộ nhớ tạm!');
+      showToast('Article link copied to clipboard.');
     } else {
       alert('Link copied to clipboard!');
     }
@@ -370,7 +370,7 @@
 
     const titleEl = document.getElementById('composerModalTitle');
     if (titleEl) {
-      titleEl.textContent = id ? 'Chỉnh Sửa Bài Báo / Edit News Article' : 'Soạn Bài Báo Mới / Create News Article';
+      titleEl.textContent = id ? 'Edit News Article' : 'Create News Article';
     }
 
     document.getElementById('compTitle').value = existing ? (existing.title || '') : '';
@@ -397,16 +397,16 @@
     modal.innerHTML = `
       <div class="universal-modal-window" style="max-width: 840px;">
         <div class="universal-modal-header">
-          <h3 class="universal-modal-title" id="composerModalTitle">Soạn Bài Báo Mới / News Composer</h3>
+          <h3 class="universal-modal-title" id="composerModalTitle">News Composer</h3>
           <button type="button" class="universal-modal-close" onclick="window.NewsApp.closeComposer()">&times;</button>
         </div>
 
         <div class="composer-tabs" style="padding: 0 24px; background: #f8fafc; margin-bottom: 0;">
           <button type="button" class="composer-tab-btn active" id="tabBtnEditor" onclick="window.NewsApp.switchTab('editor')">
-            <i class="fa-solid fa-pen-nib"></i> Soạn Thảo (Editor)
+            <i class="fa-solid fa-pen-nib"></i> Editor
           </button>
           <button type="button" class="composer-tab-btn" id="tabBtnPreview" onclick="window.NewsApp.switchTab('preview')">
-            <i class="fa-solid fa-eye"></i> Xem Trước Bài Viết (Live Preview)
+            <i class="fa-solid fa-eye"></i> Live Preview
           </button>
         </div>
 
@@ -415,81 +415,81 @@
           <div class="universal-modal-body" id="composerTabEditor">
             
             <div class="crud-form-group">
-              <label class="crud-form-label">Tiêu Đề Bài Báo (Article Headline) <span style="color:#ef4444;">*</span></label>
-              <input type="text" class="crud-form-input" id="compTitle" required placeholder="Nhập tiêu đề bài báo..." style="font-size: 1.05rem; font-weight: 700;">
+              <label class="crud-form-label">Article Headline <span style="color:#ef4444;">*</span></label>
+              <input type="text" class="crud-form-input" id="compTitle" required placeholder="Enter the article headline..." style="font-size: 1.05rem; font-weight: 700;">
             </div>
 
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
               <div class="crud-form-group">
-                <label class="crud-form-label">Chuyên Mục (Category) <span style="color:#ef4444;">*</span></label>
+                <label class="crud-form-label">Category <span style="color:#ef4444;">*</span></label>
                 <select class="crud-form-select" id="compCategory">
-                  <option value="International Collaboration">International Collaboration (Hợp tác quốc tế)</option>
-                  <option value="Scientific Workshops">Scientific Workshops (Hội thảo khoa học)</option>
-                  <option value="Youth & Climate Action">Youth & Climate Action (Thanh niên & Khí hậu)</option>
-                  <option value="Awards & Recognition">Awards & Recognition (Giải thưởng & Thành tích)</option>
-                  <option value="Awards & Scholarships">Awards & Scholarships (Học bổng)</option>
-                  <option value="Laboratory Activities">Laboratory Activities (Hoạt động Lab)</option>
+                  <option value="International Collaboration">International Collaboration</option>
+                  <option value="Scientific Workshops">Scientific Workshops</option>
+                  <option value="Youth & Climate Action">Youth & Climate Action</option>
+                  <option value="Awards & Recognition">Awards & Recognition</option>
+                  <option value="Awards & Scholarships">Awards & Scholarships</option>
+                  <option value="Laboratory Activities">Laboratory Activities</option>
                 </select>
               </div>
 
               <div class="crud-form-group">
-                <label class="crud-form-label">Tác Giả / Người Đăng (Author) <span style="color:#ef4444;">*</span></label>
-                <input type="text" class="crud-form-input" id="compAuthor" required placeholder="Tên tác giả hoặc Ban biên tập...">
+                <label class="crud-form-label">Author <span style="color:#ef4444;">*</span></label>
+                <input type="text" class="crud-form-input" id="compAuthor" required placeholder="Author or editorial team...">
               </div>
             </div>
 
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
               <div class="crud-form-group">
-                <label class="crud-form-label">Ngày Đăng (Publication Date) <span style="color:#ef4444;">*</span></label>
-                <input type="text" class="crud-form-input" id="compDate" required placeholder="e.g. Dec 12, 2025 hoặc 15/03/2026">
+                <label class="crud-form-label">Publication Date <span style="color:#ef4444;">*</span></label>
+                <input type="text" class="crud-form-input" id="compDate" required placeholder="e.g. Dec 12, 2025 or March 15, 2026">
               </div>
 
               <div class="crud-form-group">
-                <label class="crud-form-label">Thời Lượng Đọc (Read Time)</label>
+                <label class="crud-form-label">Read Time</label>
                 <input type="text" class="crud-form-input" id="compReadTime" placeholder="e.g. 4 min read">
               </div>
             </div>
 
             <div class="crud-form-group">
-              <label class="crud-form-label">Ảnh Bìa Bài Viết (Featured Cover Image) <span style="color:#ef4444;">*</span></label>
+              <label class="crud-form-label">Featured Cover Image <span style="color:#ef4444;">*</span></label>
               <div style="display: flex; gap: 8px; align-items: center;">
-                <input type="text" class="crud-form-input" id="compImage" required placeholder="assets/images/... hoặc URL ảnh https://...">
+                <input type="text" class="crud-form-input" id="compImage" required placeholder="assets/images/... or image URL https://...">
                 <label class="btn-crud-edit" style="cursor: pointer; white-space: nowrap; flex: initial; padding: 9px 14px;">
-                  <i class="fa-solid fa-upload"></i> Tải Ảnh Lên
+                  <i class="fa-solid fa-upload"></i> Upload Image
                   <input type="file" accept="image/*" style="display: none;" onchange="window.NewsApp.handleImageUpload(event)">
                 </label>
               </div>
             </div>
 
             <div class="crud-form-group">
-              <label class="crud-form-label">Chú Thích Ảnh Bìa (Cover Image Caption)</label>
-              <input type="text" class="crud-form-input" id="compImageCaption" placeholder="Ghi chú ảnh (hiển thị dưới ảnh bài báo)...">
+              <label class="crud-form-label">Cover Image Caption</label>
+              <input type="text" class="crud-form-input" id="compImageCaption" placeholder="Caption displayed below the article image...">
             </div>
 
             <div class="crud-form-group">
-              <label class="crud-form-label">Đoạn Tóm Tắt Ngắn / Sapo (Excerpt / Lead Summary) <span style="color:#ef4444;">*</span></label>
-              <textarea class="crud-form-textarea" id="compExcerpt" required style="min-height: 70px;" placeholder="Tóm tắt ngắn 1-2 câu về nội dung chính của bài báo..."></textarea>
+              <label class="crud-form-label">Excerpt / Lead Summary <span style="color:#ef4444;">*</span></label>
+              <textarea class="crud-form-textarea" id="compExcerpt" required style="min-height: 70px;" placeholder="Summarize the article in one or two sentences..."></textarea>
             </div>
 
             <div class="crud-form-group">
-              <label class="crud-form-label">Toàn Văn Nội Dung Bài Báo (Full Rich Article Body)</label>
+              <label class="crud-form-label">Full Article Body</label>
               
               <!-- Quick Format Bar -->
               <div class="composer-format-toolbar">
-                <button type="button" class="btn-format" onclick="window.NewsApp.insertTag('<h3>', '</h3>')"><strong>H3 Tiêu Đề</strong></button>
-                <button type="button" class="btn-format" onclick="window.NewsApp.insertTag('<strong>', '</strong>')"><strong>B Đậm</strong></button>
-                <button type="button" class="btn-format" onclick="window.NewsApp.insertTag('<em>', '</em>')"><em>I Nghiêng</em></button>
-                <button type="button" class="btn-format" onclick="window.NewsApp.insertTag('<blockquote>', '</blockquote>')"><i class="fa-solid fa-quote-left"></i> Trích Dẫn</button>
-                <button type="button" class="btn-format" onclick="window.NewsApp.insertTag('<ul>\n  <li>', '</li>\n</ul>')"><i class="fa-solid fa-list-ul"></i> Danh Sách</button>
-                <button type="button" class="btn-format" onclick="window.NewsApp.insertImageTag()"><i class="fa-solid fa-image"></i> + Chèn Ảnh</button>
-                <button type="button" class="btn-format" onclick="window.NewsApp.insertTag('<p>', '</p>')">Đoạn &lt;p&gt;</button>
+                <button type="button" class="btn-format" onclick="window.NewsApp.insertTag('<h3>', '</h3>')"><strong>H3 Heading</strong></button>
+                <button type="button" class="btn-format" onclick="window.NewsApp.insertTag('<strong>', '</strong>')"><strong>B Bold</strong></button>
+                <button type="button" class="btn-format" onclick="window.NewsApp.insertTag('<em>', '</em>')"><em>I Italic</em></button>
+                <button type="button" class="btn-format" onclick="window.NewsApp.insertTag('<blockquote>', '</blockquote>')"><i class="fa-solid fa-quote-left"></i> Quote</button>
+                <button type="button" class="btn-format" onclick="window.NewsApp.insertTag('<ul>\n  <li>', '</li>\n</ul>')"><i class="fa-solid fa-list-ul"></i> List</button>
+                <button type="button" class="btn-format" onclick="window.NewsApp.insertImageTag()"><i class="fa-solid fa-image"></i> + Insert Image</button>
+                <button type="button" class="btn-format" onclick="window.NewsApp.insertTag('<p>', '</p>')">Paragraph &lt;p&gt;</button>
               </div>
               
-              <textarea class="crud-form-textarea" id="compContent" style="min-height: 220px; font-family: monospace; font-size: 0.9rem;" placeholder="Nhập các đoạn văn của bài báo, có thể sử dụng các nút định dạng phía trên hoặc gõ văn bản tự do..."></textarea>
+              <textarea class="crud-form-textarea" id="compContent" style="min-height: 220px; font-family: monospace; font-size: 0.9rem;" placeholder="Write your article. Use the formatting buttons above or enter plain text..."></textarea>
             </div>
 
             <div class="crud-form-group">
-              <label class="crud-form-label">Từ Khóa / Thẻ Tag (Tags - cách nhau bằng dấu phẩy)</label>
+              <label class="crud-form-label">Tags (comma-separated)</label>
               <input type="text" class="crud-form-input" id="compTags" placeholder="HUST, Renewable Energy, 100RE Lab, AI...">
             </div>
 
@@ -503,9 +503,9 @@
           </div>
 
           <div class="universal-modal-footer">
-            <button type="button" class="btn-crud-edit" style="flex: initial; padding: 8px 18px;" onclick="window.NewsApp.closeComposer()">Hủy Bỏ</button>
+            <button type="button" class="btn-crud-edit" style="flex: initial; padding: 8px 18px;" onclick="window.NewsApp.closeComposer()">Cancel</button>
             <button type="submit" class="btn-universal-add" style="flex: initial; padding: 8px 24px;">
-              <i class="fa-solid fa-paper-plane"></i> Đăng / Lưu Bài Viết
+              <i class="fa-solid fa-paper-plane"></i> Publish / Save Article
             </button>
           </div>
         </form>
@@ -539,10 +539,10 @@
     const previewContainer = document.getElementById('composerPreviewContent');
     if (!previewContainer) return;
 
-    const title = document.getElementById('compTitle').value || 'Tiêu Đề Bài Báo';
+    const title = document.getElementById('compTitle').value || 'Article Headline';
     const category = document.getElementById('compCategory').value;
     const author = document.getElementById('compAuthor').value || '100RE Editorial';
-    const date = document.getElementById('compDate').value || 'Hôm nay';
+    const date = document.getElementById('compDate').value || 'Today';
     const readTime = document.getElementById('compReadTime').value || '3 min read';
     const image = document.getElementById('compImage').value || 'assets/images/banner_pv.jpg';
     const caption = document.getElementById('compImageCaption').value;
@@ -588,7 +588,7 @@
     const start = textarea.selectionStart;
     const end = textarea.selectionEnd;
     const text = textarea.value;
-    const selected = text.substring(start, end) || 'Nội dung...';
+    const selected = text.substring(start, end) || 'Content...';
     textarea.value = text.substring(0, start) + openTag + selected + closeTag + text.substring(end);
     textarea.focus();
     textarea.selectionStart = start + openTag.length;
@@ -596,9 +596,9 @@
   }
 
   function insertImageTag() {
-    const url = prompt('Nhập đường dẫn URL ảnh (Image URL):', 'assets/images/banner_pv.jpg');
+    const url = prompt('Enter the image URL:', 'assets/images/banner_pv.jpg');
     if (!url) return;
-    const caption = prompt('Nhập chú thích ảnh (Caption):', 'Hình ảnh minh họa');
+    const caption = prompt('Enter the image caption:', 'Illustration');
     const html = `\n<figure class="article-featured-media">\n  <img src="${url}" alt="${caption}" class="article-featured-img">\n  <figcaption class="article-media-caption">${caption}</figcaption>\n</figure>\n`;
     const textarea = document.getElementById('compContent');
     if (!textarea) return;
@@ -658,7 +658,7 @@
       window.AdminCRUD.notify(error.message, true);
       return;
     }
-    window.AdminCRUD.notify('Đã lưu bài viết.');
+    window.AdminCRUD.notify('Article saved.');
 
     closeComposer();
     renderNews();
@@ -670,12 +670,12 @@
 
   async function confirmDelete(id) {
     const confirmed = typeof window.showConfirmModal === 'function' ? await window.showConfirmModal({
-      title: 'Xác Nhận Xóa Bài Viết',
-      message: 'Bạn có chắc chắn muốn xóa bài báo / sự kiện này không? Thao tác này không thể hoàn tác.',
-      confirmText: 'Xóa Bài Viết',
-      cancelText: 'Hủy Bỏ',
+      title: 'Confirm Article Deletion',
+      message: 'Delete this article or event? This cannot be undone.',
+      confirmText: 'Delete Article',
+      cancelText: 'Cancel',
       type: 'danger'
-    }) : confirm('Bạn có chắc chắn muốn xóa bài báo này không?');
+    }) : confirm('Delete this article?');
     if (confirmed) {
       try {
         await window.DataManager.remove('news', id);
@@ -683,7 +683,7 @@
         window.AdminCRUD.notify(error.message, true);
         return;
       }
-      if (typeof showToast === 'function') showToast('Đã xóa bài báo thành công!');
+      if (typeof showToast === 'function') showToast('Article deleted.');
       if (activeArticleId === id) {
         closeArticle();
       } else {
